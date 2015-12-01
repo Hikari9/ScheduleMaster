@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Express 2012 for Windows Desktop
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScheduleMaster", "CE 21 Project\ScheduleMaster.csproj", "{54BB047D-36D7-4583-9624-35A0F610AB6E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScheduleMaster", "ScheduleMaster\ScheduleMaster.csproj", "{03961855-B47D-495C-A4B5-0A9BF87F08A3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,10 +9,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{54BB047D-36D7-4583-9624-35A0F610AB6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{54BB047D-36D7-4583-9624-35A0F610AB6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{54BB047D-36D7-4583-9624-35A0F610AB6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{54BB047D-36D7-4583-9624-35A0F610AB6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03961855-B47D-495C-A4B5-0A9BF87F08A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03961855-B47D-495C-A4B5-0A9BF87F08A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03961855-B47D-495C-A4B5-0A9BF87F08A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03961855-B47D-495C-A4B5-0A9BF87F08A3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
