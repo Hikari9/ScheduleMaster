@@ -445,10 +445,15 @@ namespace CE_21_Project
             SaveToExcel();
         }
 
-        private void EnableSave(object sender, EventArgs e)
+        private void EnableSave()
         {
             SaveButton.Enabled = true;
             saveToolStripMenuItem.Enabled = true;
+        }
+
+        private void EnableSave(object sender, EventArgs e)
+        {
+            EnableSave();
         }
 
         private void InsertButton_Click(object sender, EventArgs e)
@@ -558,6 +563,58 @@ namespace CE_21_Project
             if (DayFilter.Enabled && DayFilter.Checked)
                 FilterSelections();
         }
+
+        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog d = new SaveFileDialog
+            {
+                Title = "Save As Excel File",
+                OverwritePrompt = true,
+                FileName = "data.xlsx",
+                Filter = "Excel Workbook (*.xlsx)|*.xlsx|Excel Workbook 97-03 (*.xls)|*.xls|All files (*.*)|*.*",
+                FilterIndex = 0,
+                DefaultExt = "*.xlsx"
+            };
+            DialogResult res = d.ShowDialog();
+            if (res == DialogResult.OK)
+            {
+                string filepath = d.FileName;
+                int sep = filepath.LastIndexOf('\\');
+                string dir = filepath.Substring(0,sep);
+                string name = filepath.Substring(sep+1);
+                sb.ToArray().ToDataTable(Schedule.GetHeaderArray()).ExportToExcel(dir, name);
+            }
+        }
+
+        private void openToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog d = new OpenFileDialog
+            {
+                Title = "Save As Excel File",
+                FileName = "data.xlsx",
+                Filter = "Excel Workbook (*.xlsx)|*.xlsx|Excel Workbook 97-03 (*.xls)|*.xls",
+                FilterIndex = 0,
+                DefaultExt = "*.xlsx"
+            };
+            DialogResult res = d.ShowDialog();
+            if (res == DialogResult.OK)
+            {
+                string filepath = d.FileName;
+                int sep = filepath.LastIndexOf('\\');
+                string dir = filepath.Substring(0, sep);
+                string name = filepath.Substring(sep + 1);
+                sb.AssignFromDataTable(Methods.ExcelToDataTable("Sheet1", dir, name));
+                MainData.DataSource = sb.ToSmallArray().ToDataTable(Schedule.GetSmallHeaderArray());
+                EnableSave();
+            }
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+       
 
         
 

@@ -64,25 +64,12 @@
       <DependentUpon>EditProfessorForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Methods.cs" />
-    <Compile Include="ExcelViewer.cs" />
     <Compile Include="Classes.cs" />
-    <Compile Include="ExcelExport.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ExcelExport.Designer.cs">
-      <DependentUpon>ExcelExport.cs</DependentUpon>
-    </Compile>
     <Compile Include="Viewer.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Viewer.Designer.cs">
       <DependentUpon>Viewer.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Inserter.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Inserter.Designer.cs">
-      <DependentUpon>Inserter.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -94,12 +81,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="EditProfessorForm.resx">
       <DependentUpon>EditProfessorForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ExcelExport.resx">
-      <DependentUpon>ExcelExport.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Inserter.resx">
-      <DependentUpon>Inserter.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
