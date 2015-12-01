@@ -1,0 +1,12 @@
+c:\users\rico\documents\visual studio 2012\Projects\CE 21 Project\CE 21 Project\bin\Debug\CE 21 Project.exe.config
+c:\users\rico\documents\visual studio 2012\Projects\CE 21 Project\CE 21 Project\obj\Debug\CE 21 Project.csprojResolveAssemblyReference.cache
+c:\users\rico\documents\visual studio 2012\Projects\CE 21 Project\CE 21 Project\obj\Debug\CE_21_Project.Properties.Resources.resources
+c:\users\rico\documents\visual studio 2012\Projects\CE 21 Project\CE 21 Project\obj\Debug\CE 21 Project.csproj.GenerateResource.Cache
+c:\users\rico\documents\visual studio 2012\Projects\CE 21 Project\CE 21 Project\bin\Debug\CE 21 Project.exe
+c:\users\rico\documents\visual studio 2012\Projects\CE 21 Project\CE 21 Project\bin\Debug\CE 21 Project.pdb
+c:\users\rico\documents\visual studio 2012\Projects\CE 21 Project\CE 21 Project\obj\Debug\CE 21 Project.exe
+c:\users\rico\documents\visual studio 2012\Projects\CE 21 Project\CE 21 Project\obj\Debug\CE 21 Project.pdb
+c:\users\rico\documents\visual studio 2012\Projects\CE 21 Project\CE 21 Project\obj\Debug\CE_21_Project.Form1.resources
+C:\Users\Rico\Dropbox\CE21 Project\CE 21 Project\CE 21 Project\bin\Debug\CE 21 Project.exe.config
+C:\Users\Rico\Dropbox\CE21 Project\CE 21 Project\CE 21 Project\obj\Debug\CE 21 Project.exe
+C:\Users\Rico\Dropbox\CE21 Project\CE 21 Project\CE 21 Project\obj\Debug\CE 21 Project.pdb
