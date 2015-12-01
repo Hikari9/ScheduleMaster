@@ -879,19 +879,22 @@ namespace ScheduleMaster
                 // check if subjects exists
                 if (SubjectBox2.Text.Length != 0)
                 {
-                    ArrayList subjects = new ArrayList((string[])SubjectList.DataSource);
-                    int id = subjects.BinarySearch(SubjectBox2.Text);
-                    if (id < 0)
+                    string str = SubjectBox2.Text;
+                    if (!SubjectBox2.AutoCompleteCustomSource.Contains(str))
                     {
-                        id = ~id;
-                        subjects.Insert(id, SubjectBox2.Text);
-                        SubjectBox2.AutoCompleteCustomSource.Add(SubjectBox2.Text);
-                        string[] newSubjectList = new string[subjects.Count];
-                        subjects.CopyTo(newSubjectList);
+                        SubjectBox2.AutoCompleteCustomSource.Add(str);
+                        string[] newSubjectList = new string[SubjectBox2.AutoCompleteCustomSource.Count];
+                        SubjectBox2.AutoCompleteCustomSource.CopyTo(newSubjectList, 0);
+                        Array.Sort(newSubjectList);
+                        //MessageBox.Show(String.Join(", ", newSubjectList));
                         SubjectList.DataSource = newSubjectList;
-                        SubjectList.SelectedIndex = id;
+                        SubjectList.SelectedItem = str;
+                        RenewSubjectList();
+                        SubjectList.SelectedItem = str;
+                        //MessageBox.Show(str);
                         SaveButton.Enabled = true;
                     }
+ 
                 }
 
                 // make schedule/s
@@ -938,7 +941,7 @@ namespace ScheduleMaster
                     first = false;
                 }
                 filter.Append(")");
-                MainDataView.RowFilter = "";
+                SearchBox.Text = "Recently Added:";
                 //MessageBox.Show(filter.ToString());
                 MainDataView.RowFilter = filter.ToString();
                 CurrentlyPainted = null;
