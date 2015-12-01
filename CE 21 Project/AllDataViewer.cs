@@ -863,6 +863,8 @@ namespace ScheduleMaster
                     if (res == DialogResult.No) return;
                     r = Program.db.AddRoom(new Room(ClassroomBox2.Text));
                     RoomList.DataSource = Program.db.AllRooms.Clone();
+                    RenewRoomList();
+                    RoomList.SelectedItem = r;
                     SaveButton.Enabled = true;
                 }
                 Subject s = new Subject(SubjectBox2.Text, p, r);
@@ -926,8 +928,11 @@ namespace ScheduleMaster
                 filter.Append(")");
                 SearchBox.Text = "";
                 MainDataView.RowFilter = filter.ToString();
-                CurrentlyPainted = null;
-                PaintSchedule();
+                ProfessorList.SelectedItem = null;
+                ProfessorList.SelectedItem = p;
+                RoomList.SelectedItem = r;
+                SubjectList.SelectedItem = null;
+                SubjectList.SelectedItem = SubjectBox2.Text;
                 SaveButton.Enabled = true;
             }
             catch { }

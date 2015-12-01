@@ -35,8 +35,10 @@ namespace ScheduleMaster
                 return;
             }
             //MessageBox.Show("Success!");
-            Program.db.AddRoom(new Room(Classroom.Text));
+            Room rm = Program.db.AddRoom(new Room(Classroom.Text));
             Host.RoomList.DataSource = Program.db.AllRooms.Clone();
+            Host.RenewRoomList();
+            Host.RoomList.SelectedItem = rm;
             this.Close();
         }
 

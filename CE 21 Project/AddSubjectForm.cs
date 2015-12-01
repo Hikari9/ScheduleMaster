@@ -29,6 +29,7 @@ namespace ScheduleMaster
                 return;
             }
             ArrayList list = new ArrayList((string[])Host.SubjectList.DataSource);
+            list.Sort();
             int id = list.BinarySearch(SubjectBox.Text);
             if (id >= 0)
             {
