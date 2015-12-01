@@ -1,0 +1,18 @@
+C:\Users\Rico\Documents\Visual Studio 2012\Projects\CE 21 Project\CE 21 Project\bin\Release\CE 21 Project.exe.config
+C:\Users\Rico\Documents\Visual Studio 2012\Projects\CE 21 Project\CE 21 Project\obj\Release\ScheduleMaster.csproj.ResolveComReference.cache
+C:\Users\Rico\Documents\Visual Studio 2012\Projects\CE 21 Project\CE 21 Project\bin\Release\CE 21 Project.exe
+C:\Users\Rico\Documents\Visual Studio 2012\Projects\CE 21 Project\CE 21 Project\bin\Release\CE 21 Project.pdb
+C:\Users\Rico\Documents\Visual Studio 2012\Projects\CE 21 Project\CE 21 Project\obj\Release\ScheduleMaster.AddProfessorForm.resources
+C:\Users\Rico\Documents\Visual Studio 2012\Projects\CE 21 Project\CE 21 Project\obj\Release\ScheduleMaster.AddRoomForm.resources
+C:\Users\Rico\Documents\Visual Studio 2012\Projects\CE 21 Project\CE 21 Project\obj\Release\ScheduleMaster.EditProfessorForm.resources
+C:\Users\Rico\Documents\Visual Studio 2012\Projects\CE 21 Project\CE 21 Project\obj\Release\ScheduleMaster.EditRoomForm.resources
+C:\Users\Rico\Documents\Visual Studio 2012\Projects\CE 21 Project\CE 21 Project\obj\Release\CE_21_Project.Properties.Resources.resources
+C:\Users\Rico\Documents\Visual Studio 2012\Projects\CE 21 Project\CE 21 Project\obj\Release\ScheduleMaster.ScheduleViewer.resources
+C:\Users\Rico\Documents\Visual Studio 2012\Projects\CE 21 Project\CE 21 Project\obj\Release\ScheduleMaster.Viewer.resources
+C:\Users\Rico\Documents\Visual Studio 2012\Projects\CE 21 Project\CE 21 Project\obj\Release\ScheduleMaster.csproj.GenerateResource.Cache
+C:\Users\Rico\Documents\Visual Studio 2012\Projects\CE 21 Project\CE 21 Project\obj\Release\CE 21 Project.exe
+C:\Users\Rico\Documents\Visual Studio 2012\Projects\CE 21 Project\CE 21 Project\obj\Release\CE 21 Project.pdb
+C:\Users\Rico\Documents\Visual Studio 2012\Projects\CE 21 Project\CE 21 Project\bin\Release\CE 21 Project.exe.manifest
+C:\Users\Rico\Documents\Visual Studio 2012\Projects\CE 21 Project\CE 21 Project\bin\Release\CE 21 Project.application
+C:\Users\Rico\Documents\Visual Studio 2012\Projects\CE 21 Project\CE 21 Project\obj\Release\CE 21 Project.exe.manifest
+C:\Users\Rico\Documents\Visual Studio 2012\Projects\CE 21 Project\CE 21 Project\obj\Release\CE 21 Project.application

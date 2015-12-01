@@ -17,7 +17,11 @@ namespace ScheduleMaster
     public partial class ScheduleViewer : Form
     {
 
-        internal ScheduleDatabase sb = new ScheduleDatabase();
+        internal ScheduleDatabase sb
+        {
+            get { return Program.sb; }
+            set { Program.sb = value; }
+        }
         Professor CurrentProfessor = null;
         TextBox[] TextBoxes;
         Button[] EditButtons;
@@ -35,7 +39,7 @@ namespace ScheduleMaster
 
         private void ScheduleViewer_Load(object sender, EventArgs e)
         {
-            sb.AssignFromDataTable(Methods.ExcelToDataTable());
+            // sb.AssignFromDataTable(Methods.ExcelToDataTable());
             TextBoxes = new TextBox[]{ LastNameBox, FirstNameBox, DepartmentBox, IDBox };
             EditButtons = new Button[]{ Edit2, Edit1, Edit4, Edit3 };
             MakeProfessorTabs();
@@ -141,6 +145,11 @@ namespace ScheduleMaster
 
         internal void SelectProfessor(object sender = null, EventArgs e = null)
         {
+            if (sender != null)
+            {
+                professorScheduleViewerToolStripMenuItem.Checked = Program.sv.Visible;
+                inserterDeleterToolStripMenuItem.Checked = Program.v.Visible;
+            }
             var tab = TabControl.SelectedTab;
             if (tab == null) return;
             if (tab.Text == "Add...")
@@ -512,27 +521,41 @@ namespace ScheduleMaster
 
         private void ScheduleViewer_FormClosing(object sender, FormClosingEventArgs e)
         {
-            /*
-            var res = MessageBox.Show("Save changes before closing?", "", MessageBoxButtons.YesNoCancel);
-            if (res == DialogResult.Cancel)
-            {
-                e.Cancel = true;
-            }
-            else if (res == DialogResult.Yes)
+            if (!Program.v.Visible)
             {
                 saveToolStripMenuItem.PerformClick();
+                Application.ExitThread();
             }
-            */
+            Program.v.professorScheduleViewerToolStripMenuItem.Checked = false;
+            this.Visible = false;
+            e.Cancel = true;
+        }
+
+        private void professorScheduleViewerToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!((ToolStripMenuItem)sender).Checked)
+            {
+                ((ToolStripMenuItem)sender).Checked = true;
+            }
         }
 
         private void inserterDeleterToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            saveToolStripMenuItem.PerformClick();
-            Viewer v = new Viewer();
-            sb = v.sb;
-            v.ProfessorList.SelectedItem = CurrentProfessor;
-            v.Show();
+            ((ToolStripMenuItem)sender).Checked ^= true;
+            Program.v.Visible = ((ToolStripMenuItem)sender).Checked;
         }
+
+        private void ToggleMenuItem(object sender, EventArgs e)
+        {
+            ((ToolStripMenuItem)sender).Checked ^= true;
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            saveToolStripMenuItem.PerformClick();
+            Application.ExitThread();
+        }
+
 
 
     }

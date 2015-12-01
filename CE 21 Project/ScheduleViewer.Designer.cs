@@ -71,6 +71,9 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.insertToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.filterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.professorScheduleViewerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.inserterDeleterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TabPage = new System.Windows.Forms.TabPage();
@@ -595,19 +598,47 @@
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // insertToolStripMenuItem
             // 
             this.insertToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.filterToolStripMenuItem,
+            this.toolStripSeparator2,
+            this.professorScheduleViewerToolStripMenuItem,
             this.inserterDeleterToolStripMenuItem});
             this.insertToolStripMenuItem.Name = "insertToolStripMenuItem";
             this.insertToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.insertToolStripMenuItem.Text = "View";
             // 
+            // filterToolStripMenuItem
+            // 
+            this.filterToolStripMenuItem.Enabled = false;
+            this.filterToolStripMenuItem.Name = "filterToolStripMenuItem";
+            this.filterToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
+            this.filterToolStripMenuItem.Text = "Filter";
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(209, 6);
+            // 
+            // professorScheduleViewerToolStripMenuItem
+            // 
+            this.professorScheduleViewerToolStripMenuItem.Checked = true;
+            this.professorScheduleViewerToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.professorScheduleViewerToolStripMenuItem.Name = "professorScheduleViewerToolStripMenuItem";
+            this.professorScheduleViewerToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
+            this.professorScheduleViewerToolStripMenuItem.Text = "Professor Schedule Viewer";
+            this.professorScheduleViewerToolStripMenuItem.CheckedChanged += new System.EventHandler(this.professorScheduleViewerToolStripMenuItem_CheckedChanged);
+            this.professorScheduleViewerToolStripMenuItem.Click += new System.EventHandler(this.ToggleMenuItem);
+            // 
             // inserterDeleterToolStripMenuItem
             // 
+            this.inserterDeleterToolStripMenuItem.Checked = true;
+            this.inserterDeleterToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.inserterDeleterToolStripMenuItem.Name = "inserterDeleterToolStripMenuItem";
-            this.inserterDeleterToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.inserterDeleterToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
             this.inserterDeleterToolStripMenuItem.Text = "Inserter/Deleter";
             this.inserterDeleterToolStripMenuItem.Click += new System.EventHandler(this.inserterDeleterToolStripMenuItem_Click);
             // 
@@ -797,10 +828,13 @@
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.TextBox SearchBox;
         private System.Windows.Forms.Button SaveButton;
-        private System.Windows.Forms.ToolStripMenuItem inserterDeleterToolStripMenuItem;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         internal System.Windows.Forms.TabControl TabControl;
+        private System.Windows.Forms.ToolStripMenuItem filterToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem professorScheduleViewerToolStripMenuItem;
+        internal System.Windows.Forms.ToolStripMenuItem inserterDeleterToolStripMenuItem;
 
 
     }

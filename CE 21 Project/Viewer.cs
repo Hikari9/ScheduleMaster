@@ -15,7 +15,11 @@ namespace ScheduleMaster
     internal partial class Viewer : Form
     {
 
-        internal ScheduleDatabase sb;
+        internal ScheduleDatabase sb
+        {
+            get { return Program.sb; }
+            set { Program.sb = value; }
+        }
 
         internal Viewer()
         {
@@ -24,20 +28,18 @@ namespace ScheduleMaster
 
         internal void Viewer_Load(object sender, EventArgs e)
         {
-            sb = new ScheduleDatabase();
-            if ((Form)sender == this)
-            {
-                DontUpdateLabels = true;
-                DataTable dt = Methods.ExcelToDataTable();
-                sb.AssignFromDataTable(dt);
-                dt = sb.ToSmallArray().ToDataTable(Schedule.GetSmallHeaderArray());
-                MainData.DataSource = dt;
-                ProfessorList.DataSource = sb.AllProfessors.Clone();
-                RoomList.DataSource = sb.AllRooms.Clone();
-                DontUpdateLabels = false;
-                FilterSelections();
-                Locked.Checked = false;
-            }
+            DontUpdateLabels = true;
+            /*
+            DataTable dt = Methods.ExcelToDataTable();
+            sb.AssignFromDataTable(dt);
+            */
+            DataTable dt = sb.ToSmallArray().ToDataTable(Schedule.GetSmallHeaderArray());
+            MainData.DataSource = dt;
+            ProfessorList.DataSource = sb.AllProfessors.Clone();
+            RoomList.DataSource = sb.AllRooms.Clone();
+            DontUpdateLabels = false;
+            FilterSelections();
+            Locked.Checked = false;
         }
 
         internal int RawTime1, RawTime2;
@@ -416,7 +418,7 @@ namespace ScheduleMaster
             ProfessorList.Enabled = !Locked.Checked;
             RoomList.Enabled = !Locked.Checked;
             EditProfessor.Enabled = !Locked.Checked;
-            // EditRoom.Enabled = !Locked.Checked;
+            EditRoom.Enabled = !Locked.Checked;
             DeleteProfessor.Enabled = !Locked.Checked;
             DeleteRoom.Enabled = !Locked.Checked;
             AddProfessorButton.Enabled = !Locked.Checked;
@@ -542,20 +544,27 @@ namespace ScheduleMaster
 
         internal void Viewer_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (SaveButton.Enabled)
+            if (!Program.sv.Visible)
             {
-                DialogResult res = MessageBox.Show("Save File first before closing?", "Save File", MessageBoxButtons.YesNoCancel);
-                if (res == DialogResult.Cancel)
+                if (SaveButton.Enabled)
                 {
-                    e.Cancel = true;
+                    DialogResult res = MessageBox.Show("Save File first before closing?", "Save File", MessageBoxButtons.YesNoCancel);
+                    if (res == DialogResult.Cancel)
+                    {
+                        e.Cancel = true;
+                        return;
+                    }
+                    else if (res == DialogResult.Yes)
+                    {
+                        sb.SaveToExcel();
+                        SaveButton.Enabled = false;
+                        saveToolStripMenuItem.Enabled = false;
+                    }
                 }
-                else if (res == DialogResult.Yes)
-                {
-                    sb.SaveToExcel();
-                    SaveButton.Enabled = false;
-                    saveToolStripMenuItem.Enabled = false;
-                }
+                Application.ExitThread();
             }
+            Program.sv.inserterDeleterToolStripMenuItem.PerformClick();
+            e.Cancel = true;
         }
 
         internal void UpdateDayRadioButton(object sender, MouseEventArgs e)
@@ -675,32 +684,55 @@ namespace ScheduleMaster
 
         internal void MainData_DataSourceChanged(object sender, EventArgs e)
         {
-            SubjectTitle.AutoCompleteCustomSource.Clear();
-            int col = MainData.Columns["Subject"].Index;
-            foreach (DataGridViewRow row in MainData.Rows)
-            {
-                SubjectTitle.AutoCompleteCustomSource.Add(row.Cells[col].Value.ToString());
-            }
-        }
-
-        private void professorScheduleViewerToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ScheduleViewer sv = new ScheduleViewer();
-            sv.sb = sb;
-            sv.Show();
-            string name = ((Professor)(ProfessorList.SelectedItem)).ToString().ToUpper();
-            foreach( TabPage tab in sv.TabControl.TabPages ){
-                if (tab.ToString().ToUpper() == name)
+                
+                SubjectTitle.AutoCompleteCustomSource.Clear();
+                int col;
+                try
                 {
-                    sv.TabControl.SelectedTab = tab;
-                    sv.SelectProfessor();
+                    col = MainData.Columns["Subject"].Index;
+                } catch{
+                    col = 6;
                 }
-            }
+                foreach (DataGridViewRow row in MainData.Rows)
+                {
+                    SubjectTitle.AutoCompleteCustomSource.Add(row.Cells[col].Value.ToString());
+                }
         }
 
         private void Viewer_Enter(object sender, EventArgs e)
         {
             ProfessorList.DataSource = sb.AllProfessors.Clone();
+            professorScheduleViewerToolStripMenuItem.Checked = Program.sv.Visible;
+            inserterDeleterToolStripMenuItem.Checked = Program.v.Visible;
+        }
+
+        private void ToggleMenuItem(object sender, EventArgs e)
+        {
+            ((ToolStripMenuItem)sender).Checked ^= true;
+        }
+
+        private void professorScheduleViewerToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                Program.sv.Visible = ((ToolStripMenuItem)sender).Checked;
+                string name = ((Professor)(ProfessorList.SelectedItem)).ToString().ToUpper();
+                foreach (TabPage tab in Program.sv.TabControl.TabPages)
+                {
+                    if (tab.ToString().ToUpper() == name)
+                    {
+                        Program.sv.TabControl.SelectedTab = tab;
+                        Program.sv.SelectProfessor();
+                    }
+                }
+            }
+            catch { }
+        }
+
+        private void inserterDeleterToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
+        {
+            if( !((ToolStripMenuItem)sender).Checked )
+                ((ToolStripMenuItem)sender).Checked = true;
         }
 
        
