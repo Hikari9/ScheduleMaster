@@ -29,29 +29,34 @@ namespace ScheduleMaster
             EndMeridian.SelectedIndex = 0;
             MainDataView = new DataView();
             MakeRows();
-            ProfessorLegend.BackColor = HalfProf.BackColor;
-            ClassroomLegend.BackColor = HalfRoom.BackColor;
-            BothLegend.BackColor = HalfMix.BackColor;
         }
 
         public void LoadProfessors()
         {
-            ProfessorList.DataSource = Program.db.AllProfessors;
-            ProfessorBox2.AutoCompleteCustomSource.Clear();
-            foreach (Professor p in Program.db.AllProfessors)
+            try
             {
-                ProfessorBox2.AutoCompleteCustomSource.Add(p.Name());
+                ProfessorList.DataSource = Program.db.AllProfessors;
+                ProfessorBox2.AutoCompleteCustomSource.Clear();
+                foreach (Professor p in Program.db.AllProfessors)
+                {
+                    ProfessorBox2.AutoCompleteCustomSource.Add(p.Name());
+                }
             }
+            catch { }
         }
 
         public void LoadRooms()
         {
-            RoomList.DataSource = Program.db.AllRooms.Clone();
-            ClassroomBox2.AutoCompleteCustomSource.Clear();
-            foreach (Room r in Program.db.AllRooms)
+            try
             {
-                ClassroomBox2.AutoCompleteCustomSource.Add(r.ToString());
+                RoomList.DataSource = Program.db.AllRooms.Clone();
+                ClassroomBox2.AutoCompleteCustomSource.Clear();
+                foreach (Room r in Program.db.AllRooms)
+                {
+                    ClassroomBox2.AutoCompleteCustomSource.Add(r.ToString());
+                }
             }
+            catch { }
         }
 
         public void LoadSubjects()
@@ -80,62 +85,101 @@ namespace ScheduleMaster
             }
         }
 
+        Professor CurrentlyPainted = null;
+
         private void UpdateProfessor()
         {
-            Professor p = (Professor)ProfessorList.SelectedItem;
-            if (p == null)
+            try
             {
-                ShowProfessorBox.Text = "";
+                Professor p = (Professor)ProfessorList.SelectedItem;
+                if (EditOnClickCheckbox.Checked) ProfessorBox2.Text = p.Name();
+                PaintSchedule();
             }
-            else
-            {
-                ShowProfessorBox.Text = p.Name();
-            }
-            if (EditOnClickCheckbox.Checked) ProfessorBox2.Text = ShowProfessorBox.Text;
+            catch { }
         }
 
         private void UpdateClassroom()
         {
-            Room r = (Room)RoomList.SelectedItem;
-            if (r == null)
+            try
             {
-                ShowClassroomBox.Text = "";
+                Room r = (Room)RoomList.SelectedItem;
+                if (EditOnClickCheckbox.Checked) ClassroomBox2.Text = r.ToString();
             }
-            else
+            catch { }
+        }
+
+        string CurrentlyPaintedSubject = "N/A";
+
+        private void PaintSubject()
+        {
+            try
             {
-                ShowClassroomBox.Text = r.ToString();
+                if (SubjectList.SelectedItem == null)
+                {
+                    CurrentlyPaintedSubject = "N/A";
+                    return;
+                }
+                string CurrentSubject = SubjectList.SelectedItem.ToString();
+                if (CurrentSubject == CurrentlyPaintedSubject) return;
+                CurrentlyPaintedSubject = CurrentSubject;
+                for (int i = 1; i < Weekly.Columns.Count; ++i)
+                {
+                    for (int j = 0; j < Weekly.Rows.Count; ++j)
+                    {
+                        object val = Weekly[i, j].Value;
+                        if (val == null) continue;
+                        string str = val.ToString();
+                        if (str == CurrentSubject)
+                        {
+                            Weekly[i, j].Style = FullProf;
+                        }
+                        else
+                        {
+                            Weekly[i, j].Style = Shadowed;
+                        }
+                    }
+                }
             }
-            if (EditOnClickCheckbox.Checked) ClassroomBox2.Text = ShowClassroomBox.Text;
+            catch { }
         }
 
         private void UpdateSubject()
         {
-            if (EditOnClickCheckbox.Checked) SubjectBox2.Text = (string)SubjectList.SelectedItem;
+            try
+            {
+                if (EditOnClickCheckbox.Checked) SubjectBox2.Text = (string)SubjectList.SelectedItem;
+                PaintSubject();
+            }
+            catch { }
         }
 
         
 
         private void TabulateSchedules()
         {
-            MainDataTable = Program.db.ToSmallArray().ToDataTable(Schedule.GetSmallHeaderArray());
-            MainDataView.Table = MainDataTable;
-            MainData.DataSource = MainDataView;
             try
             {
+                MainDataTable = Program.db.ToSmallArray().ToDataTable(Schedule.GetSmallHeaderArray());
+                MainDataView.Table = MainDataTable;
+                MainData.DataSource = MainDataView;
                 MainData.Columns["ID"].Visible = false;
                 MainData.Columns["_"].Visible = false;
-                MainData.Columns["Professor"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-                MainData.Columns["Professor"].Width = 175;
+                //MainData.Columns["Professor"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+                //MainData.Columns["Professor"].Width = 175;
             }
             catch { }
         }
 
         private void AllDataViewer_Load(object sender, EventArgs e)
         {
-            TabulateSchedules();
-            LoadProfessors();
-            LoadRooms();
-            LoadSubjects();
+            try
+            {
+                TabulateSchedules();
+                LoadProfessors();
+                LoadRooms();
+                LoadSubjects();
+            }
+            catch { }
         }
 
         private void AllDataViewer_Click(object sender, EventArgs e)
@@ -153,113 +197,137 @@ namespace ScheduleMaster
 
         private void AllDataViewer_ResizeEnd(object sender, EventArgs e)
         {
-            float rw = (float)Width / initW;
-            float hw = (float)Height / initH;
-            SizeF sc = new SizeF(rw, hw);
-            //Scale(sc);
-            foreach (Control c in Controls)
+            try
             {
-                c.Scale(sc);
-                // float newSize = c.Font.SizeInPoints * hw * rw;
-                // c.Font = new Font(c.Font.FontFamily.Name, newSize);
+                float rw = (float)Width / initW;
+                float hw = (float)Height / initH;
+                SizeF sc = new SizeF(rw, hw);
+                //Scale(sc);
+                foreach (Control c in Controls)
+                {
+                    c.Scale(sc);
+                    // float newSize = c.Font.SizeInPoints * hw * rw;
+                    // c.Font = new Font(c.Font.FontFamily.Name, newSize);
+                }
             }
+            catch { }
         }
 
 
         private void ClearDayChecklist()
         {
-            for (int i = 0; i < DayChecklist.Items.Count; ++i)
-                DayChecklist.SetItemChecked(i, false);
+            try
+            {
+                for (int i = 0; i < DayChecklist.Items.Count; ++i)
+                    DayChecklist.SetItemChecked(i, false);
+            }
+            catch { }
         }
 
         private void ClearButton_Click(object sender, EventArgs e)
         {
-            if (!flag)
+            try
             {
-                flag = true;
-                ClearDayChecklist();
-                DayBox.Text = "";
-                WeekdaysRadio.Checked = false;
-                MWFRadio.Checked = false;
-                TThRadio.Checked = false;
-                ((Button)sender).Enabled = false;
-                flag = false;
+                if (!flag)
+                {
+                    flag = true;
+                    ClearDayChecklist();
+                    DayBox.Text = "";
+                    WeekdaysRadio.Checked = false;
+                    MWFRadio.Checked = false;
+                    TThRadio.Checked = false;
+                    ((Button)sender).Enabled = false;
+                    flag = false;
+                }
             }
+            catch { }
         }
 
 
         private void DayChecklist_MouseUp(object sender, MouseEventArgs e)
         {
-            if (!flag)
+            try
             {
-                //MessageBox.Show(DayChecklist.CheckedItems.Count.ToString());
-                int i;
-                flag = true;
-                if (DayChecklist.CheckedIndices.Count == 5)
+                if (!flag)
                 {
-                    for (i = 0; i < 5; ++i)
-                        if (DayChecklist.CheckedIndices[i] != i) break;
-                    if (i == 5)
+                    //MessageBox.Show(DayChecklist.CheckedItems.Count.ToString());
+                    int i;
+                    flag = true;
+                    if (DayChecklist.CheckedIndices.Count == 5)
                     {
-                        WeekdaysRadio.Checked = true;
-                        goto done;
+                        for (i = 0; i < 5; ++i)
+                            if (DayChecklist.CheckedIndices[i] != i) break;
+                        if (i == 5)
+                        {
+                            WeekdaysRadio.Checked = true;
+                            goto done;
+                        }
                     }
-                }
-                // MWF
-                else if (DayChecklist.CheckedIndices.Count == 3)
-                {
-                    for (i = 0; i < 3; ++i)
-                        if (DayChecklist.CheckedIndices[i] != (i << 1)) break;
-                    if (i == 3)
+                    // MWF
+                    else if (DayChecklist.CheckedIndices.Count == 3)
                     {
-                        MWFRadio.Checked = true;
-                        goto done;
+                        for (i = 0; i < 3; ++i)
+                            if (DayChecklist.CheckedIndices[i] != (i << 1)) break;
+                        if (i == 3)
+                        {
+                            MWFRadio.Checked = true;
+                            goto done;
+                        }
                     }
-                }
-                else if (DayChecklist.CheckedIndices.Count == 2)
-                {
-                    for (i = 0; i < 2; ++i)
-                        if (DayChecklist.CheckedIndices[i] != ((i << 1) + 1)) break;
-                    if (i == 2)
+                    else if (DayChecklist.CheckedIndices.Count == 2)
                     {
-                        TThRadio.Checked = true;
-                        goto done;
+                        for (i = 0; i < 2; ++i)
+                            if (DayChecklist.CheckedIndices[i] != ((i << 1) + 1)) break;
+                        if (i == 2)
+                        {
+                            TThRadio.Checked = true;
+                            goto done;
+                        }
                     }
-                }
-                WeekdaysRadio.Checked = false;
-                MWFRadio.Checked = false;
-                TThRadio.Checked = false;
+                    WeekdaysRadio.Checked = false;
+                    MWFRadio.Checked = false;
+                    TThRadio.Checked = false;
                 // list
                 done:
-                ListDays();
-                flag = false;
+                    ListDays();
+                    flag = false;
+                }
             }
+            catch { }
         }
 
         private void WeekdaysRadio_CheckedChanged(object sender, EventArgs e)
         {
-            if (!flag)
+            try
             {
-                flag = true;
-                ClearDayChecklist();
-                for (int i = 0; i < 5; ++i)
-                    DayChecklist.SetItemChecked(i, true);
-                ListDays();
-                flag = false;
+                if (!flag)
+                {
+                    flag = true;
+                    ClearDayChecklist();
+                    for (int i = 0; i < 5; ++i)
+                        DayChecklist.SetItemChecked(i, true);
+                    ListDays();
+                    flag = false;
+                }
             }
+            catch { }
         }
 
         private void MWFRadio_CheckedChanged(object sender, EventArgs e)
         {
-            if (!flag)
+            try
             {
-                flag = true;
-                ClearDayChecklist();
-                for (int i = 0; i < 3; ++i)
-                    DayChecklist.SetItemChecked(i << 1, true);
-                ListDays();
-                flag = false;
+                if (!flag)
+                {
+                    flag = true;
+                    ClearDayChecklist();
+                    for (int i = 0; i < 3; ++i)
+                        DayChecklist.SetItemChecked(i << 1, true);
+                    ListDays();
+                    flag = false;
+                }
             }
+            catch { }
         }
 
         private void TThRadio_CheckedChanged(object sender, EventArgs e)
@@ -277,101 +345,133 @@ namespace ScheduleMaster
 
         void ListDays()
         {
-            string[] list = new string[DayChecklist.CheckedItems.Count];
-            DayChecklist.CheckedItems.CopyTo(list, 0);
-            DayBox.Text = string.Join(";", list);
+            try
+            {
+                string[] list = new string[DayChecklist.CheckedItems.Count];
+                DayChecklist.CheckedItems.CopyTo(list, 0);
+                DayBox.Text = string.Join(";", list);
+            }
+            catch { }
         }
 
         private void DayChecklist_ItemCheck(object sender, ItemCheckEventArgs e)
         {
-            ClearButton.Enabled = (DayChecklist.CheckedItems.Count != 1 || e.NewValue != CheckState.Unchecked);
+            try
+            {
+                ClearButton.Enabled = (DayChecklist.CheckedItems.Count != 1 || e.NewValue != CheckState.Unchecked);
+            }
+            catch { }
         }
 
 
         private void DayBox_TextChanged(object sender, EventArgs e)
         {
-            string[] sp = DayBox.Text.Split(';');
-            ClearDayChecklist();
-            foreach (string a in sp)
+            try
             {
-                StringBuilder sb = new StringBuilder(a.Trim().ToLower());
-                if (sb.Length == 0) continue;
-                sb[0] = char.ToUpper(sb[0]);
-                string s = sb.ToString();
-                if (Time.getDayOfWeek.ContainsKey(s))
-                    DayChecklist.SetItemChecked(Time.getDayOfWeek[s], true);
+                string[] sp = DayBox.Text.Split(';');
+                ClearDayChecklist();
+                foreach (string a in sp)
+                {
+                    StringBuilder sb = new StringBuilder(a.Trim().ToLower());
+                    if (sb.Length == 0) continue;
+                    sb[0] = char.ToUpper(sb[0]);
+                    string s = sb.ToString();
+                    if (Time.getDayOfWeek.ContainsKey(s))
+                        DayChecklist.SetItemChecked(Time.getDayOfWeek[s], true);
+                }
             }
+            catch { }
         }
 
         static int TimeAdd = 60;
 
         int GetRawTime(string TimeString, string AMPM)
         {
-            string[] sp = TimeString.Split(':');
-            int hr = int.Parse(sp[0]);
-            int min = int.Parse(sp[1]);
-            hr %= 12;
-            if (AMPM == "PM") hr += 12;
-            return hr * Time.MINUTE_MASK + min;
+            try
+            {
+                string[] sp = TimeString.Split(':');
+                int hr = int.Parse(sp[0]);
+                int min = int.Parse(sp[1]);
+                hr %= 12;
+                if (AMPM == "PM") hr += 12;
+                return hr * Time.MINUTE_MASK + min;
+            }
+            catch { return 0; }
         }
         void AssignRawTime(int raw, MaskedTextBox TimeString, ComboBox AMPM)
         {
-            raw %= Time.HOUR_MASK;
-            if (raw >= (Time.HOUR_MASK >> 1))
+            try
             {
-                AMPM.Text = "PM";
-                raw -= (Time.HOUR_MASK >> 1);
+                raw %= Time.HOUR_MASK;
+                if (raw >= (Time.HOUR_MASK >> 1))
+                {
+                    AMPM.Text = "PM";
+                    raw -= (Time.HOUR_MASK >> 1);
+                }
+                else AMPM.Text = "AM";
+                if (raw < Time.MINUTE_MASK)
+                {
+                    raw += (Time.HOUR_MASK >> 1);
+                    // AMPM.SelectedIndex ^= 1;
+                }
+                TimeString.Text = new Time(raw).ToMilitaryTimeString();
             }
-            else AMPM.Text = "AM";
-            if (raw < Time.MINUTE_MASK)
-            {
-                raw += (Time.HOUR_MASK >> 1);
-                // AMPM.SelectedIndex ^= 1;
-            }
-            TimeString.Text = new Time(raw).ToMilitaryTimeString();
+            catch { }
         }
 
         private void StartNum_ValueChanged(object sender, EventArgs e)
         {
-            if (StartNum.Value == 0) return;
-            int raw = GetRawTime(StartBox.Text, StartMeridian.Text) + (int)StartNum.Value;
-            AssignRawTime(raw, StartBox, StartMeridian);
-            StartNum.Value = 0;
+            try
+            {
+                if (StartNum.Value == 0) return;
+                int raw = GetRawTime(StartBox.Text, StartMeridian.Text) + (int)StartNum.Value;
+                AssignRawTime(raw, StartBox, StartMeridian);
+                StartNum.Value = 0;
+            }
+            catch { }
         }
 
         private void StartBox_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Up) ++StartNum.Value;
-            else if (e.KeyCode == Keys.Down) --StartNum.Value;
-            else if (e.KeyCode == Keys.Enter)
+            try
             {
-                // revalidate
-                if (StartBox.Text.Length != 5)
-                    StartBox.Text = new string('0', 5 - StartBox.Text.Length) + StartBox.Text;
+                if (e.KeyCode == Keys.Up) ++StartNum.Value;
+                else if (e.KeyCode == Keys.Down) --StartNum.Value;
+                else if (e.KeyCode == Keys.Enter)
+                {
+                    // revalidate
+                    if (StartBox.Text.Length != 5)
+                        StartBox.Text = new string('0', 5 - StartBox.Text.Length) + StartBox.Text;
+                }
             }
+            catch { }
         }
 
 
         void ValidateStartTime()
         {
-            if (!flag)
+            try
             {
-                flag = true;
-                if (StartBox.Text.Length == 5)
+                if (!flag)
                 {
-                    int nt = GetRawTime(StartBox.Text, StartMeridian.Text);
-                    int nt2 = GetRawTime(EndBox.Text, EndMeridian.Text);
-                    if (nt > nt2)
+                    flag = true;
+                    if (StartBox.Text.Length == 5)
                     {
-                        nt2 = (nt + TimeAdd) % Time.HOUR_MASK;
-                        AssignRawTime(nt2, EndBox, EndMeridian);
-                        TimeEndBox.Text = new Time(nt2).ToMilitaryTimeString();
+                        int nt = GetRawTime(StartBox.Text, StartMeridian.Text);
+                        int nt2 = GetRawTime(EndBox.Text, EndMeridian.Text);
+                        if (nt > nt2)
+                        {
+                            nt2 = (nt + TimeAdd) % Time.HOUR_MASK;
+                            AssignRawTime(nt2, EndBox, EndMeridian);
+                            TimeEndBox.Text = new Time(nt2).ToMilitaryTimeString();
+                        }
+                        AssignRawTime(nt, StartBox, StartMeridian);
+                        TimeStartBox.Text = new Time(nt).ToMilitaryTimeString();
                     }
-                    AssignRawTime(nt, StartBox, StartMeridian);
-                    TimeStartBox.Text = new Time(nt).ToMilitaryTimeString();
+                    flag = false;
                 }
-                flag = false;
             }
+            catch { }
         }
 
         private void StartBox_TextChanged(object sender, EventArgs e)
@@ -381,84 +481,116 @@ namespace ScheduleMaster
 
         private void EndNum_ValueChanged(object sender, EventArgs e)
         {
-            if (EndNum.Value == 0) return;
-            int raw = GetRawTime(EndBox.Text, EndMeridian.Text) + (int)EndNum.Value;
-            AssignRawTime(raw, EndBox, EndMeridian);
-            EndNum.Value = 0;
+            try
+            {
+                if (EndNum.Value == 0) return;
+                int raw = GetRawTime(EndBox.Text, EndMeridian.Text) + (int)EndNum.Value;
+                AssignRawTime(raw, EndBox, EndMeridian);
+                EndNum.Value = 0;
+            }
+            catch { }
         }
 
         void ValidateEndTime()
         {
-            if (!flag)
+            try
             {
-                flag = true;
-                if (EndBox.Text.Length == 5)
+                if (!flag)
                 {
-                    int nt = GetRawTime(EndBox.Text, EndMeridian.Text);
-                    int nt2 = GetRawTime(StartBox.Text, StartMeridian.Text);
-                    if (nt < nt2)
+                    flag = true;
+                    if (EndBox.Text.Length == 5)
                     {
-                        nt2 = nt - TimeAdd;
-                        if (nt2 < 0) nt2 += (Time.HOUR_MASK >> 1);
-                        AssignRawTime(nt2, StartBox, StartMeridian);
-                        TimeStartBox.Text = new Time(nt2).ToMilitaryTimeString();
+                        int nt = GetRawTime(EndBox.Text, EndMeridian.Text);
+                        int nt2 = GetRawTime(StartBox.Text, StartMeridian.Text);
+                        if (nt < nt2)
+                        {
+                            nt2 = nt - TimeAdd;
+                            if (nt2 < 0) nt2 += (Time.HOUR_MASK >> 1);
+                            AssignRawTime(nt2, StartBox, StartMeridian);
+                            TimeStartBox.Text = new Time(nt2).ToMilitaryTimeString();
+                        }
+                        AssignRawTime(nt, EndBox, EndMeridian);
+                        TimeEndBox.Text = new Time(nt).ToMilitaryTimeString();
                     }
-                    AssignRawTime(nt, EndBox, EndMeridian);
-                    TimeEndBox.Text = new Time(nt).ToMilitaryTimeString();
+                    flag = false;
                 }
-                flag = false;
             }
+            catch { }
         }
 
         private void EndBox_TextChanged(object sender, EventArgs e)
         {
-            ValidateEndTime();
+            try
+            {
+                ValidateEndTime();
+            }
+            catch { }
         }
 
         private void EndBox_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Up) ++EndNum.Value;
-            else if (e.KeyCode == Keys.Down) --EndNum.Value;
-            else if (e.KeyCode == Keys.Enter)
+            try
             {
-                if (EndBox.Text.Length != 5)
-                    EndBox.Text = new string('0', 5 - EndBox.Text.Length) + EndBox.Text;
+                if (e.KeyCode == Keys.Up) ++EndNum.Value;
+                else if (e.KeyCode == Keys.Down) --EndNum.Value;
+                else if (e.KeyCode == Keys.Enter)
+                {
+                    if (EndBox.Text.Length != 5)
+                        EndBox.Text = new string('0', 5 - EndBox.Text.Length) + EndBox.Text;
+                }
             }
+            catch { }
         }
 
         private void EditProfessor_Click(object sender, EventArgs e)
         {
-            if (ProfessorList.SelectedItem == null) return;
-            new EditProfessorForm().ShowDialog();
-            SaveButton.Enabled = true;
+            try
+            {
+                if (ProfessorList.SelectedItem == null) return;
+                new EditProfessorForm().ShowDialog();
+                SaveButton.Enabled = true;
+            }
+            catch { }
         }
 
         public void RenewProfessorList()
         {
-            string renew = ProfessorBox.Text;
-            ProfessorBox.Text = renew + " ";
-            ProfessorBox.Text = renew;
+            try
+            {
+                string renew = ProfessorBox.Text;
+                ProfessorBox.Text = renew + " ";
+                ProfessorBox.Text = renew;
+            }
+            catch { }
         }
 
         public void RenewRoomList()
         {
-            string renew = ClassroomBox.Text;
-            ClassroomBox.Text = renew + " ";
-            ClassroomBox.Text = renew;
+            try
+            {
+                string renew = ClassroomBox.Text;
+                ClassroomBox.Text = renew + " ";
+                ClassroomBox.Text = renew;
+            }
+            catch { }
         }
 
         public void RenewSubjectList()
         {
-            string renew = SubjectBox.Text;
-            SubjectBox.Text = renew + " ";
-            SubjectBox.Text = renew;
+            try
+            {
+                string renew = SubjectBox.Text;
+                SubjectBox.Text = renew + " ";
+                SubjectBox.Text = renew;
+            }
+            catch { }
         }
 
         private void DeleteProfessor_Click(object sender, EventArgs e)
         {
-            if (ProfessorList.SelectedItem == null) return;
             try
             {
+                if (ProfessorList.SelectedItem == null) return;
                 var res = MessageBox.Show("Delete Professor \"" + ((Professor)ProfessorList.SelectedItem).Name() + "\" from Database?\nWARNING: This will erase all schedules affiliated with the Professor.", "Delete Professor", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
                 if (res == DialogResult.Yes)
                 {
@@ -474,15 +606,23 @@ namespace ScheduleMaster
 
         private void AddProfessor_Click(object sender, EventArgs e)
         {
-            new AddProfessorForm().ShowDialog();
-            SaveButton.Enabled = true;
+            try
+            {
+                new AddProfessorForm().ShowDialog();
+                SaveButton.Enabled = true;
+            }
+            catch { }
         }
 
 
         private void AddRoom_Click(object sender, EventArgs e)
         {
-            new AddRoomForm().ShowDialog();
-            SaveButton.Enabled = true;
+            try
+            {
+                new AddRoomForm().ShowDialog();
+                SaveButton.Enabled = true;
+            }
+            catch { }
         }
 
 
@@ -550,16 +690,20 @@ namespace ScheduleMaster
 
         private void EditRoom_Click(object sender, EventArgs e)
         {
-            if (RoomList.SelectedItem == null) return;
-            new EditRoomForm().ShowDialog();
-            SaveButton.Enabled = true;
+            try
+            {
+                if (RoomList.SelectedItem == null) return;
+                new EditRoomForm().ShowDialog();
+                SaveButton.Enabled = true;
+            }
+            catch { }
         }
 
         private void DeleteRoom_Click(object sender, EventArgs e)
         {
-            if (RoomList.SelectedItem == null) return;
             try
             {
+                if (RoomList.SelectedItem == null) return;
                 var res = MessageBox.Show("Delete Classroom \"" + ((Room)RoomList.SelectedItem).ToString() + "\" from Database?\nWARNING: This will erase all schedules affiliated with the Classroom.", "Delete Classroom", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
                 if (res == DialogResult.Yes)
                 {
@@ -575,18 +719,26 @@ namespace ScheduleMaster
 
         private void ProfessorList_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Delete)
+            try
             {
-                DeleteProfessor.PerformClick();
+                if (e.KeyCode == Keys.Delete)
+                {
+                    DeleteProfessor.PerformClick();
+                }
             }
+            catch { }
         }
 
         private void RoomList_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Delete)
+            try
             {
-                DeleteRoom.PerformClick();
+                if (e.KeyCode == Keys.Delete)
+                {
+                    DeleteRoom.PerformClick();
+                }
             }
+            catch { }
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
@@ -601,25 +753,29 @@ namespace ScheduleMaster
 
         private void AllDataViewer_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (SaveButton.Enabled)
+            try
             {
-                var res = MessageBox.Show("Save changes before closing?", "Save", MessageBoxButtons.YesNoCancel);
-                if (res == DialogResult.Yes)
+                if (SaveButton.Enabled)
                 {
-                    try
+                    var res = MessageBox.Show("Save changes before closing?", "Save", MessageBoxButtons.YesNoCancel);
+                    if (res == DialogResult.Yes)
                     {
-                        Program.db.SaveToExcel();
+                        try
+                        {
+                            Program.db.SaveToExcel();
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Error: Data was not successfully saved.\n\nDetails:\n" + ex.ToString());
+                        }
                     }
-                    catch (Exception ex)
+                    else if (res == DialogResult.Cancel)
                     {
-                        MessageBox.Show("Error: Data was not successfully saved.\n\nDetails:\n" + ex.ToString());
+                        e.Cancel = true;
                     }
-                }
-                else if (res == DialogResult.Cancel)
-                {
-                    e.Cancel = true;
                 }
             }
+            catch { }
         }
 
         private void SaveButton_Click(object sender, EventArgs e)
@@ -639,195 +795,231 @@ namespace ScheduleMaster
 
         private void EditSubject_Click(object sender, EventArgs e)
         {
-            if (SubjectList.SelectedItem == null) return;
-            new EditSubjectForm().ShowDialog();
-            SaveButton.Enabled = true;
+            try
+            {
+                if (SubjectList.SelectedItem == null) return;
+                new EditSubjectForm().ShowDialog();
+                SaveButton.Enabled = true;
+            }
+            catch { }
         }
 
         private void AddSubject_Click(object sender, EventArgs e)
         {
-            new AddSubjectForm().ShowDialog();
-            SaveButton.Enabled = true;
+            try
+            {
+                new AddSubjectForm().ShowDialog();
+                SaveButton.Enabled = true;
+            }
+            catch { }
         }
 
         private void InsertButton_Click(object sender, EventArgs e)
         {
-            DialogResult res;
-            if (ProfessorBox2.Text.Length == 0)
+            try
             {
-                MessageBox.Show("Professor name is empty");
-                return;
-            }
-            if (ClassroomBox2.Text.Length == 0)
-            {
-                MessageBox.Show("Classroom name is empty");
-                return;
-            }
-            if (DayChecklist.CheckedItems.Count == 0)
-            {
-                MessageBox.Show("Please choose day/s");
-                return;
-            }
-            if (SubjectBox2.Text.Length == 0)
-            {
-                res = MessageBox.Show("Continue with empty subject?", "Insert Schedule", MessageBoxButtons.YesNo);
-                if (res == DialogResult.No) return;
-                SaveButton.Enabled = true;
-            }
-            // parse professor
-            Professor p = Program.db.GetProfessor(ProfessorBox2.Text);
-            if (p == null)
-            {
-                res = MessageBox.Show("Professor with name \"" + ProfessorBox2.Text + "\" does not exist.\nAdd new Professor to the database?", "Insert Schedule", MessageBoxButtons.YesNo);
-                if (res == DialogResult.No) return;
-                int size = Program.db.AllProfessors.Count;
-                AddProfessorForm f = new AddProfessorForm();
-                p = new Professor(ProfessorBox2.Text,"","","");
-                f.LastNameBox.Text = p.LastName;
-                f.FirstNameBox.Text = p.FirstName;
-                f.ShowDialog();
-                if (size == Program.db.AllProfessors.Count) return;
-                p = (Professor)ProfessorList.SelectedItem;
-                SaveButton.Enabled = true;
-            }
-            Room r = Program.db.GetRoom(ClassroomBox2.Text);
-            if (r == null)
-            {
-                res = MessageBox.Show("Classroom with name \"" + ClassroomBox2.Text + "\" does not exist.\nAdd new Classroom to the database?", "Insert Schedule", MessageBoxButtons.YesNo);
-                if (res == DialogResult.No) return;
-                r = Program.db.AddRoom(new Room(ClassroomBox2.Text));
-                RoomList.DataSource = Program.db.AllRooms.Clone();
-                SaveButton.Enabled = true;
-            }
-            Subject s = new Subject(SubjectBox2.Text, p, r);
-            // check if subjects exists
-            if (SubjectBox2.Text.Length != 0)
-            {
-                ArrayList subjects = new ArrayList((string[])SubjectList.DataSource);
-                int id = subjects.BinarySearch(SubjectBox2.Text);
-                if (id < 0)
+                DialogResult res;
+                if (ProfessorBox2.Text.Length == 0)
                 {
-                    id = ~id;
-                    subjects.Insert(id, SubjectBox2.Text);
-                    SubjectBox2.AutoCompleteCustomSource.Add(SubjectBox2.Text);
-                    string[] newSubjectList = new string[subjects.Count];
-                    subjects.CopyTo(newSubjectList);
-                    SubjectList.DataSource = newSubjectList;
-                    SubjectList.SelectedIndex = id;
+                    MessageBox.Show("Professor name is empty");
+                    return;
+                }
+                if (ClassroomBox2.Text.Length == 0)
+                {
+                    MessageBox.Show("Classroom name is empty");
+                    return;
+                }
+                if (DayChecklist.CheckedItems.Count == 0)
+                {
+                    MessageBox.Show("Please choose day/s");
+                    return;
+                }
+                if (SubjectBox2.Text.Length == 0)
+                {
+                    res = MessageBox.Show("Continue with empty subject?", "Insert Schedule", MessageBoxButtons.YesNo);
+                    if (res == DialogResult.No) return;
                     SaveButton.Enabled = true;
                 }
-            }
-            
-            // make schedule/s
-            res = MessageBox.Show("You are about to insert Schedule:\n" + s.ToString() + "\n" + TimeStartBox.Text + " to " + TimeEndBox.Text + "\n" + DayBox.Text, "Insert Schedule", MessageBoxButtons.OKCancel);
-            if (res == DialogResult.Cancel) return;
-
-            ArrayList Schedules = new ArrayList();
-            ArrayList ConflictList = new ArrayList();
-            Boolean HasConflict = false;
-
-            foreach (int i in DayChecklist.CheckedIndices)
-            {
-                Schedule sched = new Schedule(s, new Time(i, TimeStartBox.Text), new Time(i, TimeEndBox.Text));
-                Schedule conflict = Program.db.GetConflict(sched);
-                Schedules.Add(sched);
-                ConflictList.Add(conflict);
-                if (conflict != null)
+                // parse professor
+                Professor p = Program.db.GetProfessor(ProfessorBox2.Text);
+                if (p == null)
                 {
-                    HasConflict = true;
+                    res = MessageBox.Show("Professor with name \"" + ProfessorBox2.Text + "\" does not exist.\nAdd new Professor to the database?", "Insert Schedule", MessageBoxButtons.YesNo);
+                    if (res == DialogResult.No) return;
+                    int size = Program.db.AllProfessors.Count;
+                    AddProfessorForm f = new AddProfessorForm();
+                    p = new Professor(ProfessorBox2.Text, "", "", "");
+                    f.LastNameBox.Text = p.LastName;
+                    f.FirstNameBox.Text = p.FirstName;
+                    f.ShowDialog();
+                    if (size == Program.db.AllProfessors.Count) return;
+                    p = (Professor)ProfessorList.SelectedItem;
+                    SaveButton.Enabled = true;
                 }
+                Room r = Program.db.GetRoom(ClassroomBox2.Text);
+                if (r == null)
+                {
+                    res = MessageBox.Show("Classroom with name \"" + ClassroomBox2.Text + "\" does not exist.\nAdd new Classroom to the database?", "Insert Schedule", MessageBoxButtons.YesNo);
+                    if (res == DialogResult.No) return;
+                    r = Program.db.AddRoom(new Room(ClassroomBox2.Text));
+                    RoomList.DataSource = Program.db.AllRooms.Clone();
+                    SaveButton.Enabled = true;
+                }
+                Subject s = new Subject(SubjectBox2.Text, p, r);
+                // check if subjects exists
+                if (SubjectBox2.Text.Length != 0)
+                {
+                    ArrayList subjects = new ArrayList((string[])SubjectList.DataSource);
+                    int id = subjects.BinarySearch(SubjectBox2.Text);
+                    if (id < 0)
+                    {
+                        id = ~id;
+                        subjects.Insert(id, SubjectBox2.Text);
+                        SubjectBox2.AutoCompleteCustomSource.Add(SubjectBox2.Text);
+                        string[] newSubjectList = new string[subjects.Count];
+                        subjects.CopyTo(newSubjectList);
+                        SubjectList.DataSource = newSubjectList;
+                        SubjectList.SelectedIndex = id;
+                        SaveButton.Enabled = true;
+                    }
+                }
+
+                // make schedule/s
+                res = MessageBox.Show("You are about to insert Schedule:\n" + s.ToString() + "\n" + TimeStartBox.Text + " to " + TimeEndBox.Text + "\n" + DayBox.Text, "Insert Schedule", MessageBoxButtons.OKCancel);
+                if (res == DialogResult.Cancel) return;
+
+                ArrayList Schedules = new ArrayList();
+                ArrayList ConflictList = new ArrayList();
+                Boolean HasConflict = false;
+
+                foreach (int i in DayChecklist.CheckedIndices)
+                {
+                    Schedule sched = new Schedule(s, new Time(i, TimeStartBox.Text), new Time(i, TimeEndBox.Text));
+                    Schedule conflict = Program.db.GetConflict(sched);
+                    Schedules.Add(sched);
+                    ConflictList.Add(conflict);
+                    if (conflict != null)
+                    {
+                        HasConflict = true;
+                    }
+                }
+                if (HasConflict)
+                {
+                    new ShowConflictsForm(Schedules, ConflictList).ShowDialog();
+                    return;
+                }
+                // insert new schedules! xD
+                foreach (Schedule sched in Schedules)
+                {
+                    Program.db.InsertSchedule(sched);
+                }
+                TabulateSchedules();
+                AllTabs.SelectedTab = AllSchedulesTab;
+                // Pick le Schedule
+                StringBuilder filter = new StringBuilder();
+                filter.Append("Professor LIKE '").Append(p.Name()).Append("' AND ");
+                filter.Append("Start LIKE '").Append(TimeStartBox.Text.Remove(2, 1)).Append("' AND End LIKE '").Append(TimeEndBox.Text.Remove(2, 1)).Append("' AND Day IN (");
+                foreach (var item in DayChecklist.CheckedItems)
+                {
+                    filter.Append("'").Append(item.ToString()).Append("'");
+                }
+                filter.Append(")");
+                SearchBox.Text = "";
+                MainDataView.RowFilter = filter.ToString();
+                CurrentlyPainted = null;
+                PaintSchedule();
+                SaveButton.Enabled = true;
             }
-            if (HasConflict)
-            {
-                new ShowConflictsForm(Schedules, ConflictList).ShowDialog();
-                return;
-            }
-            // insert new schedules! xD
-            foreach (Schedule sched in Schedules)
-            {
-                Program.db.InsertSchedule(sched);
-            }
-            TabulateSchedules();
-            AllTabs.SelectedTab = AllSchedulesTab;
-            SaveButton.Enabled = true;
-            PaintSchedule();
+            catch { }
         }
 
         internal int ProfessorBoxLength = 0;
 
         private void ProfessorBox_TextChanged(object sender, EventArgs e)
         {
-            string s = ProfessorBox.Text.ToLower();
-            ArrayList filter = new ArrayList();
-            if (ProfessorBoxLength > s.Length)
+            try
             {
-                // backspaced
-                foreach (Professor p in Program.db.AllProfessors)
+                string s = ProfessorBox.Text.ToLower();
+                ArrayList filter = new ArrayList();
+                if (ProfessorBoxLength > s.Length)
                 {
-                    if (p.ToCompleteString().ToLower().Contains(s)) filter.Add(p);
+                    // backspaced
+                    foreach (Professor p in Program.db.AllProfessors)
+                    {
+                        if (p.ToCompleteString().ToLower().Contains(s)) filter.Add(p);
+                    }
                 }
-            }
-            else
-            {
-                foreach (Professor p in (ArrayList)ProfessorList.DataSource)
+                else
                 {
-                    if (p.ToCompleteString().ToLower().Contains(s)) filter.Add(p);
+                    foreach (Professor p in (ArrayList)ProfessorList.DataSource)
+                    {
+                        if (p.ToCompleteString().ToLower().Contains(s)) filter.Add(p);
+                    }
                 }
+                ProfessorList.DataSource = filter;
+                ProfessorBoxLength = s.Length;
             }
-            ProfessorList.DataSource = filter;
-            ProfessorBoxLength = s.Length;
+            catch { }
         }
 
         int ClassroomBoxLength = 0;
 
         private void ClassroomBox_TextChanged(object sender, EventArgs e)
         {
-            string s = ClassroomBox.Text.ToLower();
-            ArrayList filter = new ArrayList();
-            if (ClassroomBoxLength > s.Length)
+            try
             {
-                // backspaced
-                foreach (Room p in Program.db.AllRooms)
+                string s = ClassroomBox.Text.ToLower();
+                ArrayList filter = new ArrayList();
+                if (ClassroomBoxLength > s.Length)
                 {
-                    if (p.ToString().ToLower().Contains(s)) filter.Add(p);
+                    // backspaced
+                    foreach (Room p in Program.db.AllRooms)
+                    {
+                        if (p.ToString().ToLower().Contains(s)) filter.Add(p);
+                    }
                 }
-            }
-            else
-            {
-                foreach (Room p in (ArrayList)RoomList.DataSource)
+                else
                 {
-                    if (p.ToString().ToLower().Contains(s)) filter.Add(p);
+                    foreach (Room p in (ArrayList)RoomList.DataSource)
+                    {
+                        if (p.ToString().ToLower().Contains(s)) filter.Add(p);
+                    }
                 }
+                RoomList.DataSource = filter;
+                ClassroomBoxLength = s.Length;
             }
-            RoomList.DataSource = filter;
-            ClassroomBoxLength = s.Length;
+            catch { }
         }
 
         int SubjectBoxLength = 0;
 
         private void SubjectBox_TextChanged(object sender, EventArgs e)
         {
-            string s = SubjectBox.Text.ToLower();
-            ArrayList filter = new ArrayList();
-            if (SubjectBoxLength > s.Length)
+            try
             {
-                // backspaced
-                foreach (string p in SubjectBox2.AutoCompleteCustomSource)
+                string s = SubjectBox.Text.ToLower();
+                ArrayList filter = new ArrayList();
+                if (SubjectBoxLength > s.Length)
                 {
-                    if (p.ToLower().Contains(s)) filter.Add(p);
+                    // backspaced
+                    foreach (string p in SubjectBox2.AutoCompleteCustomSource)
+                    {
+                        if (p.ToLower().Contains(s)) filter.Add(p);
+                    }
                 }
-            }
-            else
-            {
-                foreach (string p in (string[])SubjectList.DataSource)
+                else
                 {
-                    if (p.ToLower().Contains(s)) filter.Add(p);
+                    foreach (string p in (string[])SubjectList.DataSource)
+                    {
+                        if (p.ToLower().Contains(s)) filter.Add(p);
+                    }
                 }
+                string[] n = new string[filter.Count];
+                filter.CopyTo(n);
+                SubjectList.DataSource = n;
+                SubjectBoxLength = s.Length;
             }
-            string[] n = new string[filter.Count];
-            filter.CopyTo(n);
-            SubjectList.DataSource = n;
-            SubjectBoxLength = s.Length;
+            catch { }
         }
 
 
@@ -842,89 +1034,105 @@ namespace ScheduleMaster
 
         private void EditOnClickCheckbox_CheckedChanged(object sender, EventArgs e)
         {
-            if (EditOnClickCheckbox.Checked == false) ClearButton2.PerformClick();
-            else
+            try
             {
-                UpdateProfessor();
-                UpdateClassroom();
-                UpdateSubject();
+                if (EditOnClickCheckbox.Checked == false) ClearButton2.PerformClick();
+                else
+                {
+                    UpdateProfessor();
+                    UpdateClassroom();
+                    UpdateSubject();
+                }
             }
+            catch { }
         }
 
         private void SearchBox_TextChanged(object sender, EventArgs e)
         {
-            if (SearchBox.Text == "")
+            try
             {
-                MainDataView.RowFilter = "";
-                return;
+                if (SearchBox.Text == "")
+                {
+                    MainDataView.RowFilter = "";
+                    return;
+                }
+                string search = SearchBox.Text.ToLower();
+                StringBuilder sb = new StringBuilder();
+                foreach (DataColumn column in MainDataTable.Columns)
+                {
+                    sb.AppendFormat("{0} LIKE '%{1}%' OR ", column.ColumnName, search);
+                }
+                sb.Remove(sb.Length - 3, 3);
+                MainDataView.RowFilter = sb.ToString();
             }
-            string search = SearchBox.Text.ToLower();
-            StringBuilder sb = new StringBuilder();
-            foreach (DataColumn column in MainDataTable.Columns)
-            {
-                sb.AppendFormat("{0} LIKE '%{1}%' OR ", column.ColumnName, search);
-            }
-            sb.Remove(sb.Length - 3, 3);
-            MainDataView.RowFilter = sb.ToString();
+            catch { }
         }
 
         private void DeleteSubject_Click(object sender, EventArgs e)
         {
-            var res = MessageBox.Show("Delete Subject \"" + (string)SubjectList.SelectedItem + "\"from database?\nWARNING: This will delete all Schedules that have \"" + (string)SubjectList.SelectedItem + "\" as subject title.", "Delete Subject", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
-            if (res == DialogResult.Yes)
+            try
             {
-                ArrayList toDelete = new ArrayList();
-                foreach (Professor p in Program.db.AllProfessors)
+                var res = MessageBox.Show("Delete Subject \"" + (string)SubjectList.SelectedItem + "\"from database?\nWARNING: This will delete all Schedules that have \"" + (string)SubjectList.SelectedItem + "\" as subject title.", "Delete Subject", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+                if (res == DialogResult.Yes)
                 {
-                    foreach (Schedule s in p.GetSchedules.GetArrayList)
+                    ArrayList toDelete = new ArrayList();
+                    foreach (Professor p in Program.db.AllProfessors)
                     {
-                        if (s.GetSubject.Title == (string)SubjectList.SelectedItem)
+                        foreach (Schedule s in p.GetSchedules.GetArrayList)
                         {
-                            toDelete.Add(s);
+                            if (s.GetSubject.Title == (string)SubjectList.SelectedItem)
+                            {
+                                toDelete.Add(s);
+                            }
                         }
                     }
+                    foreach (Schedule s in toDelete)
+                    {
+                        Program.db.DeleteSchedule(s);
+                    }
+                    TabulateSchedules();
+                    SubjectBox2.AutoCompleteCustomSource.Remove((string)SubjectList.SelectedItem);
+                    string[] n = new string[SubjectBox2.AutoCompleteCustomSource.Count];
+                    SubjectBox2.AutoCompleteCustomSource.CopyTo(n, 0);
+                    SubjectList.DataSource = n;
+                    RenewSubjectList();
+                    SaveButton.Enabled = true;
                 }
-                foreach (Schedule s in toDelete)
-                {
-                    Program.db.DeleteSchedule(s);
-                }
-                TabulateSchedules();
-                SubjectBox2.AutoCompleteCustomSource.Remove((string)SubjectList.SelectedItem);
-                string[] n = new string[SubjectBox2.AutoCompleteCustomSource.Count];
-                SubjectBox2.AutoCompleteCustomSource.CopyTo(n,0);
-                SubjectList.DataSource = n;
-                RenewSubjectList();
-                SaveButton.Enabled = true;
             }
+            catch { }
         }
 
         private void AllSchedulesDelete_Click(object sender, EventArgs e)
         {
-            DataGridViewSelectedRowCollection rows = MainData.SelectedRows;
-            ArrayList AllSchedules = Program.db.AllSchedules();
-            ArrayList scheds = new ArrayList();
-            foreach (DataGridViewRow row in rows)
+            try
             {
-                scheds.Add(AllSchedules[int.Parse(row.Cells["_"].Value.ToString()) - 1]);
+                DataGridViewSelectedRowCollection rows = MainData.SelectedRows;
+                ArrayList AllSchedules = Program.db.AllSchedules();
+                ArrayList scheds = new ArrayList();
+                foreach (DataGridViewRow row in rows)
+                {
+                    scheds.Add(AllSchedules[int.Parse(row.Cells["_"].Value.ToString()) - 1]);
+                }
+                StringBuilder message = new StringBuilder();
+                foreach (Schedule s in scheds)
+                {
+                    message.AppendLine(s.ToString());
+                }
+                var res = MessageBox.Show("You are about to delete these schedules:\n\n" + message.ToString() + "\nContinue?", "Delete Schedules", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+                if (res == DialogResult.Cancel) return;
+                foreach (Schedule s in scheds)
+                {
+                    Program.db.DeleteSchedule(s);
+                }
+                foreach (DataGridViewRow row in rows)
+                {
+                    MainDataTable.Rows[row.Index].Delete();
+                }
+                MainDataTable.AcceptChanges();
+                SaveButton.Enabled = true;
+                PaintSchedule();
             }
-            StringBuilder message = new StringBuilder();
-            foreach (Schedule s in scheds)
-            {
-                message.AppendLine(s.ToString());
-            }
-            var res = MessageBox.Show("You are about to delete these schedules:\n\n" + message.ToString() + "\nContinue?", "Delete Schedules", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
-            if (res == DialogResult.Cancel) return;
-            foreach (Schedule s in scheds)
-            {
-                Program.db.DeleteSchedule(s);
-            }
-            foreach (DataGridViewRow row in rows)
-            {
-                MainDataTable.Rows[row.Index].Delete();
-            }
-            MainDataTable.AcceptChanges();
-            SaveButton.Enabled = true;
-            PaintSchedule();
+            catch { }
         }
 
 
@@ -934,20 +1142,30 @@ namespace ScheduleMaster
 
         private void AllSchedulesAdd_Click(object sender, EventArgs e)
         {
-            AllTabs.SelectedTab = InsertTab;
+            try
+            {
+                AllTabs.SelectedTab = InsertTab;
+            }
+            catch { }
         }
 
         private void AllSchedulesView_Click(object sender, EventArgs e)
         {
-            if (MainData.SelectedRows.Count == 0) return;
-            ProfessorBox.Text = "";
-            ClassroomBox.Text = "";
-            SubjectBox.Text = "";
-            DataGridViewRow r = MainData.SelectedRows[0];
-            ProfessorList.SelectedItem = Program.db.GetProfessor(r.Cells["Professor"].Value.ToString());
-            RoomList.SelectedItem = Program.db.GetRoom(new Room(r.Cells["Classroom"].Value.ToString()));
-            ShowProfessor.Checked = true;
-            ShowClassroom.Checked = true;
+            /*
+                if (MainData.SelectedRows.Count == 0) return;
+                ProfessorBox.Text = "";
+                ClassroomBox.Text = "";
+                SubjectBox.Text = "";
+                DataGridViewRow r = MainData.SelectedRows[0];
+                ProfessorList.SelectedItem = Program.db.GetProfessor(r.Cells["Professor"].Value.ToString());
+                RoomList.SelectedItem = Program.db.GetRoom(new Room(r.Cells["Classroom"].Value.ToString()));
+            */
+            try
+            {
+                MaximizeForm mf = new MaximizeForm();
+                mf.Show();
+            }
+            catch { }
         }
 
         private void createNewToolStripMenuItem_Click(object sender, EventArgs e)
@@ -994,8 +1212,12 @@ namespace ScheduleMaster
 
         private void openExcelToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(Methods.DefaultExcelFileDirectory + "\\" + Methods.DefaultExcelFileName);
-            this.Close();
+            try
+            {
+                Process.Start(Methods.DefaultExcelFileDirectory + "\\" + Methods.DefaultExcelFileName);
+                this.Close();
+            }
+            catch { }
         }
 
         private void mergeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1067,7 +1289,11 @@ namespace ScheduleMaster
 
         private void insertNewScheduleToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AllTabs.SelectedTab = InsertTab;
+            try
+            {
+                AllTabs.SelectedTab = InsertTab;
+            }
+            catch { }
         }
 
         private void addNewProfessorToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1117,38 +1343,40 @@ namespace ScheduleMaster
 
         private void MakeRows()
         {
-            if (OffBox.Text.Length != 5 || SchedStart.Text.Length != 5 || SchedEnd.Text.Length != 5) return;
-            int offset = (new Time(0, OffBox.Text)).raw();
-            if (offset == 0) return;
-            Weekly.Rows.Clear();
-            int start = (new Time(0, SchedStart.Text)).raw();
-            int end = (new Time(0, SchedEnd.Text)).raw();
-            string[] row = new string[1];
-            while (start <= end)
+            try
             {
-                row[0] = (new Time(start)).ToTimeString();
-                Weekly.Rows.Add(row);
-                start += offset;
+                if (OffBox.Text.Length != 5 || SchedStart.Text.Length != 5 || SchedEnd.Text.Length != 5) return;
+                int offset = (new Time(0, OffBox.Text)).raw();
+                if (offset == 0) return;
+                Weekly.Rows.Clear();
+                int start = (new Time(0, SchedStart.Text)).raw();
+                int end = (new Time(0, SchedEnd.Text)).raw();
+                string[] row = new string[1];
+                while (start <= end)
+                {
+                    row[0] = (new Time(start)).ToTimeString();
+                    Weekly.Rows.Add(row);
+                    start += offset;
+                }
+                ClearPaintSchedule();
             }
-            ClearPaintSchedule();
+            catch { }
         }
 
 
-        static DataGridViewCellStyle DefaultColor = new DataGridViewCellStyle { BackColor = Color.LightGray, SelectionBackColor = Color.SlateGray };
-        static DataGridViewCellStyle FullProf = new DataGridViewCellStyle { BackColor = Color.Aqua, SelectionBackColor = Color.MediumVioletRed };
-        static DataGridViewCellStyle HalfProf = new DataGridViewCellStyle { BackColor = Color.Turquoise, SelectionBackColor = Color.PaleVioletRed };
-        static DataGridViewCellStyle FullRoom = new DataGridViewCellStyle { BackColor = Color.LightGreen, SelectionBackColor = Color.MediumVioletRed };
-        static DataGridViewCellStyle HalfRoom = new DataGridViewCellStyle { BackColor = Color.LimeGreen, SelectionBackColor = Color.PaleVioletRed };
-        static DataGridViewCellStyle FullMix = new DataGridViewCellStyle { BackColor = Color.LightGoldenrodYellow, SelectionBackColor = Color.MediumVioletRed };
-        static DataGridViewCellStyle HalfMix = new DataGridViewCellStyle { BackColor = Color.Moccasin, SelectionBackColor = Color.PaleVioletRed };
+        
 
         void ChangeTime(NumericUpDown x, MaskedTextBox y)
         {
-            if (x.Value == 0) return;
-            Time t = new Time(0, y.Text);
-            t.rawMinutes = Math.Min(Classes.Time.HOUR_MASK, Math.Max(0, t.raw() + (int)x.Value));
-            y.Text = t.ToMilitaryTimeString();
-            x.Value = 0;
+            try
+            {
+                if (x.Value == 0) return;
+                Time t = new Time(0, y.Text);
+                t.rawMinutes = Math.Min(Classes.Time.HOUR_MASK, Math.Max(0, t.raw() + (int)x.Value));
+                y.Text = t.ToMilitaryTimeString();
+                x.Value = 0;
+            }
+            catch { }
         }
 
         private void OffNum_ValueChanged(object sender, EventArgs e)
@@ -1168,59 +1396,89 @@ namespace ScheduleMaster
 
         private void OffBox_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Up)
+            try
             {
-                OffNum.Value += OffNum.Increment;
+                if (e.KeyCode == Keys.Up)
+                {
+                    OffNum.Value += OffNum.Increment;
+                }
+                else if (e.KeyCode == Keys.Down)
+                {
+                    OffNum.Value -= OffNum.Increment;
+                }
             }
-            else if (e.KeyCode == Keys.Down)
-            {
-                OffNum.Value -= OffNum.Increment;
-            }
+            catch { }
         }
 
         private void SchedEnd_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Up)
+            try
             {
-                SchedEndNum.Value += SchedEndNum.Increment;
+                if (e.KeyCode == Keys.Up)
+                {
+                    SchedEndNum.Value += SchedEndNum.Increment;
+                }
+                else if (e.KeyCode == Keys.Down)
+                {
+                    SchedEndNum.Value -= SchedEndNum.Increment;
+                }
             }
-            else if (e.KeyCode == Keys.Down)
-            {
-                SchedEndNum.Value -= SchedEndNum.Increment;
-            }
+            catch { }
         }
 
         private void SchedStart_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Up)
+            try
             {
-                SchedStartNum.Value += SchedStartNum.Increment;
+                if (e.KeyCode == Keys.Up)
+                {
+                    SchedStartNum.Value += SchedStartNum.Increment;
+                }
+                else if (e.KeyCode == Keys.Down)
+                {
+                    SchedStartNum.Value -= SchedStartNum.Increment;
+                }
             }
-            else if (e.KeyCode == Keys.Down)
-            {
-                SchedStartNum.Value -= SchedStartNum.Increment;
-            }
+            catch { }
         }
 
         private void ClearPaintSchedule()
         {
-            foreach (DataGridViewRow row in Weekly.Rows)
+            try
             {
-                for (int i = 1; i < Weekly.ColumnCount; ++i)
+                CurrentlyPainted = null;
+                foreach (DataGridViewRow row in Weekly.Rows)
                 {
-                    row.Cells[i].Style = DefaultColor;
-                    row.Cells[i].Value = null;
+                    for (int i = 1; i < Weekly.ColumnCount; ++i)
+                    {
+                        row.Cells[i].Style = DefaultColor;
+                        row.Cells[i].Value = null;
+                    }
                 }
             }
+            catch { }
         }
+
+        static DataGridViewCellStyle DefaultColor = new DataGridViewCellStyle { BackColor = Color.LightGray, SelectionBackColor = Color.SlateGray };
+        static DataGridViewCellStyle FullProf = new DataGridViewCellStyle { BackColor = Color.PaleGreen, SelectionBackColor = Color.MediumVioletRed, ForeColor = Color.Black };
+        static DataGridViewCellStyle Shadowed = new DataGridViewCellStyle { BackColor = Color.White, SelectionBackColor = Color.PaleVioletRed };
 
         private void PaintSchedule()
         {
-            //Weekly.Visible = false;
-            ClearPaintSchedule();
-            if (ShowProfessor.Checked)
+            try
             {
+                //Weekly.Visible = false;
+
                 Professor CurrentProfessor = (Professor)ProfessorList.SelectedItem;
+                if (CurrentProfessor == null)
+                {
+                    ClearPaintSchedule();
+                    return;
+                }
+                //MessageBox.Show(CurrentlyPainted == null ? "NULL" : CurrentlyPainted.ToString());
+                if (CurrentlyPainted == CurrentProfessor) return;
+                ClearPaintSchedule();
+                CurrentlyPainted = CurrentProfessor;
                 if (CurrentProfessor != null)
                 {
                     int DefaultStart = (new Time(0, SchedStart.Text)).raw();
@@ -1240,136 +1498,128 @@ namespace ScheduleMaster
                         end = Math.Min(end, DefaultEnd + 1);
                         lb = (start - DefaultStart) / Offset;
                         ub = (end - DefaultStart) / Offset + ((end - DefaultStart) % Offset == 0 ? 0 : 1);
+
+                        string title = s.GetSubject.Title;
+
+                        DataGridViewCellStyle half = FullProf;
+                        DataGridViewCellStyle full = FullProf;
+                        if (SubjectList.SelectedItem == null || title != SubjectList.SelectedItem.ToString())
+                        {
+                            half = full = Shadowed;
+                        }
+
                         if (DefaultStart + lb * Offset != start)
                         {
-                            rows[lb].Cells[day].Style = HalfProf;
+                            rows[lb].Cells[day].Style = half;
                         }
                         else
                         {
-                            rows[lb].Cells[day].Style = FullProf;
+                            rows[lb].Cells[day].Style = full;
                         }
-                        rows[lb].Cells[day].Value = s.GetSubject.Title;
+                        rows[lb].Cells[day].Value = title;
 
                         while (++lb < ub)
                         {
-                            rows[lb].Cells[day].Style = FullProf;
-                            rows[lb].Cells[day].Value = s.GetSubject.Title;
+                            rows[lb].Cells[day].Style = full;
+                            rows[lb].Cells[day].Value = title;
                         }
                         if (DefaultStart + ub * Offset != end)
                         {
-                            rows[ub - 1].Cells[day].Style = HalfProf;
+                            rows[ub - 1].Cells[day].Style = half;
                         }
                     }
                 }
-            }
-            if (ShowClassroom.Checked)
-            {
-                Room CurrentRoom = (Room)RoomList.SelectedItem;
-                if (CurrentRoom != null)
+                /*
+                if (ShowClassroom.Checked)
                 {
-                    int DefaultStart = (new Time(0, SchedStart.Text)).raw();
-                    int DefaultEnd = (new Time(0, SchedEnd.Text)).raw();
-                    int Offset = (new Time(0, OffBox.Text)).raw();
-                    int day, start, end, lb = 0, ub = 0;
-                    var rows = Weekly.Rows;
-                    foreach (Schedule s in CurrentRoom.GetSchedules.GetArrayList)
+                    Room CurrentRoom = (Room)RoomList.SelectedItem;
+                    if (CurrentRoom != null)
                     {
-                        day = s.StartTime.days() + 1;
-                        start = s.StartTime.raw() % Classes.Time.HOUR_MASK;
-                        end = s.EndTime.raw() % Classes.Time.HOUR_MASK;
-                        // get bounds
-                        if ((end <= DefaultStart) || (start > DefaultEnd)) continue;
+                        int DefaultStart = (new Time(0, SchedStart.Text)).raw();
+                        int DefaultEnd = (new Time(0, SchedEnd.Text)).raw();
+                        int Offset = (new Time(0, OffBox.Text)).raw();
+                        int day, start, end, lb = 0, ub = 0;
+                        var rows = Weekly.Rows;
+                        foreach (Schedule s in CurrentRoom.GetSchedules.GetArrayList)
+                        {
+                            day = s.StartTime.days() + 1;
+                            start = s.StartTime.raw() % Classes.Time.HOUR_MASK;
+                            end = s.EndTime.raw() % Classes.Time.HOUR_MASK;
+                            // get bounds
+                            if ((end <= DefaultStart) || (start > DefaultEnd)) continue;
 
-                        start = Math.Max(start, DefaultStart);
-                        end = Math.Min(end, DefaultEnd + 1);
-                        lb = (start - DefaultStart) / Offset;
-                        ub = (end - DefaultStart) / Offset + ((end - DefaultStart) % Offset == 0 ? 0 : 1);
-                        if (DefaultStart + lb * Offset != start)
-                        {
-                            var cell = rows[lb].Cells[day];
-                            if (cell.Style != DefaultColor)
+                            start = Math.Max(start, DefaultStart);
+                            end = Math.Min(end, DefaultEnd + 1);
+                            lb = (start - DefaultStart) / Offset;
+                            ub = (end - DefaultStart) / Offset + ((end - DefaultStart) % Offset == 0 ? 0 : 1);
+                            if (DefaultStart + lb * Offset != start)
                             {
-                                cell.Style = HalfMix;
+                                var cell = rows[lb].Cells[day];
+                                if (cell.Style != DefaultColor)
+                                {
+                                    cell.Style = HalfMix;
+                                }
+                                else
+                                {
+                                    cell.Style = HalfRoom;
+                                }
                             }
                             else
                             {
-                                cell.Style = HalfRoom;
+                                var cell = rows[lb].Cells[day];
+                                if (cell.Style == FullProf)
+                                {
+                                    cell.Style = FullMix;
+                                }
+                                else if (cell.Style == HalfProf)
+                                {
+                                    cell.Style = HalfMix;
+                                }
+                                else
+                                {
+                                    cell.Style = FullRoom;
+                                }
                             }
-                        }
-                        else
-                        {
-                            var cell = rows[lb].Cells[day];
-                            if (cell.Style == FullProf)
-                            {
-                                cell.Style = FullMix;
-                            }
-                            else if (cell.Style == HalfProf)
-                            {
-                                cell.Style = HalfMix;
-                            }
-                            else
-                            {
-                                cell.Style = FullRoom;
-                            }
-                        }
-                        rows[lb].Cells[day].Value = s.GetSubject.Title;
+                            rows[lb].Cells[day].Value = s.GetSubject.Title;
 
-                        while (++lb < ub)
-                        {
-                            var cell = rows[lb].Cells[day];
-                            if (cell.Style == FullProf)
+                            while (++lb < ub)
                             {
-                                cell.Style = FullMix;
+                                var cell = rows[lb].Cells[day];
+                                if (cell.Style == FullProf)
+                                {
+                                    cell.Style = FullMix;
+                                }
+                                else if (cell.Style == HalfProf)
+                                {
+                                    cell.Style = HalfMix;
+                                }
+                                else
+                                {
+                                    cell.Style = FullRoom;
+                                }
+                                cell.Value = s.GetSubject.Title;
                             }
-                            else if (cell.Style == HalfProf)
+                            if (DefaultStart + ub * Offset != end)
                             {
-                                cell.Style = HalfMix;
-                            }
-                            else
-                            {
-                                cell.Style = FullRoom;
-                            }
-                            cell.Value = s.GetSubject.Title;
-                        }
-                        if (DefaultStart + ub * Offset != end)
-                        {
-                            var cell = rows[ub - 1].Cells[day];
-                            if (cell.Style != FullRoom)
-                            {
-                                cell.Style = HalfMix;
-                            }
-                            else
-                            {
-                                cell.Style = HalfRoom;
+                                var cell = rows[ub - 1].Cells[day];
+                                if (cell.Style != FullRoom)
+                                {
+                                    cell.Style = HalfMix;
+                                }
+                                else
+                                {
+                                    cell.Style = HalfRoom;
+                                }
                             }
                         }
                     }
                 }
+                */
+                //Weekly.Visible = true;
             }
-            //Weekly.Visible = true;
+            catch { }
         }
 
-        private void ShowProfessorBox_TextChanged(object sender, EventArgs e)
-        {
-            if (ShowProfessor.Checked) PaintSchedule();
-        }
-
-        private void ShowClassroomBox_TextChanged(object sender, EventArgs e)
-        {
-            if (ShowClassroom.Checked) PaintSchedule();
-        }
-
-        private void ShowProfessor_CheckedChanged(object sender, EventArgs e)
-        {
-            if (ShowProfessor.Checked || ShowClassroom.Checked) PaintSchedule();
-            else ClearPaintSchedule();
-        }
-
-        private void ShowClassroom_CheckedChanged(object sender, EventArgs e)
-        {
-            if (ShowProfessor.Checked || ShowClassroom.Checked) PaintSchedule();
-            else ClearPaintSchedule();
-        }
 
         private void EnableChange(object sender, EventArgs e)
         {
@@ -1378,30 +1628,71 @@ namespace ScheduleMaster
 
         private void ChangeOffset_Click(object sender, EventArgs e)
         {
-            if (SchedStart.Text.Length != 5 || SchedEnd.Text.Length != 5 || OffBox.Text.Length != 5)
+            try
             {
-                MessageBox.Show("Invalid input");
+                if (SchedStart.Text.Length != 5 || SchedEnd.Text.Length != 5 || OffBox.Text.Length != 5)
+                {
+                    MessageBox.Show("Invalid input");
+                    ChangeOffset.Enabled = false;
+                    return;
+                }
+                MakeRows();
+                PaintSchedule();
                 ChangeOffset.Enabled = false;
-                return;
             }
-            MakeRows();
-            PaintSchedule();
-            ChangeOffset.Enabled = false;
+            catch { }
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            new AboutBox().ShowDialog();
+            try
+            {
+                new AboutBox().ShowDialog();
+            }
+            catch { }
         }
 
         private void InsertAccept(object sender, EventArgs e)
         {
-            AcceptButton = InsertButton;
+            try
+            {
+                AcceptButton = InsertButton;
+            }
+            catch { }
         }
 
         private void NullAccept(object sender, EventArgs e)
         {
             AcceptButton = null;
+        }
+
+        private void MainData_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                DataGridViewRow r = MainData.SelectedCells[0].OwningRow;
+                //MessageBox.Show("NA");
+                string prof = r.Cells["Professor"].Value.ToString();
+                string room = r.Cells["Classroom"].Value.ToString();
+                string subj = r.Cells["Subject"].Value.ToString();
+                ProfessorList.SelectedItem = Program.db.GetProfessor(prof);
+                RoomList.SelectedItem = Program.db.GetRoom(room);
+                SubjectList.SelectedItem = subj;
+
+            }
+            catch { }
+        }
+
+        private void Weekly_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                object val = Weekly.SelectedCells[0].Value;
+                if (val == null) return;
+                string str = val.ToString();
+                SubjectList.SelectedItem = str;
+            }
+            catch { }
         }
 
     }

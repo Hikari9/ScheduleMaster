@@ -64,8 +64,8 @@ namespace ScheduleMaster
                 p = Program.db.AddProfessor(p);
                 Host.ProfessorList.DataSource = Program.db.AllProfessors.Clone();
                 Host.ProfessorBox2.AutoCompleteCustomSource.Add(p.Name());
-                Host.ProfessorList.SelectedItem = p;
                 Host.RenewProfessorList();
+                Host.ProfessorList.SelectedItem = p;
                 this.Close();
             }
             else

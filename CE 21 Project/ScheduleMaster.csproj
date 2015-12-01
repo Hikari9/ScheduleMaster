@@ -12,7 +12,7 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>E:\ScheduleMaster\</PublishUrl>
+    <PublishUrl>A:\ScheduleMaster\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -22,7 +22,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>8</ApplicationRevision>
+    <ApplicationRevision>10</ApplicationRevision>
     <ApplicationVersion>1.1.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -131,6 +131,12 @@
     <Compile Include="EditRoomForm.Designer.cs">
       <DependentUpon>EditRoomForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="MaximizeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MaximizeForm.Designer.cs">
+      <DependentUpon>MaximizeForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Methods.cs" />
     <Compile Include="Classes.cs" />
     <Compile Include="ShowConflictsForm.cs">
@@ -164,6 +170,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="EditRoomForm.resx">
       <DependentUpon>EditRoomForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MaximizeForm.resx">
+      <DependentUpon>MaximizeForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

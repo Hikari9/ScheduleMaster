@@ -28,8 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createNewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -97,7 +96,6 @@
             this.AllSchedulesView = new System.Windows.Forms.Button();
             this.AllSchedulesAdd = new System.Windows.Forms.Button();
             this.AllSchedulesDelete = new System.Windows.Forms.Button();
-            this.AllSchedulesEdit = new System.Windows.Forms.Button();
             this.MainData = new System.Windows.Forms.DataGridView();
             this.AllTabs = new System.Windows.Forms.TabControl();
             this.InsertTab = new System.Windows.Forms.TabPage();
@@ -132,10 +130,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.ShowProfessor = new System.Windows.Forms.CheckBox();
-            this.ShowClassroom = new System.Windows.Forms.CheckBox();
-            this.ShowProfessorBox = new System.Windows.Forms.TextBox();
-            this.ShowClassroomBox = new System.Windows.Forms.TextBox();
             this.OffNum = new System.Windows.Forms.NumericUpDown();
             this.SchedEndNum = new System.Windows.Forms.NumericUpDown();
             this.SchedStartNum = new System.Windows.Forms.NumericUpDown();
@@ -145,12 +139,6 @@
             this.OffBox = new System.Windows.Forms.MaskedTextBox();
             this.SchedEnd = new System.Windows.Forms.MaskedTextBox();
             this.SchedStart = new System.Windows.Forms.MaskedTextBox();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.ProfessorLegend = new System.Windows.Forms.Panel();
-            this.ClassroomLegend = new System.Windows.Forms.Panel();
-            this.BothLegend = new System.Windows.Forms.Panel();
             this.ChangeOffset = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -176,7 +164,7 @@
             this.aboutToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1054, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1071, 24);
             this.menuStrip1.TabIndex = 42;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -421,7 +409,7 @@
             this.toolStripStatusLabel1});
             this.statusStrip1.Location = new System.Drawing.Point(0, 625);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1054, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1071, 22);
             this.statusStrip1.TabIndex = 77;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -436,7 +424,7 @@
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Cursor = System.Windows.Forms.Cursors.Default;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(37, 339);
+            this.label2.Location = new System.Drawing.Point(39, 341);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(60, 13);
             this.label2.TabIndex = 999;
@@ -445,9 +433,10 @@
             // 
             // ProfessorList
             // 
+            this.ProfessorList.BackColor = System.Drawing.SystemColors.Window;
             this.ProfessorList.Cursor = System.Windows.Forms.Cursors.Default;
             this.ProfessorList.HorizontalScrollbar = true;
-            this.ProfessorList.Location = new System.Drawing.Point(37, 358);
+            this.ProfessorList.Location = new System.Drawing.Point(39, 360);
             this.ProfessorList.Name = "ProfessorList";
             this.ProfessorList.Size = new System.Drawing.Size(166, 212);
             this.ProfessorList.TabIndex = 19;
@@ -467,7 +456,7 @@
             // DeleteProfessor
             // 
             this.DeleteProfessor.Cursor = System.Windows.Forms.Cursors.Default;
-            this.DeleteProfessor.Location = new System.Drawing.Point(90, 571);
+            this.DeleteProfessor.Location = new System.Drawing.Point(92, 573);
             this.DeleteProfessor.Name = "DeleteProfessor";
             this.DeleteProfessor.Size = new System.Drawing.Size(47, 23);
             this.DeleteProfessor.TabIndex = 23;
@@ -478,7 +467,7 @@
             // EditProfessor
             // 
             this.EditProfessor.Cursor = System.Windows.Forms.Cursors.Default;
-            this.EditProfessor.Location = new System.Drawing.Point(37, 571);
+            this.EditProfessor.Location = new System.Drawing.Point(39, 573);
             this.EditProfessor.Name = "EditProfessor";
             this.EditProfessor.Size = new System.Drawing.Size(53, 23);
             this.EditProfessor.TabIndex = 22;
@@ -489,7 +478,7 @@
             // AddProfessor
             // 
             this.AddProfessor.Cursor = System.Windows.Forms.Cursors.Default;
-            this.AddProfessor.Location = new System.Drawing.Point(138, 571);
+            this.AddProfessor.Location = new System.Drawing.Point(140, 573);
             this.AddProfessor.Name = "AddProfessor";
             this.AddProfessor.Size = new System.Drawing.Size(65, 23);
             this.AddProfessor.TabIndex = 24;
@@ -500,7 +489,7 @@
             // DeleteRoom
             // 
             this.DeleteRoom.Cursor = System.Windows.Forms.Cursors.Default;
-            this.DeleteRoom.Location = new System.Drawing.Point(262, 571);
+            this.DeleteRoom.Location = new System.Drawing.Point(264, 573);
             this.DeleteRoom.Name = "DeleteRoom";
             this.DeleteRoom.Size = new System.Drawing.Size(47, 23);
             this.DeleteRoom.TabIndex = 26;
@@ -511,7 +500,7 @@
             // EditRoom
             // 
             this.EditRoom.Cursor = System.Windows.Forms.Cursors.Default;
-            this.EditRoom.Location = new System.Drawing.Point(209, 571);
+            this.EditRoom.Location = new System.Drawing.Point(211, 573);
             this.EditRoom.Name = "EditRoom";
             this.EditRoom.Size = new System.Drawing.Size(53, 23);
             this.EditRoom.TabIndex = 25;
@@ -522,7 +511,7 @@
             // AddRoom
             // 
             this.AddRoom.Cursor = System.Windows.Forms.Cursors.Default;
-            this.AddRoom.Location = new System.Drawing.Point(310, 571);
+            this.AddRoom.Location = new System.Drawing.Point(312, 573);
             this.AddRoom.Name = "AddRoom";
             this.AddRoom.Size = new System.Drawing.Size(65, 23);
             this.AddRoom.TabIndex = 27;
@@ -532,9 +521,10 @@
             // 
             // RoomList
             // 
+            this.RoomList.BackColor = System.Drawing.SystemColors.Window;
             this.RoomList.Cursor = System.Windows.Forms.Cursors.Default;
             this.RoomList.HorizontalScrollbar = true;
-            this.RoomList.Location = new System.Drawing.Point(209, 358);
+            this.RoomList.Location = new System.Drawing.Point(211, 360);
             this.RoomList.Name = "RoomList";
             this.RoomList.Size = new System.Drawing.Size(166, 212);
             this.RoomList.TabIndex = 20;
@@ -544,7 +534,7 @@
             // DeleteSubject
             // 
             this.DeleteSubject.Cursor = System.Windows.Forms.Cursors.Default;
-            this.DeleteSubject.Location = new System.Drawing.Point(434, 571);
+            this.DeleteSubject.Location = new System.Drawing.Point(436, 573);
             this.DeleteSubject.Name = "DeleteSubject";
             this.DeleteSubject.Size = new System.Drawing.Size(47, 23);
             this.DeleteSubject.TabIndex = 29;
@@ -555,7 +545,7 @@
             // EditSubject
             // 
             this.EditSubject.Cursor = System.Windows.Forms.Cursors.Default;
-            this.EditSubject.Location = new System.Drawing.Point(381, 571);
+            this.EditSubject.Location = new System.Drawing.Point(383, 573);
             this.EditSubject.Name = "EditSubject";
             this.EditSubject.Size = new System.Drawing.Size(53, 23);
             this.EditSubject.TabIndex = 28;
@@ -566,7 +556,7 @@
             // AddSubject
             // 
             this.AddSubject.Cursor = System.Windows.Forms.Cursors.Default;
-            this.AddSubject.Location = new System.Drawing.Point(482, 571);
+            this.AddSubject.Location = new System.Drawing.Point(484, 573);
             this.AddSubject.Name = "AddSubject";
             this.AddSubject.Size = new System.Drawing.Size(65, 23);
             this.AddSubject.TabIndex = 30;
@@ -576,9 +566,10 @@
             // 
             // SubjectList
             // 
+            this.SubjectList.BackColor = System.Drawing.SystemColors.Window;
             this.SubjectList.Cursor = System.Windows.Forms.Cursors.Default;
             this.SubjectList.HorizontalScrollbar = true;
-            this.SubjectList.Location = new System.Drawing.Point(381, 358);
+            this.SubjectList.Location = new System.Drawing.Point(383, 360);
             this.SubjectList.Name = "SubjectList";
             this.SubjectList.Size = new System.Drawing.Size(166, 212);
             this.SubjectList.TabIndex = 21;
@@ -597,7 +588,7 @@
             // 
             // ProfessorBox
             // 
-            this.ProfessorBox.Location = new System.Drawing.Point(97, 336);
+            this.ProfessorBox.Location = new System.Drawing.Point(99, 338);
             this.ProfessorBox.Name = "ProfessorBox";
             this.ProfessorBox.Size = new System.Drawing.Size(106, 20);
             this.ProfessorBox.TabIndex = 16;
@@ -605,7 +596,7 @@
             // 
             // ClassroomBox
             // 
-            this.ClassroomBox.Location = new System.Drawing.Point(278, 336);
+            this.ClassroomBox.Location = new System.Drawing.Point(280, 338);
             this.ClassroomBox.Name = "ClassroomBox";
             this.ClassroomBox.Size = new System.Drawing.Size(97, 20);
             this.ClassroomBox.TabIndex = 17;
@@ -613,7 +604,7 @@
             // 
             // SubjectBox
             // 
-            this.SubjectBox.Location = new System.Drawing.Point(454, 336);
+            this.SubjectBox.Location = new System.Drawing.Point(456, 338);
             this.SubjectBox.Name = "SubjectBox";
             this.SubjectBox.Size = new System.Drawing.Size(93, 20);
             this.SubjectBox.TabIndex = 18;
@@ -624,7 +615,7 @@
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Cursor = System.Windows.Forms.Cursors.Default;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(209, 339);
+            this.label1.Location = new System.Drawing.Point(211, 341);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(63, 13);
             this.label1.TabIndex = 999;
@@ -636,7 +627,7 @@
             this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Cursor = System.Windows.Forms.Cursors.Default;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(381, 339);
+            this.label3.Location = new System.Drawing.Point(383, 341);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(56, 13);
             this.label3.TabIndex = 999;
@@ -647,9 +638,9 @@
             // 
             this.SaveButton.Cursor = System.Windows.Forms.Cursors.Default;
             this.SaveButton.Enabled = false;
-            this.SaveButton.Location = new System.Drawing.Point(450, 43);
+            this.SaveButton.Location = new System.Drawing.Point(799, 530);
             this.SaveButton.Name = "SaveButton";
-            this.SaveButton.Size = new System.Drawing.Size(93, 26);
+            this.SaveButton.Size = new System.Drawing.Size(204, 60);
             this.SaveButton.TabIndex = 41;
             this.SaveButton.Text = "Save Changes";
             this.SaveButton.UseVisualStyleBackColor = true;
@@ -673,15 +664,15 @@
             this.dataGridViewTextBoxColumn7,
             this.dataGridViewTextBoxColumn8});
             this.Weekly.Cursor = System.Windows.Forms.Cursors.Default;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.Weekly.DefaultCellStyle = dataGridViewCellStyle1;
-            this.Weekly.Location = new System.Drawing.Point(600, 128);
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.Weekly.DefaultCellStyle = dataGridViewCellStyle3;
+            this.Weekly.Location = new System.Drawing.Point(598, 93);
             this.Weekly.MinimumSize = new System.Drawing.Size(348, 281);
             this.Weekly.Name = "Weekly";
             this.Weekly.ReadOnly = true;
@@ -689,9 +680,10 @@
             this.Weekly.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.Weekly.RowTemplate.Height = 15;
             this.Weekly.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.Weekly.Size = new System.Drawing.Size(405, 323);
+            this.Weekly.Size = new System.Drawing.Size(405, 428);
             this.Weekly.TabIndex = 999;
             this.Weekly.TabStop = false;
+            this.Weekly.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Weekly_CellClick);
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -773,14 +765,13 @@
             this.AllSchedulesTab.Controls.Add(this.AllSchedulesView);
             this.AllSchedulesTab.Controls.Add(this.AllSchedulesAdd);
             this.AllSchedulesTab.Controls.Add(this.AllSchedulesDelete);
-            this.AllSchedulesTab.Controls.Add(this.AllSchedulesEdit);
             this.AllSchedulesTab.Controls.Add(this.MainData);
             this.AllSchedulesTab.Controls.Add(this.label4);
             this.AllSchedulesTab.Controls.Add(this.SearchBox);
             this.AllSchedulesTab.Location = new System.Drawing.Point(4, 22);
             this.AllSchedulesTab.Name = "AllSchedulesTab";
             this.AllSchedulesTab.Padding = new System.Windows.Forms.Padding(3);
-            this.AllSchedulesTab.Size = new System.Drawing.Size(499, 233);
+            this.AllSchedulesTab.Size = new System.Drawing.Size(502, 233);
             this.AllSchedulesTab.TabIndex = 1;
             this.AllSchedulesTab.Text = "All Schedules";
             // 
@@ -791,7 +782,7 @@
             this.AllSchedulesView.Name = "AllSchedulesView";
             this.AllSchedulesView.Size = new System.Drawing.Size(65, 23);
             this.AllSchedulesView.TabIndex = 36;
-            this.AllSchedulesView.Text = "Select";
+            this.AllSchedulesView.Text = "Maximize";
             this.AllSchedulesView.UseVisualStyleBackColor = true;
             this.AllSchedulesView.Click += new System.EventHandler(this.AllSchedulesView_Click);
             // 
@@ -817,45 +808,31 @@
             this.AllSchedulesDelete.UseVisualStyleBackColor = true;
             this.AllSchedulesDelete.Click += new System.EventHandler(this.AllSchedulesDelete_Click);
             // 
-            // AllSchedulesEdit
-            // 
-            this.AllSchedulesEdit.Cursor = System.Windows.Forms.Cursors.Default;
-            this.AllSchedulesEdit.Location = new System.Drawing.Point(296, 204);
-            this.AllSchedulesEdit.Name = "AllSchedulesEdit";
-            this.AllSchedulesEdit.Size = new System.Drawing.Size(53, 23);
-            this.AllSchedulesEdit.TabIndex = 34;
-            this.AllSchedulesEdit.Text = "Edit";
-            this.AllSchedulesEdit.UseVisualStyleBackColor = true;
-            this.AllSchedulesEdit.Visible = false;
-            this.AllSchedulesEdit.Click += new System.EventHandler(this.AllSchedulesEdit_Click);
-            // 
             // MainData
             // 
             this.MainData.AllowUserToAddRows = false;
             this.MainData.AllowUserToDeleteRows = false;
             this.MainData.AllowUserToResizeRows = false;
             this.MainData.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.MainData.BackgroundColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.MainData.BackgroundColor = System.Drawing.Color.PaleGreen;
             this.MainData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.MainData.Location = new System.Drawing.Point(6, 34);
             this.MainData.Name = "MainData";
             this.MainData.ReadOnly = true;
             this.MainData.RowHeadersVisible = false;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
-            this.MainData.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.MainData.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.MainData.Size = new System.Drawing.Size(487, 164);
             this.MainData.TabIndex = 32;
+            this.MainData.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.MainData_CellClick);
             // 
             // AllTabs
             // 
-            this.AllTabs.Controls.Add(this.InsertTab);
             this.AllTabs.Controls.Add(this.AllSchedulesTab);
-            this.AllTabs.Location = new System.Drawing.Point(40, 63);
+            this.AllTabs.Controls.Add(this.InsertTab);
+            this.AllTabs.Location = new System.Drawing.Point(39, 49);
             this.AllTabs.Name = "AllTabs";
             this.AllTabs.SelectedIndex = 0;
-            this.AllTabs.Size = new System.Drawing.Size(507, 259);
+            this.AllTabs.Size = new System.Drawing.Size(510, 259);
             this.AllTabs.TabIndex = 147;
             // 
             // InsertTab
@@ -866,7 +843,7 @@
             this.InsertTab.Location = new System.Drawing.Point(4, 22);
             this.InsertTab.Name = "InsertTab";
             this.InsertTab.Padding = new System.Windows.Forms.Padding(3);
-            this.InsertTab.Size = new System.Drawing.Size(499, 233);
+            this.InsertTab.Size = new System.Drawing.Size(502, 233);
             this.InsertTab.TabIndex = 2;
             this.InsertTab.Text = "Insert New Schedule";
             // 
@@ -1142,7 +1119,7 @@
             // 
             // SubjectBox2
             // 
-            this.SubjectBox2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.SubjectBox2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.SubjectBox2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.SubjectBox2.Location = new System.Drawing.Point(98, 97);
             this.SubjectBox2.Name = "SubjectBox2";
@@ -1153,7 +1130,7 @@
             // 
             // ClassroomBox2
             // 
-            this.ClassroomBox2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.ClassroomBox2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.ClassroomBox2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.ClassroomBox2.Location = new System.Drawing.Point(98, 71);
             this.ClassroomBox2.Name = "ClassroomBox2";
@@ -1164,7 +1141,7 @@
             // 
             // ProfessorBox2
             // 
-            this.ProfessorBox2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.ProfessorBox2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.ProfessorBox2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.ProfessorBox2.Location = new System.Drawing.Point(98, 45);
             this.ProfessorBox2.Name = "ProfessorBox2";
@@ -1195,6 +1172,7 @@
             // 
             // DayBox
             // 
+            this.DayBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.DayBox.Location = new System.Drawing.Point(98, 123);
             this.DayBox.Name = "DayBox";
             this.DayBox.Size = new System.Drawing.Size(141, 20);
@@ -1274,53 +1252,11 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(732, 59);
+            this.label11.Location = new System.Drawing.Point(593, 49);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(273, 25);
+            this.label11.Size = new System.Drawing.Size(200, 25);
             this.label11.TabIndex = 999;
-            this.label11.Text = "Professor/Room Schedules";
-            // 
-            // ShowProfessor
-            // 
-            this.ShowProfessor.AutoSize = true;
-            this.ShowProfessor.Location = new System.Drawing.Point(636, 487);
-            this.ShowProfessor.Name = "ShowProfessor";
-            this.ShowProfessor.Size = new System.Drawing.Size(73, 17);
-            this.ShowProfessor.TabIndex = 38;
-            this.ShowProfessor.Text = "Professor:";
-            this.ShowProfessor.UseVisualStyleBackColor = true;
-            this.ShowProfessor.CheckedChanged += new System.EventHandler(this.ShowProfessor_CheckedChanged);
-            // 
-            // ShowClassroom
-            // 
-            this.ShowClassroom.AutoSize = true;
-            this.ShowClassroom.Location = new System.Drawing.Point(636, 514);
-            this.ShowClassroom.Name = "ShowClassroom";
-            this.ShowClassroom.Size = new System.Drawing.Size(77, 17);
-            this.ShowClassroom.TabIndex = 40;
-            this.ShowClassroom.Text = "Classroom:";
-            this.ShowClassroom.UseVisualStyleBackColor = true;
-            this.ShowClassroom.CheckedChanged += new System.EventHandler(this.ShowClassroom_CheckedChanged);
-            // 
-            // ShowProfessorBox
-            // 
-            this.ShowProfessorBox.Enabled = false;
-            this.ShowProfessorBox.Location = new System.Drawing.Point(714, 485);
-            this.ShowProfessorBox.Name = "ShowProfessorBox";
-            this.ShowProfessorBox.Size = new System.Drawing.Size(134, 20);
-            this.ShowProfessorBox.TabIndex = 37;
-            this.ShowProfessorBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.ShowProfessorBox.TextChanged += new System.EventHandler(this.ShowProfessorBox_TextChanged);
-            // 
-            // ShowClassroomBox
-            // 
-            this.ShowClassroomBox.Enabled = false;
-            this.ShowClassroomBox.Location = new System.Drawing.Point(714, 512);
-            this.ShowClassroomBox.Name = "ShowClassroomBox";
-            this.ShowClassroomBox.Size = new System.Drawing.Size(134, 20);
-            this.ShowClassroomBox.TabIndex = 39;
-            this.ShowClassroomBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.ShowClassroomBox.TextChanged += new System.EventHandler(this.ShowClassroomBox_TextChanged);
+            this.label11.Text = "Professor Schedule";
             // 
             // OffNum
             // 
@@ -1329,7 +1265,7 @@
             0,
             0,
             0});
-            this.OffNum.Location = new System.Drawing.Point(987, 513);
+            this.OffNum.Location = new System.Drawing.Point(704, 570);
             this.OffNum.Maximum = new decimal(new int[] {
             15,
             0,
@@ -1353,7 +1289,7 @@
             0,
             0,
             0});
-            this.SchedEndNum.Location = new System.Drawing.Point(987, 487);
+            this.SchedEndNum.Location = new System.Drawing.Point(704, 548);
             this.SchedEndNum.Maximum = new decimal(new int[] {
             30,
             0,
@@ -1377,7 +1313,7 @@
             0,
             0,
             0});
-            this.SchedStartNum.Location = new System.Drawing.Point(987, 463);
+            this.SchedStartNum.Location = new System.Drawing.Point(704, 530);
             this.SchedStartNum.Maximum = new decimal(new int[] {
             30,
             0,
@@ -1398,7 +1334,7 @@
             // 
             this.OffLabel.AutoSize = true;
             this.OffLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.OffLabel.Location = new System.Drawing.Point(904, 516);
+            this.OffLabel.Location = new System.Drawing.Point(621, 573);
             this.OffLabel.Name = "OffLabel";
             this.OffLabel.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.OffLabel.Size = new System.Drawing.Size(31, 12);
@@ -1409,29 +1345,29 @@
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(892, 492);
+            this.label14.Location = new System.Drawing.Point(602, 553);
             this.label14.Name = "label14";
             this.label14.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.label14.Size = new System.Drawing.Size(43, 12);
+            this.label14.Size = new System.Drawing.Size(50, 12);
             this.label14.TabIndex = 1004;
-            this.label14.Text = "End Time";
+            this.label14.Text = "Range End";
             // 
             // label15
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(888, 466);
+            this.label15.Location = new System.Drawing.Point(598, 533);
             this.label15.Name = "label15";
             this.label15.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.label15.Size = new System.Drawing.Size(47, 12);
+            this.label15.Size = new System.Drawing.Size(54, 12);
             this.label15.TabIndex = 1003;
-            this.label15.Text = "Start Time";
+            this.label15.Text = "Range Start";
             // 
             // OffBox
             // 
             this.OffBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.OffBox.InsertKeyMode = System.Windows.Forms.InsertKeyMode.Overwrite;
-            this.OffBox.Location = new System.Drawing.Point(941, 513);
+            this.OffBox.Location = new System.Drawing.Point(658, 570);
             this.OffBox.Mask = "00:00";
             this.OffBox.Name = "OffBox";
             this.OffBox.Size = new System.Drawing.Size(45, 18);
@@ -1446,7 +1382,7 @@
             // 
             this.SchedEnd.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SchedEnd.InsertKeyMode = System.Windows.Forms.InsertKeyMode.Overwrite;
-            this.SchedEnd.Location = new System.Drawing.Point(941, 489);
+            this.SchedEnd.Location = new System.Drawing.Point(658, 550);
             this.SchedEnd.Mask = "00:00";
             this.SchedEnd.Name = "SchedEnd";
             this.SchedEnd.Size = new System.Drawing.Size(45, 18);
@@ -1461,7 +1397,7 @@
             // 
             this.SchedStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SchedStart.InsertKeyMode = System.Windows.Forms.InsertKeyMode.Overwrite;
-            this.SchedStart.Location = new System.Drawing.Point(941, 463);
+            this.SchedStart.Location = new System.Drawing.Point(658, 530);
             this.SchedStart.Mask = "00:00";
             this.SchedStart.Name = "SchedStart";
             this.SchedStart.Size = new System.Drawing.Size(45, 18);
@@ -1472,63 +1408,12 @@
             this.SchedStart.TextChanged += new System.EventHandler(this.EnableChange);
             this.SchedStart.KeyDown += new System.Windows.Forms.KeyEventHandler(this.SchedStart_KeyDown);
             // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(813, 105);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(51, 13);
-            this.label16.TabIndex = 1009;
-            this.label16.Text = "Professor";
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(894, 105);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(55, 13);
-            this.label17.TabIndex = 1010;
-            this.label17.Text = "Classroom";
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(974, 105);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(29, 13);
-            this.label18.TabIndex = 1011;
-            this.label18.Text = "Both";
-            // 
-            // ProfessorLegend
-            // 
-            this.ProfessorLegend.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ProfessorLegend.Location = new System.Drawing.Point(795, 105);
-            this.ProfessorLegend.Name = "ProfessorLegend";
-            this.ProfessorLegend.Size = new System.Drawing.Size(18, 13);
-            this.ProfessorLegend.TabIndex = 1012;
-            // 
-            // ClassroomLegend
-            // 
-            this.ClassroomLegend.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ClassroomLegend.Location = new System.Drawing.Point(875, 105);
-            this.ClassroomLegend.Name = "ClassroomLegend";
-            this.ClassroomLegend.Size = new System.Drawing.Size(18, 13);
-            this.ClassroomLegend.TabIndex = 1013;
-            // 
-            // BothLegend
-            // 
-            this.BothLegend.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.BothLegend.Location = new System.Drawing.Point(956, 105);
-            this.BothLegend.Name = "BothLegend";
-            this.BothLegend.Size = new System.Drawing.Size(18, 13);
-            this.BothLegend.TabIndex = 1014;
-            // 
             // ChangeOffset
             // 
             this.ChangeOffset.Enabled = false;
-            this.ChangeOffset.Location = new System.Drawing.Point(881, 549);
+            this.ChangeOffset.Location = new System.Drawing.Point(728, 530);
             this.ChangeOffset.Name = "ChangeOffset";
-            this.ChangeOffset.Size = new System.Drawing.Size(124, 29);
+            this.ChangeOffset.Size = new System.Drawing.Size(65, 60);
             this.ChangeOffset.TabIndex = 1015;
             this.ChangeOffset.Text = "Change";
             this.ChangeOffset.UseVisualStyleBackColor = true;
@@ -1537,14 +1422,8 @@
             // AllDataViewer
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(1054, 647);
+            this.ClientSize = new System.Drawing.Size(1071, 647);
             this.Controls.Add(this.ChangeOffset);
-            this.Controls.Add(this.BothLegend);
-            this.Controls.Add(this.ClassroomLegend);
-            this.Controls.Add(this.ProfessorLegend);
-            this.Controls.Add(this.label18);
-            this.Controls.Add(this.label17);
-            this.Controls.Add(this.label16);
             this.Controls.Add(this.OffNum);
             this.Controls.Add(this.SchedEndNum);
             this.Controls.Add(this.SchedStartNum);
@@ -1554,11 +1433,7 @@
             this.Controls.Add(this.OffBox);
             this.Controls.Add(this.SchedEnd);
             this.Controls.Add(this.SchedStart);
-            this.Controls.Add(this.ShowClassroomBox);
-            this.Controls.Add(this.ShowProfessorBox);
             this.Controls.Add(this.SaveButton);
-            this.Controls.Add(this.ShowClassroom);
-            this.Controls.Add(this.ShowProfessor);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.AllTabs);
             this.Controls.Add(this.Weekly);
@@ -1670,9 +1545,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
         private System.Windows.Forms.TabPage AllSchedulesTab;
-        private System.Windows.Forms.Button AllSchedulesAdd;
-        private System.Windows.Forms.Button AllSchedulesDelete;
-        private System.Windows.Forms.Button AllSchedulesEdit;
         private System.Windows.Forms.TabControl AllTabs;
         private System.Windows.Forms.TabPage InsertTab;
         private System.Windows.Forms.GroupBox DayGroup;
@@ -1701,10 +1573,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button AllSchedulesView;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.CheckBox ShowProfessor;
-        private System.Windows.Forms.CheckBox ShowClassroom;
-        private System.Windows.Forms.TextBox ShowProfessorBox;
-        private System.Windows.Forms.TextBox ShowClassroomBox;
         public System.Windows.Forms.TextBox SubjectBox;
         public System.Windows.Forms.TextBox ClassroomBox;
         public System.Windows.Forms.TextBox ProfessorBox;
@@ -1715,7 +1583,6 @@
         internal System.Windows.Forms.TextBox ClassroomBox2;
         internal System.Windows.Forms.TextBox ProfessorBox2;
         internal System.Windows.Forms.TextBox DayBox;
-        private System.Windows.Forms.DataGridView MainData;
         private System.Windows.Forms.NumericUpDown OffNum;
         private System.Windows.Forms.NumericUpDown SchedEndNum;
         private System.Windows.Forms.NumericUpDown SchedStartNum;
@@ -1733,12 +1600,9 @@
         private System.Windows.Forms.ToolStripMenuItem addNewToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem2;
-        private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.Panel ProfessorLegend;
-        private System.Windows.Forms.Panel ClassroomLegend;
-        private System.Windows.Forms.Panel BothLegend;
         private System.Windows.Forms.Button ChangeOffset;
+        internal System.Windows.Forms.DataGridView MainData;
+        internal System.Windows.Forms.Button AllSchedulesDelete;
+        internal System.Windows.Forms.Button AllSchedulesAdd;
     }
 }
