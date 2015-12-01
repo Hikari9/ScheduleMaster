@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("CE 21 Project")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Schedule Master")]
+[assembly: AssemblyDescription("This program is a donated project of Rico Tiongson and Ar-j Castelo under the good supervision of Bryan Lao for the ECCE Department of the Ateneo de Manila University.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("CE 21 Project")]
+[assembly: AssemblyCompany("Rico Tiongson & Ar-j Castelo")]
+[assembly: AssemblyProduct("Schedule Master")]
 [assembly: AssemblyCopyright("Copyright ©  2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("1.0.1.4")]
+[assembly: AssemblyFileVersion("1.0.1.4")]

@@ -71,6 +71,7 @@
             this.Controls.Add(this.label1);
             this.Name = "AddRoomForm";
             this.Text = "Add New Room";
+            this.Load += new System.EventHandler(this.AddRoomForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

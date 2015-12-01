@@ -14,7 +14,7 @@ namespace ScheduleMaster
     public partial class AddProfessorForm : Form
     {
 
-        internal Viewer Host;
+        AllDataViewer Host = Program.adv;
 
         public AddProfessorForm()
         {
@@ -39,15 +39,14 @@ namespace ScheduleMaster
         {
             AddButton.Enabled = (
                 FirstNameBox.Text != "" &&
-                LastNameBox.Text != "" &&
-                DepartmentBox.Text != "" &&
-                IDBox.Text != ""
+                LastNameBox.Text != ""
             );
             ClearButton.Enabled = (
                 FirstNameBox.Text != "" ||
                 LastNameBox.Text != "" ||
                 DepartmentBox.Text != "" ||
-                IDBox.Text != ""
+                IDBox.Text != "" ||
+                ContactBox.Text != ""
             );
         }
 
@@ -58,29 +57,15 @@ namespace ScheduleMaster
 
         private void AddButton_Click(object sender, EventArgs e)
         {
-            DialogResult res = MessageBox.Show("Add Professor to the Database?", "", MessageBoxButtons.OKCancel);
-            if (res == DialogResult.Cancel)
-                return;
-            // try to add professor to database
-            Professor p;
-            try
-            {
-                string id = IDBox.Text.TrimStart('0');
-                if (id == "") id = "0";
-                p = new Professor(LastNameBox.Text, FirstNameBox.Text, DepartmentBox.Text, int.Parse(id));
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-                MessageBox.Show("Invalid contact number. Please only enter values from 0-9.");
-                return;
-            }
-            Professor check = Host.sb.GetProfessor(p);
+            Professor p = new Professor(LastNameBox.Text, FirstNameBox.Text, DepartmentBox.Text, IDBox.Text, ContactBox.Text);
+            Professor check = Program.db.GetProfessor(p);
             if (check == null)
             {
-                p = Host.sb.AddProfessor(p);
-                MessageBox.Show("Professor successfully added!");
-                Host.ProfessorList.DataSource = Host.sb.AllProfessors.Clone();
+                p = Program.db.AddProfessor(p);
+                Host.ProfessorList.DataSource = Program.db.AllProfessors.Clone();
+                Host.ProfessorBox2.AutoCompleteCustomSource.Add(p.Name());
+                Host.ProfessorList.SelectedItem = p;
+                Host.RenewProfessorList();
                 this.Close();
             }
             else

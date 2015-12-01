@@ -7,12 +7,12 @@
     <ProjectGuid>{54BB047D-36D7-4583-9624-35A0F610AB6E}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CE_21_Project</RootNamespace>
-    <AssemblyName>CE 21 Project</AssemblyName>
+    <RootNamespace>ScheduleMaster</RootNamespace>
+    <AssemblyName>ScheduleMaster</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>A:\ScheduleMaster\</PublishUrl>
+    <PublishUrl>E:\ScheduleMaster\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -22,11 +22,12 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>3</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <ApplicationRevision>6</ApplicationRevision>
+    <ApplicationVersion>1.1.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <BootstrapperComponentsLocation>Relative</BootstrapperComponentsLocation>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -59,9 +60,18 @@
   <PropertyGroup>
     <SignManifests>true</SignManifests>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>ScheduleMaster.Program</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup />
+  <PropertyGroup>
+    <NoWin32Manifest>true</NoWin32Manifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
     <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -73,6 +83,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AboutBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutBox.Designer.cs">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddSubjectForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddSubjectForm.Designer.cs">
+      <DependentUpon>AddSubjectForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AllDataViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AllDataViewer.Designer.cs">
+      <DependentUpon>AllDataViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EditSubjectForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditSubjectForm.Designer.cs">
+      <DependentUpon>EditSubjectForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="AddProfessorForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -99,20 +133,26 @@
     </Compile>
     <Compile Include="Methods.cs" />
     <Compile Include="Classes.cs" />
-    <Compile Include="ScheduleViewer.cs">
+    <Compile Include="ShowConflictsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ScheduleViewer.Designer.cs">
-      <DependentUpon>ScheduleViewer.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Viewer.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Viewer.Designer.cs">
-      <DependentUpon>Viewer.cs</DependentUpon>
+    <Compile Include="ShowConflictsForm.Designer.cs">
+      <DependentUpon>ShowConflictsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AboutBox.resx">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddSubjectForm.resx">
+      <DependentUpon>AddSubjectForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AllDataViewer.resx">
+      <DependentUpon>AllDataViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditSubjectForm.resx">
+      <DependentUpon>EditSubjectForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AddProfessorForm.resx">
       <DependentUpon>AddProfessorForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -133,12 +173,10 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="ScheduleViewer.resx">
-      <DependentUpon>ScheduleViewer.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Viewer.resx">
-      <DependentUpon>Viewer.cs</DependentUpon>
+    <EmbeddedResource Include="ShowConflictsForm.resx">
+      <DependentUpon>ShowConflictsForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -184,7 +222,9 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Properties\DataSources\" />
+    <Content Include="ExcelDirectoryInfo.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">
@@ -202,6 +242,14 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.SQL.Server.Compact.4.0">
+      <Visible>False</Visible>
+      <ProductName>SQL Server Compact 4.0 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\DataSources\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

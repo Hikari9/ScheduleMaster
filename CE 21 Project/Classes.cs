@@ -138,6 +138,8 @@ namespace ScheduleMaster
 
             public static Dictionary<string, int> getDayOfWeek = new Dictionary<string, int>()
         {
+            { "", 0 },
+            //{ null, 0 },
             { "Monday",     0 },
             { "Tuesday",    1 },
             { "Wednesday",  2 },
@@ -639,6 +641,7 @@ namespace ScheduleMaster
                     "First Name",
                     "Department",
                     "ID No",
+                    "Contact Info",
                     "Building",
                     "Room",
                     "Start Day",
@@ -660,7 +663,8 @@ namespace ScheduleMaster
                     GetProfessor.LastName,
                     GetProfessor.FirstName,
                     GetProfessor.Department,
-                    GetProfessor.ID.ToString(),
+                    GetProfessor.ID,
+                    GetProfessor.Contact,
                     GetRoom.Building,
                     GetRoom.RoomNumber,
                     StartTime.DayOfWeek(),
@@ -679,12 +683,13 @@ namespace ScheduleMaster
             public static string[] GetSmallHeaderArray()
             {
                 string[] headers = new string[]{
+                    "Subject",
+                    "ID",
                     "Professor",
-                    "Classroom",
-                    "Day",
                     "Start",
                     "End",
-                    "Subject"
+                    "Day",
+                    "Classroom"
                 };
                 return headers;
             }
@@ -696,12 +701,13 @@ namespace ScheduleMaster
             public string[] ToSmallArray()
             {
                 string[] data = new string[]{
+                    GetSubject.Title,
+                    GetProfessor.ID,
                     GetProfessor.Name(),
-                    GetRoom.ToString(),
-                    StartTime.DayOfWeek(),
                     StartTime.ToRawMilitaryTimeString(),
                     EndTime.ToRawMilitaryTimeString(),
-                    GetSubject.Title,
+                    StartTime.DayOfWeek(),
+                    GetRoom.ToString()                   
                 };
                 return data;
             }
@@ -926,7 +932,14 @@ namespace ScheduleMaster
             /// ID Number of the Professor.
             /// </summary>
 
-            public int ID { get; set; }
+            public string ID { get; set; }
+
+            /// <summary>
+            /// Contact Info of the Professor.
+            /// </summary>
+
+            public string Contact { get; set; }
+
 
             /// <summary>
             /// Constructs an empty Professor object.
@@ -935,7 +948,7 @@ namespace ScheduleMaster
             public Professor()
             {
                 LastName = FirstName = Department = "";
-                ID = 0;
+                ID = Contact = "";
                 schedules = new ScheduleWrapper();
             }
 
@@ -947,12 +960,13 @@ namespace ScheduleMaster
             /// <param name="Department">The department of the Professor.</param>
             /// <param name="ID">ID Number of the Professor.</param>
 
-            public Professor(string LastName, string FirstName, string Department, int ID)
+            public Professor(string LastName, string FirstName, string Department, string ID, string Contact)
             {
                 this.LastName = LastName.NormalizeWhiteSpaces();
                 this.FirstName = FirstName.NormalizeWhiteSpaces();
                 this.Department = Department.NormalizeWhiteSpaces();
                 this.ID = ID;
+                this.Contact = Contact;
                 schedules = new ScheduleWrapper();
             }
 
@@ -961,16 +975,26 @@ namespace ScheduleMaster
             /// </summary>
             /// <param name="RawName">The name of the Professor in the format: "LastName, FirstName"</param>
             /// <param name="Department">The department of the Professor.</param>
-            /// /// <param name="ContactNo">Contact Number of the Professor.</param>
+            /// <param name="ID">ID Number of the Professor.</param>
+            /// <param name="Contact">Contact Number of the Professor.</param>
 
-            public Professor(string RawName, string Department, int ID)
+            public Professor(string RawName, string Department, string ID, string Contact)
             {
                 RawName = RawName.NormalizeWhiteSpaces();
                 int comma = RawName.IndexOf(',');
-                LastName = RawName.Substring(0, comma).Trim();
-                FirstName = RawName.Substring(comma + 1).Trim();
+                if (comma == -1)
+                {
+                    LastName = RawName;
+                    FirstName = "";
+                }
+                else
+                {
+                    LastName = RawName.Substring(0, comma).Trim();
+                    FirstName = RawName.Substring(comma + 1).Trim();
+                }
                 this.Department = Department.NormalizeWhiteSpaces();
                 this.ID = ID;
+                this.Contact = Contact;
                 schedules = new ScheduleWrapper();
             }
 
@@ -980,7 +1004,16 @@ namespace ScheduleMaster
             /// Returns the name and the department of the Professor.
             /// </summary>
 
-            public override string ToString() { return Name() + " (" + Department + ")"; }
+            public override string ToString() {
+                if (Department == "") return Name();
+                return Name() + " (" + Department + ")";
+            }
+
+            /// <summary>
+            /// Returns complete information of the professor.
+            /// </summary>
+
+            public string ToCompleteString() { return ToString() + ", " + ID + ", " + Contact; }
 
             /// <summary>
             /// Returns array of information of the Professor.
@@ -989,7 +1022,7 @@ namespace ScheduleMaster
             public string[] Information()
             {
                 return new string[]{
-                    LastName, FirstName, Department, (ID).ToString()
+                    LastName, FirstName, Department, ID, Contact
                 };
             }
 
@@ -1014,19 +1047,19 @@ namespace ScheduleMaster
                             // try as string
                             string sb = y as string;
                             if (sb == null) throw new ArgumentException("Object is not an instance of Professor/String.");
-                            return sa.CompareTo(sb);
+                            return sa.ToLower().CompareTo(sb.ToLower());
                         }
-                        return sa.CompareTo(b.Name());
+                        return sa.ToLower().CompareTo(b.Name().ToLower());
                     }
                     if (b == null)
                     {
                         // try as string
                         string sb = y as string;
                         if (sb == null) throw new ArgumentException("Object is not an instance of Professor/String.");
-                        return a.Name().CompareTo(sb);
+                        return a.Name().ToLower().CompareTo(sb.ToLower());
                     }
                     // both Professors
-                    return a.Name().CompareTo(b.Name());
+                    return a.Name().ToLower().CompareTo(b.Name().ToLower());
                 }
             }
 
@@ -1038,16 +1071,23 @@ namespace ScheduleMaster
 
             public int CompareTo(object obj)
             {
-                if (obj == null) return 1;
-                Professor y = obj as Professor;
-                if (y == null)
+                try
                 {
-                    // try as string
-                    string s = obj as string;
-                    if (s == null) throw new ArgumentException("Object is not an instance of Professor");
-                    return ToString().CompareTo(s);
+                    if (obj == null) return 1;
+                    Professor y = obj as Professor;
+                    if (y == null)
+                    {
+                        // try as string
+                        string s = obj as string;
+                        if (s == null) throw new ArgumentException("Object is not an instance of Professor");
+                        return ToCompleteString().CompareTo(s);
+                    }
+                    return ToCompleteString().CompareTo(y.ToCompleteString());
                 }
-                return ToString().CompareTo(y.ToString());
+                catch
+                {
+                    return 1;
+                }
             }
 
             /// <summary>
@@ -1066,7 +1106,7 @@ namespace ScheduleMaster
 
             public override int GetHashCode()
             {
-                return ToString().GetHashCode();
+                return ToCompleteString().GetHashCode();
             }
 
         }
@@ -1154,7 +1194,11 @@ namespace ScheduleMaster
             /// Converts Room object to string. "Building RoomNumber"
             /// </summary>
 
-            public override string ToString() { return Building + " " + RoomNumber; }
+            public override string ToString() { return (Building + " " + RoomNumber).Trim(); }
+
+            /// <summary>
+            /// Compares two rooms by building.
+            /// </summary>
 
             public class CompareByBuilding : IComparer
             {
@@ -1215,9 +1259,16 @@ namespace ScheduleMaster
 
             public override bool Equals(object obj)
             {
-                if (obj == null) return false;
-                Room r = obj as Room;
-                return ToString().Equals(r.ToString());
+                try
+                {
+                    if (obj == null) return false;
+                    Room r = obj as Room;
+                    return ToString().Equals(r.ToString());
+                }
+                catch
+                {
+                    return false;
+                }
             }
 
             /// <summary>
@@ -1237,8 +1288,6 @@ namespace ScheduleMaster
 
         class ScheduleDatabase
         {
-
-            
 
             /// <summary>
             /// The list of Professors of the database.

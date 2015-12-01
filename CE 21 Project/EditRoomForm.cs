@@ -14,11 +14,12 @@ namespace ScheduleMaster
 {
     public partial class EditRoomForm : Form
     {
-        internal Viewer Host = null;
-        internal Room r = null;
+        AllDataViewer Host = Program.adv;
+        Room r;
         public EditRoomForm()
         {
             InitializeComponent();
+            r = (Room)Host.RoomList.SelectedItem;
         }
 
         private void EditRoomForm_Load(object sender, EventArgs e)
@@ -38,7 +39,7 @@ namespace ScheduleMaster
             {
                 MessageBox.Show("Unknown error: Room is missing from database!");
             }
-            Room find = Host.sb.GetRoom(BuildingBox.Text, RoomBox.Text);
+            Room find = Program.db.GetRoom(BuildingBox.Text, RoomBox.Text);
             if (find != null && find != r)
             {
                 MessageBox.Show("Error: That classroom already exists!");
@@ -51,16 +52,18 @@ namespace ScheduleMaster
                 r.Building = BuildingBox.Text.NormalizeWhiteSpaces();
                 r.RoomNumber = RoomBox.Text.NormalizeWhiteSpaces();
                 string newRoom = r.ToString();
-
-                Host.RoomList.DataSource = Host.sb.AllRooms.Clone();
-                int id = Host.MainData.Columns["Classroom"].Index;
-                foreach (DataGridViewRow row in Host.MainData.Rows)
+                foreach (DataRow row in Host.MainDataTable.Rows)
                 {
-                    if (row.Cells[id].Value.ToString() == oldRoom)
+                    if (row["Classroom"].ToString() == oldRoom)
                     {
-                        row.Cells[id].Value = newRoom;
+                        row["Classroom"] = newRoom;
                     }
                 }
+                Host.ClassroomBox2.AutoCompleteCustomSource.Remove(oldRoom);
+                Host.ClassroomBox2.AutoCompleteCustomSource.Add(newRoom);
+                Host.RenewRoomList();
+                Host.RoomList.SelectedItem = r;
+                this.Close();
             }
         }
 

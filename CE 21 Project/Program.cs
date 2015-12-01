@@ -9,24 +9,50 @@ using ScheduleMaster.Classes;
 
 namespace ScheduleMaster
 {
-    internal static class Program
+    static class Program
     {
-        internal static Viewer v = new Viewer();
-        internal static ScheduleViewer sv = new ScheduleViewer();
-        internal static ScheduleDatabase sb = new ScheduleDatabase();
+
+        public static ScheduleDatabase db = new ScheduleDatabase();
+        public static AllDataViewer adv = new AllDataViewer();
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        
         static void Main()
         {
-            sb.AssignFromDataTable(Methods.ExcelToDataTable());
+            try
+            {
+                StreamReader sr = new StreamReader("ExcelDirectoryInfo.txt");
+                string dir = sr.ReadLine();
+                string name = sr.ReadLine();
+                sr.Close();
+                if (dir == null || name == null || dir == "" || name == "")
+                {
+                    SaveFileDialog d = Methods.ExcelSaveFileDialog();
+                    var res = d.ShowDialog();
+                    if (res != DialogResult.OK) return;
+                    string[] s = d.GetDirectoryAndFileName();
+                    dir = s[0];
+                    name = s[1];
+                    if (File.Exists(dir + "\\" + name)) File.Delete(dir + "\\" + name);
+                    StreamWriter sw = new StreamWriter("ExcelDirectoryInfo.txt");
+                    sw.WriteLine(s[0]);
+                    sw.WriteLine(s[1]);
+                    sw.Close();
+                }
+                Methods.DefaultExcelFileDirectory = dir;
+                Methods.DefaultExcelFileName = name;
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show("An error occured. Application will close.\n" + e.ToString());
+                return;
+            }
+            db.AssignFromDataTable(Methods.ExcelToDataTable());
             Application.EnableVisualStyles();
-            // Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new Viewer());
-            Application.Run(v);
-            sv.Hide();
+            Application.Run(adv);
+            adv.Focus();
         }
     }
 }

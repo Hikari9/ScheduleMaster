@@ -14,7 +14,7 @@ namespace ScheduleMaster
     public partial class AddRoomForm : Form
     {
 
-        internal Viewer Host;
+        AllDataViewer Host = Program.adv;
 
         public AddRoomForm()
         {
@@ -28,16 +28,21 @@ namespace ScheduleMaster
                 MessageBox.Show("Classroom name must not be empty");
                 return;
             }
-            Room r = Host.sb.GetRoom(Classroom.Text);
+            Room r = Program.db.GetRoom(Classroom.Text);
             if (r != null)
             {
                 MessageBox.Show("Error: Classroom already exists!");
                 return;
             }
             //MessageBox.Show("Success!");
-            Host.sb.AddRoom(new Room(Classroom.Text));
-            Host.RoomList.DataSource = Host.sb.AllRooms.Clone();
+            Program.db.AddRoom(new Room(Classroom.Text));
+            Host.RoomList.DataSource = Program.db.AllRooms.Clone();
             this.Close();
+        }
+
+        private void AddRoomForm_Load(object sender, EventArgs e)
+        {
+            Host.ClassroomBox.Text = "";
         }
     }
 }

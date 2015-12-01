@@ -39,6 +39,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.ClearButton = new System.Windows.Forms.Button();
+            this.ContactBox = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label6
@@ -54,10 +56,10 @@
             // AddButton
             // 
             this.AddButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.AddButton.Location = new System.Drawing.Point(53, 216);
+            this.AddButton.Location = new System.Drawing.Point(53, 274);
             this.AddButton.Name = "AddButton";
             this.AddButton.Size = new System.Drawing.Size(362, 41);
-            this.AddButton.TabIndex = 24;
+            this.AddButton.TabIndex = 5;
             this.AddButton.Text = "Save Changes";
             this.AddButton.UseVisualStyleBackColor = true;
             this.AddButton.Click += new System.EventHandler(this.AddButton_Click);
@@ -68,7 +70,7 @@
             this.IDBox.Location = new System.Drawing.Point(169, 171);
             this.IDBox.Name = "IDBox";
             this.IDBox.Size = new System.Drawing.Size(246, 22);
-            this.IDBox.TabIndex = 22;
+            this.IDBox.TabIndex = 3;
             this.IDBox.TextChanged += new System.EventHandler(this.UpdateButtons);
             // 
             // DepartmentBox
@@ -77,27 +79,25 @@
             this.DepartmentBox.Location = new System.Drawing.Point(169, 145);
             this.DepartmentBox.Name = "DepartmentBox";
             this.DepartmentBox.Size = new System.Drawing.Size(246, 22);
-            this.DepartmentBox.TabIndex = 21;
+            this.DepartmentBox.TabIndex = 2;
             this.DepartmentBox.TextChanged += new System.EventHandler(this.UpdateButtons);
             // 
             // LastNameBox
             // 
-            this.LastNameBox.Enabled = false;
             this.LastNameBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LastNameBox.Location = new System.Drawing.Point(169, 118);
             this.LastNameBox.Name = "LastNameBox";
             this.LastNameBox.Size = new System.Drawing.Size(246, 22);
-            this.LastNameBox.TabIndex = 20;
+            this.LastNameBox.TabIndex = 1;
             this.LastNameBox.TextChanged += new System.EventHandler(this.UpdateButtons);
             // 
             // FirstNameBox
             // 
-            this.FirstNameBox.Enabled = false;
             this.FirstNameBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FirstNameBox.Location = new System.Drawing.Point(169, 92);
             this.FirstNameBox.Name = "FirstNameBox";
             this.FirstNameBox.Size = new System.Drawing.Size(246, 22);
-            this.FirstNameBox.TabIndex = 19;
+            this.FirstNameBox.TabIndex = 0;
             this.FirstNameBox.TextChanged += new System.EventHandler(this.UpdateButtons);
             // 
             // label4
@@ -107,7 +107,7 @@
             this.label4.Location = new System.Drawing.Point(50, 174);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(72, 16);
-            this.label4.TabIndex = 17;
+            this.label4.TabIndex = 999;
             this.label4.Text = "ID Number";
             // 
             // label3
@@ -117,7 +117,7 @@
             this.label3.Location = new System.Drawing.Point(50, 148);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(78, 16);
-            this.label3.TabIndex = 16;
+            this.label3.TabIndex = 999;
             this.label3.Text = "Department";
             // 
             // label2
@@ -127,7 +127,7 @@
             this.label2.Location = new System.Drawing.Point(50, 121);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(73, 16);
-            this.label2.TabIndex = 15;
+            this.label2.TabIndex = 999;
             this.label2.Text = "Last Name";
             // 
             // label1
@@ -137,27 +137,47 @@
             this.label1.Location = new System.Drawing.Point(50, 95);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(73, 16);
-            this.label1.TabIndex = 14;
+            this.label1.TabIndex = 999;
             this.label1.Text = "First Name";
             // 
             // ClearButton
             // 
             this.ClearButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.ClearButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.ClearButton.Location = new System.Drawing.Point(53, 263);
+            this.ClearButton.Location = new System.Drawing.Point(53, 321);
             this.ClearButton.Name = "ClearButton";
             this.ClearButton.Size = new System.Drawing.Size(362, 41);
-            this.ClearButton.TabIndex = 13;
+            this.ClearButton.TabIndex = 6;
             this.ClearButton.Text = "Reset";
             this.ClearButton.UseVisualStyleBackColor = true;
             this.ClearButton.Click += new System.EventHandler(this.ClearButton_Click);
+            // 
+            // ContactBox
+            // 
+            this.ContactBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ContactBox.Location = new System.Drawing.Point(169, 199);
+            this.ContactBox.Name = "ContactBox";
+            this.ContactBox.Size = new System.Drawing.Size(246, 22);
+            this.ContactBox.TabIndex = 4;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(50, 202);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(77, 16);
+            this.label5.TabIndex = 999;
+            this.label5.Text = "Contact Info";
             // 
             // EditProfessorForm
             // 
             this.AcceptButton = this.AddButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(465, 339);
+            this.ClientSize = new System.Drawing.Size(465, 390);
+            this.Controls.Add(this.ContactBox);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.AddButton);
             this.Controls.Add(this.IDBox);
@@ -190,6 +210,8 @@
         protected internal System.Windows.Forms.Label label2;
         protected internal System.Windows.Forms.Label label1;
         internal System.Windows.Forms.Button ClearButton;
+        protected internal System.Windows.Forms.TextBox ContactBox;
+        protected internal System.Windows.Forms.Label label5;
 
     }
 }
