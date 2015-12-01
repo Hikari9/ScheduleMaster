@@ -28,224 +28,26 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.TestButton = new System.Windows.Forms.Button();
-            this.first = new System.Windows.Forms.TextBox();
-            this.log = new System.Windows.Forms.RichTextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.last = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.day = new System.Windows.Forms.ComboBox();
-            this.from = new System.Windows.Forms.TextBox();
-            this.to = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.department = new System.Windows.Forms.TextBox();
-            this.lab = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.classroom = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.label7 = new System.Windows.Forms.Label();
-            this.subj = new System.Windows.Forms.TextBox();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Inserter));
             this.SuspendLayout();
-            // 
-            // TestButton
-            // 
-            this.TestButton.Location = new System.Drawing.Point(38, 382);
-            this.TestButton.Name = "TestButton";
-            this.TestButton.Size = new System.Drawing.Size(151, 63);
-            this.TestButton.TabIndex = 0;
-            this.TestButton.Text = "Test";
-            this.TestButton.UseVisualStyleBackColor = true;
-            this.TestButton.Click += new System.EventHandler(this.TestButton_Click);
-            // 
-            // first
-            // 
-            this.first.Location = new System.Drawing.Point(117, 290);
-            this.first.Name = "first";
-            this.first.Size = new System.Drawing.Size(187, 20);
-            this.first.TabIndex = 1;
-            this.first.Text = "Bryan";
-            // 
-            // log
-            // 
-            this.log.Location = new System.Drawing.Point(38, 31);
-            this.log.Name = "log";
-            this.log.Size = new System.Drawing.Size(463, 220);
-            this.log.TabIndex = 2;
-            this.log.Text = "";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(35, 290);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(55, 13);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "First name";
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(35, 319);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(56, 13);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "Last name";
+            this.label2.Location = new System.Drawing.Point(231, 261);
             // 
-            // last
+            // ProfessorList
             // 
-            this.last.Location = new System.Drawing.Point(117, 316);
-            this.last.Name = "last";
-            this.last.Size = new System.Drawing.Size(187, 20);
-            this.last.TabIndex = 5;
-            this.last.Text = "Lao";
+            this.ProfessorList.DataSource = ((object)(resources.GetObject("ProfessorList.DataSource")));
             // 
-            // label3
+            // RoomList
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(349, 273);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(26, 13);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "Day";
-            // 
-            // day
-            // 
-            this.day.FormattingEnabled = true;
-            this.day.Items.AddRange(new object[] {
-            "Monday",
-            "Tuesday",
-            "Wednesday",
-            "Thursday",
-            "Friday",
-            "Saturday",
-            "Sunday"});
-            this.day.Location = new System.Drawing.Point(352, 299);
-            this.day.Name = "day";
-            this.day.Size = new System.Drawing.Size(121, 21);
-            this.day.TabIndex = 7;
-            this.day.Text = "Monday";
-            // 
-            // from
-            // 
-            this.from.Location = new System.Drawing.Point(352, 367);
-            this.from.Name = "from";
-            this.from.Size = new System.Drawing.Size(58, 20);
-            this.from.TabIndex = 8;
-            this.from.Text = "12:30";
-            // 
-            // to
-            // 
-            this.to.Location = new System.Drawing.Point(438, 367);
-            this.to.Name = "to";
-            this.to.Size = new System.Drawing.Size(58, 20);
-            this.to.TabIndex = 11;
-            this.to.Text = "13:30";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(416, 370);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(16, 13);
-            this.label5.TabIndex = 12;
-            this.label5.Text = "to";
-            // 
-            // department
-            // 
-            this.department.Location = new System.Drawing.Point(117, 342);
-            this.department.Name = "department";
-            this.department.Size = new System.Drawing.Size(187, 20);
-            this.department.TabIndex = 14;
-            this.department.Text = "ECCE";
-            // 
-            // lab
-            // 
-            this.lab.AutoSize = true;
-            this.lab.Location = new System.Drawing.Point(35, 345);
-            this.lab.Name = "lab";
-            this.lab.Size = new System.Drawing.Size(62, 13);
-            this.lab.TabIndex = 13;
-            this.lab.Text = "Department";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(349, 342);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(30, 13);
-            this.label4.TabIndex = 15;
-            this.label4.Text = "Time";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(219, 407);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(55, 13);
-            this.label6.TabIndex = 16;
-            this.label6.Text = "Classroom";
-            // 
-            // classroom
-            // 
-            this.classroom.Location = new System.Drawing.Point(281, 404);
-            this.classroom.Name = "classroom";
-            this.classroom.Size = new System.Drawing.Size(121, 20);
-            this.classroom.TabIndex = 17;
-            this.classroom.Text = "CTC 219";
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(281, 450);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 18;
-            this.button1.Text = "Save";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(35, 264);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(43, 13);
-            this.label7.TabIndex = 19;
-            this.label7.Text = "Subject";
-            // 
-            // subj
-            // 
-            this.subj.Location = new System.Drawing.Point(117, 261);
-            this.subj.Name = "subj";
-            this.subj.Size = new System.Drawing.Size(187, 20);
-            this.subj.TabIndex = 20;
-            this.subj.Text = "CE 21: Introduction to Computing";
+            this.RoomList.DataSource = ((object)(resources.GetObject("RoomList.DataSource")));
             // 
             // Inserter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(547, 516);
-            this.Controls.Add(this.subj);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.classroom);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.department);
-            this.Controls.Add(this.lab);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.to);
-            this.Controls.Add(this.from);
-            this.Controls.Add(this.day);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.last);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.log);
-            this.Controls.Add(this.first);
-            this.Controls.Add(this.TestButton);
+            this.ClientSize = new System.Drawing.Size(1001, 526);
             this.Name = "Inserter";
             this.Text = "Inserter";
             this.ResumeLayout(false);
@@ -254,26 +56,5 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button TestButton;
-        private System.Windows.Forms.TextBox first;
-        private System.Windows.Forms.RichTextBox log;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox last;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox day;
-        private System.Windows.Forms.TextBox from;
-        private System.Windows.Forms.TextBox to;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox department;
-        private System.Windows.Forms.Label lab;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox classroom;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox subj;
     }
 }
-

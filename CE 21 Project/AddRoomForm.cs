@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using CE_21_Project.Classes;
+using ScheduleMaster.Classes;
 
-namespace CE_21_Project
+namespace ScheduleMaster
 {
     public partial class AddRoomForm : Form
     {

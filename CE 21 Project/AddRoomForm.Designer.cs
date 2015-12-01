@@ -1,4 +1,4 @@
-﻿namespace CE_21_Project
+﻿namespace ScheduleMaster
 {
     partial class AddRoomForm
     {

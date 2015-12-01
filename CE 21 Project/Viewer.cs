@@ -8,9 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using CE_21_Project.Classes;
+using ScheduleMaster.Classes;
 
-namespace CE_21_Project
+namespace ScheduleMaster
 {
     internal partial class Viewer : Form
     {
@@ -19,28 +19,25 @@ namespace CE_21_Project
 
         internal Viewer()
         {
-            sb = new ScheduleDatabase();
             InitializeComponent();
         }
 
         internal void Viewer_Load(object sender, EventArgs e)
         {
-            DontUpdateLabels = true;
-            DataTable dt = Methods.ExcelToDataTable();
-            sb.AssignFromDataTable(dt);
-            string[][] arr = sb.ToSmallArray();
-            StringBuilder s = new StringBuilder();
-            foreach (var row in arr)
+            sb = new ScheduleDatabase();
+            if ((Form)sender == this)
             {
-                s.Append(String.Join("; ", row)).Append("\n");
+                DontUpdateLabels = true;
+                DataTable dt = Methods.ExcelToDataTable();
+                sb.AssignFromDataTable(dt);
+                dt = sb.ToSmallArray().ToDataTable(Schedule.GetSmallHeaderArray());
+                MainData.DataSource = dt;
+                ProfessorList.DataSource = sb.AllProfessors.Clone();
+                RoomList.DataSource = sb.AllRooms.Clone();
+                DontUpdateLabels = false;
+                FilterSelections();
+                Locked.Checked = false;
             }
-            dt = sb.ToSmallArray().ToDataTable(Schedule.GetSmallHeaderArray());
-            MainData.DataSource = dt;
-            ProfessorList.DataSource = sb.AllProfessors.Clone();
-            RoomList.DataSource = sb.AllRooms.Clone();
-            DontUpdateLabels = false;
-            FilterSelections();
-            Locked.Checked = false;
         }
 
         internal int RawTime1, RawTime2;
@@ -72,6 +69,12 @@ namespace CE_21_Project
 
         internal bool ChangingTimeInputs = false;
 
+
+        internal bool FilterOK(CheckBox cb)
+        {
+            return cb.Enabled && cb.Visible && cb.Checked;
+        }
+
         internal void EndTimeChanged(object sender, EventArgs e)
         {
             if (!ValidTimeInputs())
@@ -79,9 +82,8 @@ namespace CE_21_Project
                 RawTime1 = Math.Max(0, RawTime2 - 30);
                 UpdateTimeInputs(RawTime1, StartHour, StartMinute, StartMeridian);
             }
-            if (EndFilter.Enabled && EndFilter.Checked)
-                FilterSelections();
         }
+
 
         internal void StartTimeChanged(object sender, EventArgs e)
         {
@@ -90,8 +92,6 @@ namespace CE_21_Project
                 RawTime2 = Math.Min(RawTime1 + 30, 1440);
                 UpdateTimeInputs(RawTime2, EndHour, EndMinute, EndMeridian);
             }
-            if (StartFilter.Enabled && StartFilter.Checked)
-                FilterSelections();
         }
 
         internal void UpdateDayRadioButtons(object sender, ItemCheckEventArgs e)
@@ -104,18 +104,18 @@ namespace CE_21_Project
             UpdateDayRadioButtons();
         }
 
-        private void UpdateDayRadioButtons(object sender, MouseEventArgs e)
+        internal void UpdateDayRadioButtons(object sender, MouseEventArgs e)
         {
             UpdateDayRadioButtons();
         }
 
-        private void DayChecklist_SelectedIndexChanged(object sender, EventArgs e)
+        internal void DayChecklist_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateDayRadioButtons();
         }
 
 
-        internal void ClearRadio()
+        internal void ClearRadio(object sender = null, EventArgs e = null)
         {
             for (int i = 0; i < DayChecklist.Items.Count; ++i)
                 DayChecklist.SetItemChecked(i, false);
@@ -126,31 +126,62 @@ namespace CE_21_Project
 
         internal void WeekdaysRadioButton_CheckedChanged(object sender, EventArgs e)
         {
+            bool same = (DayChecklist.CheckedItems.Count == 5);
+            for (int i = 0; same && i < 3; ++i)
+            {
+                same &= DayChecklist.GetItemChecked(i);
+            }
             ClearRadio();
+            if (same)
+            {
+                ((RadioButton)sender).Checked = false;
+                return;
+            }
             for (int i = 0; i < 5; ++i)
                 DayChecklist.SetItemChecked(i, true);
             WeekdaysRadio.Checked = true;
-            if( DayFilter.Enabled && DayFilter.Checked )
+            if (FilterOK(DayFilter))
             FilterSelections();
         }
 
         internal void MWFRadio_CheckedChanged(object sender, EventArgs e)
         {
+            bool same = ( DayChecklist.CheckedItems.Count==3 );
+            for (int i = 0; same && i < 3; ++i)
+            {
+                same &= DayChecklist.GetItemChecked(i << 1);
+            }
             ClearRadio();
+            if (same)
+            {
+                ((RadioButton)sender).Checked = false;
+                return;
+            }
+            
             for (int i = 0; i < 3; ++i)
                 DayChecklist.SetItemChecked(i << 1, true);
             MWFRadio.Checked = true;
-            if (DayFilter.Enabled && DayFilter.Checked)
+            if (FilterOK(DayFilter))
             FilterSelections();
         }
 
         internal void TThRadio_CheckedChanged(object sender, EventArgs e)
         {
+            bool same = (DayChecklist.CheckedItems.Count == 2);
+            for (int i = 0; same && i < 2; ++i)
+            {
+                same &= DayChecklist.GetItemChecked((i << 1) + 1);
+            }
             ClearRadio();
+            if (same)
+            {
+                ((RadioButton)sender).Checked = false;
+                return;
+            }
             for (int i = 0; i < 2; ++i)
                 DayChecklist.SetItemChecked((i << 1) + 1, true);
             TThRadio.Checked = true;
-            if( DayFilter.Enabled && DayFilter.Checked )
+            if (FilterOK(DayFilter))
             FilterSelections();
         }
 
@@ -191,13 +222,13 @@ namespace CE_21_Project
 
         internal void ProfessorList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ProfFilter.Enabled && ProfFilter.Checked)
+            if (FilterOK(ProfFilter))
             FilterSelections();
         }
 
         internal void RoomList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (RoomFilter.Enabled && RoomFilter.Checked)
+            if (FilterOK(RoomFilter))
             FilterSelections();
         }
 
@@ -222,23 +253,6 @@ namespace CE_21_Project
             {
                 filters.Add(SubjectTitle.Text);
                 indices.Add(6);
-            }
-            
-            if (StartFilter.Checked)
-            {
-                int h = int.Parse(StartHour.Text);
-                if( h==12 ) h = 0;
-                if (StartMeridian.Text == "PM") h += 12;
-                filters.Add(h.ToString("D2") + StartMinute.Text);
-                indices.Add(4);
-            }
-            if (EndFilter.Checked)
-            {
-                int h = int.Parse(EndHour.Text);
-                if (h == 12) h = 0;
-                if (EndMeridian.Text == "PM") h += 12;
-                filters.Add(h.ToString("D2") + EndMinute.Text);
-                indices.Add(5);
             }
             if (FilterAll.Checked)
             {
@@ -298,8 +312,6 @@ namespace CE_21_Project
         {
             ProfFilter.Enabled = Filter.Checked;
             RoomFilter.Enabled = Filter.Checked;
-            StartFilter.Enabled = Filter.Checked;
-            EndFilter.Enabled = Filter.Checked;
             DayFilter.Enabled = Filter.Checked;
             SubjectFilter.Enabled = Filter.Checked;
             FilterAll.Enabled = Filter.Checked;
@@ -312,12 +324,10 @@ namespace CE_21_Project
             FilterSelections();
         }
 
-        private void SelectAll_CheckedChanged(object sender, EventArgs e)
+        internal void SelectAll_CheckedChanged(object sender, EventArgs e)
         {
             ProfFilter.Checked = FilterSelectAll.Checked;
             RoomFilter.Checked = FilterSelectAll.Checked;
-            StartFilter.Checked = FilterSelectAll.Checked;
-            EndFilter.Checked = FilterSelectAll.Checked;
             DayFilter.Checked = FilterSelectAll.Checked;
             SubjectFilter.Checked = FilterSelectAll.Checked;
             FilterAll.Checked = FilterSelectAll.Checked;
@@ -327,7 +337,7 @@ namespace CE_21_Project
 
         internal void SubjectTitle_KeyUp(object sender, KeyEventArgs e)
         {
-            if (SubjectFilter.Enabled && SubjectFilter.Checked)
+            if (FilterOK(SubjectFilter))
                 FilterSelections();
         }
 
@@ -338,21 +348,21 @@ namespace CE_21_Project
             adder.Show();
         }
 
-        private void AddRoomButton_Click(object sender, EventArgs e)
+        internal void AddRoomButton_Click(object sender, EventArgs e)
         {
             AddRoomForm adder = new AddRoomForm();
             adder.Host = this;
             adder.Show();
         }
 
-        private void EditProfessor_Click(object sender, EventArgs e)
+        internal void EditProfessor_Click(object sender, EventArgs e)
         {
             EditProfessorForm editor = new EditProfessorForm();
             editor.Host = this;
             editor.Show();
         }
 
-        private void DeleteProfessor_Click(object sender, EventArgs e)
+        internal void DeleteProfessor_Click(object sender, EventArgs e)
         {
             Professor prof = (Professor)ProfessorList.SelectedItem;
             if (prof == null) return;
@@ -376,7 +386,7 @@ namespace CE_21_Project
             }
         }
 
-        private void DeleteRoom_Click(object sender, EventArgs e)
+        internal void DeleteRoom_Click(object sender, EventArgs e)
         {
             Room room = (Room) RoomList.SelectedItem;
             if (room == null) return;
@@ -400,7 +410,7 @@ namespace CE_21_Project
             }
         }
 
-        private void Locked_CheckedChanged(object sender, EventArgs e)
+        internal void Locked_CheckedChanged(object sender, EventArgs e)
         {
             InsertButton.Enabled = !Locked.Checked;
             ProfessorList.Enabled = !Locked.Checked;
@@ -419,48 +429,44 @@ namespace CE_21_Project
             DeleteButton.Enabled = Locked.Checked;
         }
 
-        private bool SaveToExcel()
+        
+
+        internal void SaveButton_Click(object sender, EventArgs e)
         {
-            try
-            {
-                sb.ToArray().ToDataTable(Schedule.GetHeaderArray()).ExportToExcel();
-                SaveButton.Enabled = false;
-                saveToolStripMenuItem.Enabled = false;
-                return true;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("An Error occured:\n" + ex.ToString());
-                return false;
-            }
+            sb.SaveToExcel();
+            SaveButton.Enabled = false;
+            saveToolStripMenuItem.Enabled = false;
         }
 
-        private void SaveButton_Click(object sender, EventArgs e)
+        internal void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SaveToExcel();
+            sb.SaveToExcel();
+            SaveButton.Enabled = false;
+            saveToolStripMenuItem.Enabled = false;
         }
 
-        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SaveToExcel();
-        }
-
-        private void EnableSave()
+        internal void EnableSave()
         {
             SaveButton.Enabled = true;
             saveToolStripMenuItem.Enabled = true;
         }
 
-        private void EnableSave(object sender, EventArgs e)
+        internal void EnableSave(object sender, EventArgs e)
         {
             EnableSave();
         }
 
-        private void InsertButton_Click(object sender, EventArgs e)
+        internal void InsertButton_Click(object sender, EventArgs e)
         {
+            if (DayChecklist.CheckedItems.Count == 0)
+            {
+                MessageBox.Show("Choose a day");
+                return;
+            }
+            DialogResult res;
             if (SubjectTitle.Text.Trim() == "" && DayChecklist.CheckedItems.Count != 0)
             {
-                DialogResult res = MessageBox.Show("Continue with empty subject title?", "", MessageBoxButtons.YesNo);
+                res = MessageBox.Show("Continue with empty subject title?", "", MessageBoxButtons.YesNo);
                 if (res == DialogResult.No)
                 {
                     return;
@@ -470,25 +476,43 @@ namespace CE_21_Project
             Room r = (Room)RoomList.SelectedItem;
             Subject s = new Subject(SubjectTitle.Text, p, r);
             ValidTimeInputs();
+            ArrayList toInsert = new ArrayList();
+            StringBuilder notif = new StringBuilder();
+            int count = 0;
             foreach (string day in DayChecklist.CheckedItems)
             {
-                
                 Time start = new Time(day, RawTime1/60, RawTime1%60);
                 Time end = new Time(day, RawTime2/60, RawTime2%60);
                 Schedule sched = new Schedule(s, start, end);
-                if (sb.InsertSchedule(sched))
-                {
-                    //MessageBox.Show("New Schedule successfully inserted:\n\n" + sched.ToString());
-                }
-                else
-                {
-                    MessageBox.Show("Error: Conflicting Schedule with:\n\n" + sb.GetConflict(sched));
-                }
+                toInsert.Add(sched);
+                notif.AppendLine((++count).ToString() + ":\n" + sched.ToString());
             }
-            MainData.DataSource = sb.ToSmallArray().ToDataTable(Schedule.GetSmallHeaderArray());
+            res = MessageBox.Show("You are about to insert these schedules:\n\n" + notif.ToString(), "Insert Schedule/s", MessageBoxButtons.OKCancel);
+            if (res == DialogResult.OK)
+            {
+                notif.Clear();
+                StringBuilder conflicts = new StringBuilder();
+                count = 0;
+                int count2 = 0;
+                foreach( Schedule sched in toInsert ){
+                    if (sb.InsertSchedule(sched))
+                    {
+                        notif.AppendLine((++count).ToString() + ":\n" + sched.ToString());
+                    }
+                    else
+                    {
+                        conflicts.AppendLine((++count2).ToString() + ":\n" + sched.ToString() + "\n(CONFLICTED WITH)\n" + sb.GetConflict(sched).ToString());
+                    }
+                }
+                if( notif.Length==0 ) notif.AppendLine("NONE");
+                if( conflicts.Length==0 ) conflicts.AppendLine("NONE");
+                MessageBox.Show("SUCCESSFUL:\n\n" + notif.ToString() + "\n\nUNSUCCESSFUL:\n\n" + conflicts.ToString());
+                MainData.DataSource = sb.ToSmallArray().ToDataTable(Schedule.GetSmallHeaderArray());
+            }
+            
         }
 
-        private void DeleteButton_Click(object sender, EventArgs e)
+        internal void DeleteButton_Click(object sender, EventArgs e)
         {
             DontUpdateLabels = true;
             DialogResult res = MessageBox.Show("Are you sure you want to delete selected Schedule/s?", "", MessageBoxButtons.YesNo);
@@ -516,24 +540,30 @@ namespace CE_21_Project
             DontUpdateLabels = false;
         }
 
-        private void Viewer_FormClosing(object sender, FormClosingEventArgs e)
+        internal void Viewer_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (SaveButton.Enabled)
             {
                 DialogResult res = MessageBox.Show("Save File first before closing?", "Save File", MessageBoxButtons.YesNoCancel);
-                if (res != DialogResult.No)
+                if (res == DialogResult.Cancel)
                 {
                     e.Cancel = true;
+                }
+                else if (res == DialogResult.Yes)
+                {
+                    sb.SaveToExcel();
+                    SaveButton.Enabled = false;
+                    saveToolStripMenuItem.Enabled = false;
                 }
             }
         }
 
-        private void UpdateDayRadioButton(object sender, MouseEventArgs e)
+        internal void UpdateDayRadioButton(object sender, MouseEventArgs e)
         {
             UpdateDayRadioButtons();
         }
 
-        private void UpdateDayRadioButtons()
+        internal void UpdateDayRadioButtons()
         {
             var ind = DayChecklist.CheckedIndices;
             if (ind.Count == 5 && ind.Contains(0) && ind.Contains(1) && ind.Contains(2) && ind.Contains(3) && ind.Contains(4))
@@ -560,11 +590,11 @@ namespace CE_21_Project
                 MWFRadio.Checked = false;
                 TThRadio.Checked = false;
             }
-            if (DayFilter.Enabled && DayFilter.Checked)
+            if (FilterOK(DayFilter))
                 FilterSelections();
         }
 
-        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
+        internal void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SaveFileDialog d = new SaveFileDialog
             {
@@ -586,7 +616,7 @@ namespace CE_21_Project
             }
         }
 
-        private void openToolStripMenuItem1_Click(object sender, EventArgs e)
+        internal void openToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             OpenFileDialog d = new OpenFileDialog
             {
@@ -609,9 +639,68 @@ namespace CE_21_Project
             }
         }
 
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        internal void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        internal void EditRoom_Click(object sender, EventArgs e)
+        {
+            EditRoomForm x = new EditRoomForm();
+            x.r = (Room)RoomList.SelectedItem;
+            x.Host = this;
+            x.Show();
+        }
+
+        internal void unavailableToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        internal void filterToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            filterToolStripMenuItem.Checked = !filterToolStripMenuItem.Checked;
+        }
+
+        internal void filterToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
+        {
+            bool c = filterToolStripMenuItem.Checked;
+            Filter.Visible = c;
+            DayFilter.Visible = c;
+            FilterPanel.Visible = c;
+            ProfFilter.Visible = c;
+            RoomFilter.Visible = c;
+            SubjectFilter.Visible = c;
+        }
+
+        internal void MainData_DataSourceChanged(object sender, EventArgs e)
+        {
+            SubjectTitle.AutoCompleteCustomSource.Clear();
+            int col = MainData.Columns["Subject"].Index;
+            foreach (DataGridViewRow row in MainData.Rows)
+            {
+                SubjectTitle.AutoCompleteCustomSource.Add(row.Cells[col].Value.ToString());
+            }
+        }
+
+        private void professorScheduleViewerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ScheduleViewer sv = new ScheduleViewer();
+            sv.sb = sb;
+            sv.Show();
+            string name = ((Professor)(ProfessorList.SelectedItem)).ToString().ToUpper();
+            foreach( TabPage tab in sv.TabControl.TabPages ){
+                if (tab.ToString().ToUpper() == name)
+                {
+                    sv.TabControl.SelectedTab = tab;
+                    sv.SelectProfessor();
+                }
+            }
+        }
+
+        private void Viewer_Enter(object sender, EventArgs e)
+        {
+            ProfessorList.DataSource = sb.AllProfessors.Clone();
         }
 
        

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Windows.Forms;
 
-namespace CE_21_Project
+namespace ScheduleMaster
 {
     namespace Classes
     {
@@ -88,7 +88,7 @@ namespace CE_21_Project
             /// <param name="day">integer value of day [ 0 = "Monday" ]</param>
 
             public static string DayOfWeek(int day) { return DayOfWeekArray[day % DayOfWeekArray.Length]; } /// dayOfWeek(static) for global use
-            /// 
+            
             /// <summary>
             /// Array that stores the string value of the day of the week.
             /// </summary>
@@ -361,7 +361,7 @@ namespace CE_21_Project
 
             public Subject(string title, Professor professor, Room room)
             {
-                this.title = ScheduleDatabase.NormalizeWhiteSpaces(title);
+                this.title = title.NormalizeWhiteSpaces();
                 this.professor = professor;
                 this.room = room;
                 schedule = null;
@@ -566,7 +566,7 @@ namespace CE_21_Project
 
             public override string ToString()
             {
-                return GetSubject.ToString() + "\n" + StartTime.ToString() + " to " + EndTime.ToString() + "\n";
+                return GetSubject.ToString() + StartTime.ToString() + " to " + EndTime.ToString() + "\n";
             }
 
             /// <summary>
@@ -638,8 +638,7 @@ namespace CE_21_Project
                     "Last Name",
                     "First Name",
                     "Department",
-                    "Contact No",
-                    "Address",
+                    "ID No",
                     "Building",
                     "Room",
                     "Start Day",
@@ -661,8 +660,7 @@ namespace CE_21_Project
                     GetProfessor.LastName,
                     GetProfessor.FirstName,
                     GetProfessor.Department,
-                    GetProfessor.ContactNo.ToString(),
-                    GetProfessor.Address,
+                    GetProfessor.ID.ToString(),
                     GetRoom.Building,
                     GetRoom.RoomNumber,
                     StartTime.DayOfWeek(),
@@ -925,22 +923,21 @@ namespace CE_21_Project
             }
 
             /// <summary>
-            /// Contact Number of the Professor.
+            /// ID Number of the Professor.
             /// </summary>
 
-            public int ContactNo { get; set; }
-
-            /// <summary>
-            /// Address of the Professor.
-            /// </summary>
-
-            public string Address { get; set; }
+            public int ID { get; set; }
 
             /// <summary>
             /// Constructs an empty Professor object.
             /// </summary>
 
-            public Professor() { Department = "None"; schedules = new ScheduleWrapper(); }
+            public Professor()
+            {
+                LastName = FirstName = Department = "";
+                ID = 0;
+                schedules = new ScheduleWrapper();
+            }
 
             /// <summary>
             /// Constructs a new Professor object.
@@ -948,16 +945,14 @@ namespace CE_21_Project
             /// <param name="LastName">Surname of the Professor.</param>
             /// <param name="FirstName">First name of the Professor.</param>
             /// <param name="Department">The department of the Professor.</param>
-            /// <param name="ContactNo">Contact Number of the Professor.</param>
-            /// <param name="Address">Address of the Professor.</param>
+            /// <param name="ID">ID Number of the Professor.</param>
 
-            public Professor(string LastName, string FirstName, string Department, int ContactNo = -1, string Address = "")
+            public Professor(string LastName, string FirstName, string Department, int ID)
             {
-                this.LastName = ScheduleDatabase.NormalizeWhiteSpaces(LastName);
-                this.FirstName = ScheduleDatabase.NormalizeWhiteSpaces(FirstName);
-                this.Department = ScheduleDatabase.NormalizeWhiteSpaces(Department);
-                this.ContactNo = ContactNo;
-                this.Address = Address;
+                this.LastName = LastName.NormalizeWhiteSpaces();
+                this.FirstName = FirstName.NormalizeWhiteSpaces();
+                this.Department = Department.NormalizeWhiteSpaces();
+                this.ID = ID;
                 schedules = new ScheduleWrapper();
             }
 
@@ -967,15 +962,15 @@ namespace CE_21_Project
             /// <param name="RawName">The name of the Professor in the format: "LastName, FirstName"</param>
             /// <param name="Department">The department of the Professor.</param>
             /// /// <param name="ContactNo">Contact Number of the Professor.</param>
-            /// <param name="Address">Address of the Professor.</param>
 
-            public Professor(string RawName, string Department, int ContactNo = -1, string Address = "")
+            public Professor(string RawName, string Department, int ID)
             {
-                RawName = ScheduleDatabase.NormalizeWhiteSpaces(RawName);
+                RawName = RawName.NormalizeWhiteSpaces();
                 int comma = RawName.IndexOf(',');
                 LastName = RawName.Substring(0, comma).Trim();
                 FirstName = RawName.Substring(comma + 1).Trim();
-                this.Department = ScheduleDatabase.NormalizeWhiteSpaces(Department);
+                this.Department = Department.NormalizeWhiteSpaces();
+                this.ID = ID;
                 schedules = new ScheduleWrapper();
             }
 
@@ -993,8 +988,8 @@ namespace CE_21_Project
 
             public string[] Information()
             {
-                return new string[5]{
-                    LastName, FirstName, Department, (ContactNo).ToString("D11"), Address
+                return new string[]{
+                    LastName, FirstName, Department, (ID).ToString()
                 };
             }
 
@@ -1125,7 +1120,7 @@ namespace CE_21_Project
 
             public Room(string name)
             {
-                name = ScheduleDatabase.NormalizeWhiteSpaces(name);
+                name = name.NormalizeWhiteSpaces();
                 int space = name.LastIndexOf(' ');
                 if (space < 0)
                 {
@@ -1148,8 +1143,8 @@ namespace CE_21_Project
 
             public Room(string building, string roomnumber)
             {
-                Building = ScheduleDatabase.NormalizeWhiteSpaces(building);
-                RoomNumber = ScheduleDatabase.NormalizeWhiteSpaces(roomnumber);
+                Building = building.NormalizeWhiteSpaces();
+                RoomNumber = roomnumber.NormalizeWhiteSpaces();
                 schedules = new ScheduleWrapper();
             }
 
@@ -1243,37 +1238,7 @@ namespace CE_21_Project
         class ScheduleDatabase
         {
 
-            /// NormalizeWhiteSpaces:
-            /// <summary>
-            /// Removes contiguous sequences of whitespaces of a string.
-            /// </summary>
-            /// <param name="s">The string to normalize.</param>
-
-            public static string NormalizeWhiteSpaces(string s)
-            {
-                int i, j, k;
-                for (i = 0; i < s.Length && s[i] == ' '; ++i) ;
-                for (j = s.Length - 1; j > i && s[j] == ' '; --j) ;
-                StringBuilder sb = new StringBuilder();
-                bool space = false;
-                for (k = i; k <= j; ++k)
-                {
-                    if (s[k] == ' ')
-                    {
-                        if (!space)
-                        {
-                            sb.Append(s[k]);
-                            space = true;
-                        }
-                    }
-                    else
-                    {
-                        sb.Append(s[k]);
-                        space = false;
-                    }
-                }
-                return sb.ToString();
-            }
+            
 
             /// <summary>
             /// The list of Professors of the database.
@@ -1310,7 +1275,7 @@ namespace CE_21_Project
                 string s = key as string;
                 if (s != null)
                 {
-                    s = NormalizeWhiteSpaces(s);
+                    s = s.NormalizeWhiteSpaces();
                     ind = list.BinarySearch(s);
                 }
                 else
@@ -1335,7 +1300,7 @@ namespace CE_21_Project
                 string s = key as string;
                 if (s != null)
                 {
-                    s = NormalizeWhiteSpaces(s);
+                    s = s.NormalizeWhiteSpaces();
                     ind = list.BinarySearch(s, comparator);
                 }
                 else
@@ -1378,7 +1343,7 @@ namespace CE_21_Project
 
             public Professor GetProfessor(string Last, string First)
             {
-                return GetProfessor(NormalizeWhiteSpaces(Last + ", " + First));
+                return GetProfessor((Last + ", " + First).NormalizeWhiteSpaces());
             }
 
             /// <summary>
@@ -1529,7 +1494,7 @@ namespace CE_21_Project
 
             public bool DeleteProfessor(string Name)
             {
-                Name = NormalizeWhiteSpaces(Name);
+                Name = Name.NormalizeWhiteSpaces();
                 int ind = AllProfessors.BinarySearch(Name,new Professor.CompareByName());
                 if (ind < 0) return false; // professor not found
                 Professor x = (Professor)AllProfessors[ind];
@@ -1659,40 +1624,7 @@ namespace CE_21_Project
                 return AllData;
             }
 
-            /// <summary>
-            /// Assign Data from DataTable.
-            /// </summary>
-            /// <param name="data">DataTable to parse.</param>
-
-            public int AssignFromDataTable(DataTable data)
-            {
-                int NumInserted = 0;
-                foreach (DataRow row in data.Rows)
-                {
-                    string subject_title = row[0].ToString();
-                    string last_name = row[1].ToString();
-                    string first_name = row[2].ToString();
-                    string department = row[3].ToString();
-                    int contact_no = int.Parse(row[4].ToString());
-                    string address = row[5].ToString();
-                    string building = row[6].ToString();
-                    string rnumber = row[7].ToString();
-                    string sday = row[8].ToString();
-                    int stime = int.Parse(row[9].ToString());
-                    string eday = row[10].ToString();
-                    int etime = int.Parse(row[11].ToString());
-                    Professor x = new Professor(last_name, first_name, department, contact_no, address);
-                    Room y = new Room(building, rnumber);
-                    x = AddProfessor(x);
-                    y = AddRoom(y);
-                    Subject sub = new Subject(subject_title, x, y);
-                    Time st = new Time(sday, stime);
-                    Time ed = new Time(eday, etime);
-                    Schedule sched = new Schedule(sub, st, ed);
-                    if (InsertSchedule(sched)) ++NumInserted;
-                }
-                return NumInserted;
-            }
+            
 
             /// <summary>
             /// Retrieves Schedule in database based on index.

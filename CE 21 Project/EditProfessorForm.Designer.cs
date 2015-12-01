@@ -1,4 +1,4 @@
-﻿namespace CE_21_Project
+﻿namespace ScheduleMaster
 {
     partial class EditProfessorForm
     {
@@ -30,12 +30,10 @@
         {
             this.label6 = new System.Windows.Forms.Label();
             this.AddButton = new System.Windows.Forms.Button();
-            this.AddressBox = new System.Windows.Forms.TextBox();
-            this.ContactBox = new System.Windows.Forms.TextBox();
+            this.IDBox = new System.Windows.Forms.TextBox();
             this.DepartmentBox = new System.Windows.Forms.TextBox();
             this.LastNameBox = new System.Windows.Forms.TextBox();
             this.FirstNameBox = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -56,7 +54,7 @@
             // AddButton
             // 
             this.AddButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.AddButton.Location = new System.Drawing.Point(53, 248);
+            this.AddButton.Location = new System.Drawing.Point(53, 216);
             this.AddButton.Name = "AddButton";
             this.AddButton.Size = new System.Drawing.Size(362, 41);
             this.AddButton.TabIndex = 24;
@@ -64,23 +62,14 @@
             this.AddButton.UseVisualStyleBackColor = true;
             this.AddButton.Click += new System.EventHandler(this.AddButton_Click);
             // 
-            // AddressBox
+            // IDBox
             // 
-            this.AddressBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AddressBox.Location = new System.Drawing.Point(169, 199);
-            this.AddressBox.Name = "AddressBox";
-            this.AddressBox.Size = new System.Drawing.Size(246, 22);
-            this.AddressBox.TabIndex = 23;
-            this.AddressBox.TextChanged += new System.EventHandler(this.UpdateButtons);
-            // 
-            // ContactBox
-            // 
-            this.ContactBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ContactBox.Location = new System.Drawing.Point(169, 171);
-            this.ContactBox.Name = "ContactBox";
-            this.ContactBox.Size = new System.Drawing.Size(246, 22);
-            this.ContactBox.TabIndex = 22;
-            this.ContactBox.TextChanged += new System.EventHandler(this.UpdateButtons);
+            this.IDBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.IDBox.Location = new System.Drawing.Point(169, 171);
+            this.IDBox.Name = "IDBox";
+            this.IDBox.Size = new System.Drawing.Size(246, 22);
+            this.IDBox.TabIndex = 22;
+            this.IDBox.TextChanged += new System.EventHandler(this.UpdateButtons);
             // 
             // DepartmentBox
             // 
@@ -111,25 +100,15 @@
             this.FirstNameBox.TabIndex = 19;
             this.FirstNameBox.TextChanged += new System.EventHandler(this.UpdateButtons);
             // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(50, 202);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(59, 16);
-            this.label5.TabIndex = 18;
-            this.label5.Text = "Address";
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(50, 174);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(77, 16);
+            this.label4.Size = new System.Drawing.Size(72, 16);
             this.label4.TabIndex = 17;
-            this.label4.Text = "Contact No.";
+            this.label4.Text = "ID Number";
             // 
             // label3
             // 
@@ -165,7 +144,7 @@
             // 
             this.ClearButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.ClearButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.ClearButton.Location = new System.Drawing.Point(53, 295);
+            this.ClearButton.Location = new System.Drawing.Point(53, 263);
             this.ClearButton.Name = "ClearButton";
             this.ClearButton.Size = new System.Drawing.Size(362, 41);
             this.ClearButton.TabIndex = 13;
@@ -178,15 +157,13 @@
             this.AcceptButton = this.AddButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(465, 379);
+            this.ClientSize = new System.Drawing.Size(465, 339);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.AddButton);
-            this.Controls.Add(this.AddressBox);
-            this.Controls.Add(this.ContactBox);
+            this.Controls.Add(this.IDBox);
             this.Controls.Add(this.DepartmentBox);
             this.Controls.Add(this.LastNameBox);
             this.Controls.Add(this.FirstNameBox);
-            this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -204,12 +181,10 @@
 
         protected internal System.Windows.Forms.Label label6;
         internal System.Windows.Forms.Button AddButton;
-        protected internal System.Windows.Forms.TextBox AddressBox;
-        protected internal System.Windows.Forms.TextBox ContactBox;
+        protected internal System.Windows.Forms.TextBox IDBox;
         protected internal System.Windows.Forms.TextBox DepartmentBox;
         protected internal System.Windows.Forms.TextBox LastNameBox;
         protected internal System.Windows.Forms.TextBox FirstNameBox;
-        protected internal System.Windows.Forms.Label label5;
         protected internal System.Windows.Forms.Label label4;
         protected internal System.Windows.Forms.Label label3;
         protected internal System.Windows.Forms.Label label2;

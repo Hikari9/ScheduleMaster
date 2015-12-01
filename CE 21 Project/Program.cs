@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace CE_21_Project
+namespace ScheduleMaster
 {
     static class Program
     {
@@ -17,6 +17,7 @@ namespace CE_21_Project
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            //Application.Run(new Viewer());
             Application.Run(new Viewer());
             //Application.Run(new AddProfessorForm());
         }

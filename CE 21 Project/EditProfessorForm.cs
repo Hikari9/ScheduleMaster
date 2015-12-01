@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using CE_21_Project.Classes;
+using ScheduleMaster.Classes;
 
-namespace CE_21_Project
+namespace ScheduleMaster
 {
     public partial class EditProfessorForm : Form
     {
@@ -27,15 +27,13 @@ namespace CE_21_Project
                 FirstNameBox.Text != "" &&
                 LastNameBox.Text != "" &&
                 DepartmentBox.Text != "" &&
-                ContactBox.Text != "" &&
-                AddressBox.Text != ""
+                IDBox.Text != ""
             );
             ClearButton.Enabled = (
                 FirstNameBox.Text != "" ||
                 LastNameBox.Text != "" ||
                 DepartmentBox.Text != "" ||
-                ContactBox.Text != "" ||
-                AddressBox.Text != ""
+                IDBox.Text != ""
             );
         }
 
@@ -50,8 +48,7 @@ namespace CE_21_Project
             LastNameBox.Text = p.LastName;
             FirstNameBox.Text = p.FirstName;
             DepartmentBox.Text = p.Department;
-            ContactBox.Text = p.ContactNo.ToString();
-            AddressBox.Text = p.Address;
+            IDBox.Text = p.ID.ToString();
             UpdateButtons();
         }
 
@@ -62,9 +59,9 @@ namespace CE_21_Project
             Professor p = null;
             try
             {
-                string contact = ContactBox.Text.TrimStart('0');
-                if (contact == "") contact = "0";
-                p = new Professor(LastNameBox.Text, FirstNameBox.Text, DepartmentBox.Text, int.Parse(contact), AddressBox.Text);
+                string id = IDBox.Text.TrimStart('0');
+                if (id == "") id = "0";
+                p = new Professor(LastNameBox.Text, FirstNameBox.Text, DepartmentBox.Text, int.Parse(id));
             }
             catch
             {
@@ -85,8 +82,7 @@ namespace CE_21_Project
                 return;
             }
             old.Department = p.Department;
-            old.ContactNo = p.ContactNo;
-            old.Address = p.Address;
+            old.ID = p.ID;
             MessageBox.Show("Information successfully saved.");
             Host.ProfessorList.DataSource = Host.sb.AllProfessors.Clone();
             this.Close();
@@ -101,8 +97,7 @@ namespace CE_21_Project
                 return;
             }
             DepartmentBox.Text = old.Department;
-            ContactBox.Text = old.ContactNo.ToString();
-            AddressBox.Text = old.Address;
+            IDBox.Text = old.ID.ToString();
         }
 
         

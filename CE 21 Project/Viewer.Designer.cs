@@ -1,4 +1,4 @@
-﻿namespace CE_21_Project
+﻿namespace ScheduleMaster
 {
     partial class Viewer
     {
@@ -39,9 +39,10 @@
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.unavailableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.insertToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.unavailableToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.filterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.professorScheduleViewerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.unavailableToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.unavailableToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -63,13 +64,11 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.StartGroup = new System.Windows.Forms.Panel();
-            this.StartFilter = new System.Windows.Forms.CheckBox();
             this.StartMeridian = new System.Windows.Forms.ComboBox();
             this.StartMinute = new System.Windows.Forms.ComboBox();
             this.StartHour = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.EndGroup = new System.Windows.Forms.Panel();
-            this.EndFilter = new System.Windows.Forms.CheckBox();
             this.EndMeridian = new System.Windows.Forms.ComboBox();
             this.EndMinute = new System.Windows.Forms.ComboBox();
             this.EndHour = new System.Windows.Forms.ComboBox();
@@ -81,7 +80,7 @@
             this.RoomFilter = new System.Windows.Forms.CheckBox();
             this.SubjectFilter = new System.Windows.Forms.CheckBox();
             this.FilterAll = new System.Windows.Forms.CheckBox();
-            this.panel3 = new System.Windows.Forms.Panel();
+            this.FilterPanel = new System.Windows.Forms.Panel();
             this.FilterSelectAll = new System.Windows.Forms.CheckBox();
             this.EditProfessor = new System.Windows.Forms.Button();
             this.DeleteProfessor = new System.Windows.Forms.Button();
@@ -97,7 +96,7 @@
             this.statusStrip1.SuspendLayout();
             this.StartGroup.SuspendLayout();
             this.EndGroup.SuspendLayout();
-            this.panel3.SuspendLayout();
+            this.FilterPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -134,7 +133,7 @@
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
             this.openToolStripMenuItem.ShowShortcutKeys = false;
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.openToolStripMenuItem.Text = "New";
             // 
             // openToolStripMenuItem1
@@ -142,7 +141,7 @@
             this.openToolStripMenuItem1.Name = "openToolStripMenuItem1";
             this.openToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
             this.openToolStripMenuItem1.ShowShortcutKeys = false;
-            this.openToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem1.Size = new System.Drawing.Size(138, 22);
             this.openToolStripMenuItem1.Text = "Open";
             this.openToolStripMenuItem1.Click += new System.EventHandler(this.openToolStripMenuItem1_Click);
             // 
@@ -150,26 +149,26 @@
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.saveAsToolStripMenuItem.Text = "Export...";
             this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(135, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -191,32 +190,39 @@
             // insertToolStripMenuItem
             // 
             this.insertToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.unavailableToolStripMenuItem1});
-            this.insertToolStripMenuItem.Enabled = false;
+            this.filterToolStripMenuItem,
+            this.toolStripSeparator2,
+            this.professorScheduleViewerToolStripMenuItem});
             this.insertToolStripMenuItem.Name = "insertToolStripMenuItem";
             this.insertToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.insertToolStripMenuItem.Text = "View";
             // 
-            // unavailableToolStripMenuItem1
+            // filterToolStripMenuItem
             // 
-            this.unavailableToolStripMenuItem1.Name = "unavailableToolStripMenuItem1";
-            this.unavailableToolStripMenuItem1.Size = new System.Drawing.Size(135, 22);
-            this.unavailableToolStripMenuItem1.Text = "Unavailable";
+            this.filterToolStripMenuItem.Name = "filterToolStripMenuItem";
+            this.filterToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
+            this.filterToolStripMenuItem.Text = "Filter";
+            this.filterToolStripMenuItem.CheckedChanged += new System.EventHandler(this.filterToolStripMenuItem_CheckedChanged);
+            this.filterToolStripMenuItem.Click += new System.EventHandler(this.filterToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(209, 6);
+            // 
+            // professorScheduleViewerToolStripMenuItem
+            // 
+            this.professorScheduleViewerToolStripMenuItem.Name = "professorScheduleViewerToolStripMenuItem";
+            this.professorScheduleViewerToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
+            this.professorScheduleViewerToolStripMenuItem.Text = "Professor Schedule Viewer";
+            this.professorScheduleViewerToolStripMenuItem.Click += new System.EventHandler(this.professorScheduleViewerToolStripMenuItem_Click);
             // 
             // viewToolStripMenuItem
             // 
-            this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.unavailableToolStripMenuItem2});
             this.viewToolStripMenuItem.Enabled = false;
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
             this.viewToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
             this.viewToolStripMenuItem.Text = "Insert";
-            // 
-            // unavailableToolStripMenuItem2
-            // 
-            this.unavailableToolStripMenuItem2.Name = "unavailableToolStripMenuItem2";
-            this.unavailableToolStripMenuItem2.Size = new System.Drawing.Size(135, 22);
-            this.unavailableToolStripMenuItem2.Text = "Unavailable";
             // 
             // helpToolStripMenuItem
             // 
@@ -262,6 +268,7 @@
             this.MainData.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.MainData.Size = new System.Drawing.Size(554, 371);
             this.MainData.TabIndex = 1;
+            this.MainData.DataSourceChanged += new System.EventHandler(this.MainData_DataSourceChanged);
             this.MainData.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.CellSelected);
             this.MainData.Leave += new System.EventHandler(this.EnableSave);
             // 
@@ -405,6 +412,7 @@
             this.DayFilter.TabIndex = 23;
             this.DayFilter.Text = "Filter";
             this.DayFilter.UseVisualStyleBackColor = true;
+            this.DayFilter.Visible = false;
             this.DayFilter.CheckedChanged += new System.EventHandler(this.FilterObject_CheckedChanged);
             // 
             // WeekdaysRadio
@@ -448,7 +456,6 @@
             // 
             // StartGroup
             // 
-            this.StartGroup.Controls.Add(this.StartFilter);
             this.StartGroup.Controls.Add(this.StartMeridian);
             this.StartGroup.Controls.Add(this.StartMinute);
             this.StartGroup.Controls.Add(this.StartHour);
@@ -457,19 +464,6 @@
             this.StartGroup.Size = new System.Drawing.Size(154, 66);
             this.StartGroup.TabIndex = 14;
             this.StartGroup.Leave += new System.EventHandler(this.EnableSave);
-            // 
-            // StartFilter
-            // 
-            this.StartFilter.AutoSize = true;
-            this.StartFilter.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.StartFilter.Enabled = false;
-            this.StartFilter.Location = new System.Drawing.Point(89, 9);
-            this.StartFilter.Name = "StartFilter";
-            this.StartFilter.Size = new System.Drawing.Size(48, 17);
-            this.StartFilter.TabIndex = 23;
-            this.StartFilter.Text = "Filter";
-            this.StartFilter.UseVisualStyleBackColor = true;
-            this.StartFilter.CheckedChanged += new System.EventHandler(this.FilterObject_CheckedChanged);
             // 
             // StartMeridian
             // 
@@ -593,7 +587,6 @@
             // 
             // EndGroup
             // 
-            this.EndGroup.Controls.Add(this.EndFilter);
             this.EndGroup.Controls.Add(this.EndMeridian);
             this.EndGroup.Controls.Add(this.EndMinute);
             this.EndGroup.Controls.Add(this.EndHour);
@@ -602,19 +595,6 @@
             this.EndGroup.Size = new System.Drawing.Size(154, 66);
             this.EndGroup.TabIndex = 16;
             this.EndGroup.Leave += new System.EventHandler(this.EnableSave);
-            // 
-            // EndFilter
-            // 
-            this.EndFilter.AutoSize = true;
-            this.EndFilter.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.EndFilter.Enabled = false;
-            this.EndFilter.Location = new System.Drawing.Point(89, 9);
-            this.EndFilter.Name = "EndFilter";
-            this.EndFilter.Size = new System.Drawing.Size(48, 17);
-            this.EndFilter.TabIndex = 23;
-            this.EndFilter.Text = "Filter";
-            this.EndFilter.UseVisualStyleBackColor = true;
-            this.EndFilter.CheckedChanged += new System.EventHandler(this.FilterObject_CheckedChanged);
             // 
             // EndMeridian
             // 
@@ -739,6 +719,8 @@
             // 
             // SubjectTitle
             // 
+            this.SubjectTitle.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.SubjectTitle.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.SubjectTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SubjectTitle.Location = new System.Drawing.Point(147, 46);
             this.SubjectTitle.Name = "SubjectTitle";
@@ -757,6 +739,7 @@
             this.Filter.TabIndex = 19;
             this.Filter.Text = "Turn on Filter";
             this.Filter.UseVisualStyleBackColor = true;
+            this.Filter.Visible = false;
             this.Filter.CheckedChanged += new System.EventHandler(this.Filter_CheckedChanged);
             this.Filter.Leave += new System.EventHandler(this.EnableSave);
             // 
@@ -784,6 +767,7 @@
             this.ProfFilter.TabIndex = 21;
             this.ProfFilter.Text = "Filter";
             this.ProfFilter.UseVisualStyleBackColor = true;
+            this.ProfFilter.Visible = false;
             this.ProfFilter.CheckedChanged += new System.EventHandler(this.FilterObject_CheckedChanged);
             this.ProfFilter.Leave += new System.EventHandler(this.EnableSave);
             // 
@@ -798,6 +782,7 @@
             this.RoomFilter.TabIndex = 22;
             this.RoomFilter.Text = "Filter";
             this.RoomFilter.UseVisualStyleBackColor = true;
+            this.RoomFilter.Visible = false;
             this.RoomFilter.CheckedChanged += new System.EventHandler(this.FilterObject_CheckedChanged);
             this.RoomFilter.Leave += new System.EventHandler(this.EnableSave);
             // 
@@ -812,6 +797,7 @@
             this.SubjectFilter.TabIndex = 23;
             this.SubjectFilter.Text = "Filter";
             this.SubjectFilter.UseVisualStyleBackColor = true;
+            this.SubjectFilter.Visible = false;
             this.SubjectFilter.CheckedChanged += new System.EventHandler(this.FilterObject_CheckedChanged);
             this.SubjectFilter.Leave += new System.EventHandler(this.EnableSave);
             // 
@@ -830,16 +816,17 @@
             this.FilterAll.UseVisualStyleBackColor = true;
             this.FilterAll.CheckedChanged += new System.EventHandler(this.FilterObject_CheckedChanged);
             // 
-            // panel3
+            // FilterPanel
             // 
-            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel3.Controls.Add(this.FilterAll);
-            this.panel3.Controls.Add(this.FilterSelectAll);
-            this.panel3.Location = new System.Drawing.Point(512, 417);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(145, 23);
-            this.panel3.TabIndex = 25;
-            this.panel3.Leave += new System.EventHandler(this.EnableSave);
+            this.FilterPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.FilterPanel.Controls.Add(this.FilterAll);
+            this.FilterPanel.Controls.Add(this.FilterSelectAll);
+            this.FilterPanel.Location = new System.Drawing.Point(512, 417);
+            this.FilterPanel.Name = "FilterPanel";
+            this.FilterPanel.Size = new System.Drawing.Size(145, 23);
+            this.FilterPanel.TabIndex = 25;
+            this.FilterPanel.Visible = false;
+            this.FilterPanel.Leave += new System.EventHandler(this.EnableSave);
             // 
             // FilterSelectAll
             // 
@@ -894,13 +881,13 @@
             // EditRoom
             // 
             this.EditRoom.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.EditRoom.Enabled = false;
             this.EditRoom.Location = new System.Drawing.Point(225, 464);
             this.EditRoom.Name = "EditRoom";
             this.EditRoom.Size = new System.Drawing.Size(53, 23);
             this.EditRoom.TabIndex = 30;
             this.EditRoom.Text = "Edit";
             this.EditRoom.UseVisualStyleBackColor = true;
+            this.EditRoom.Click += new System.EventHandler(this.EditRoom_Click);
             this.EditRoom.Leave += new System.EventHandler(this.EnableSave);
             // 
             // InsertButton
@@ -986,10 +973,11 @@
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.DayGroup);
             this.Controls.Add(this.StartGroup);
-            this.Controls.Add(this.panel3);
+            this.Controls.Add(this.FilterPanel);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Viewer";
-            this.Text = "Schedule Viewer";
+            this.Text = "Schedule Inserter/Deleter";
+            this.Activated += new System.EventHandler(this.Viewer_Enter);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Viewer_FormClosing);
             this.Load += new System.EventHandler(this.Viewer_Load);
             this.menuStrip1.ResumeLayout(false);
@@ -1000,11 +988,9 @@
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.StartGroup.ResumeLayout(false);
-            this.StartGroup.PerformLayout();
             this.EndGroup.ResumeLayout(false);
-            this.EndGroup.PerformLayout();
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
+            this.FilterPanel.ResumeLayout(false);
+            this.FilterPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1022,7 +1008,6 @@
         private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
-        private System.Windows.Forms.DataGridView MainData;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button AddProfessorButton;
@@ -1047,15 +1032,12 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox SubjectTitle;
         private System.Windows.Forms.CheckBox Filter;
-        private System.Windows.Forms.CheckBox Locked;
         private System.Windows.Forms.CheckBox ProfFilter;
         private System.Windows.Forms.CheckBox RoomFilter;
         private System.Windows.Forms.CheckBox DayFilter;
-        private System.Windows.Forms.CheckBox StartFilter;
-        private System.Windows.Forms.CheckBox EndFilter;
         private System.Windows.Forms.CheckBox SubjectFilter;
         private System.Windows.Forms.CheckBox FilterAll;
-        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Panel FilterPanel;
         private System.Windows.Forms.CheckBox FilterSelectAll;
         internal System.Windows.Forms.ListBox ProfessorList;
         internal System.Windows.Forms.ListBox RoomList;
@@ -1067,13 +1049,16 @@
         private System.Windows.Forms.Button DeleteButton;
         private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem unavailableToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem unavailableToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem unavailableToolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem unavailableToolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem unavailableToolStripMenuItem4;
         private System.Windows.Forms.Button SaveButton;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        internal System.Windows.Forms.DataGridView MainData;
+        private System.Windows.Forms.ToolStripMenuItem filterToolStripMenuItem;
+        internal System.Windows.Forms.CheckBox Locked;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem professorScheduleViewerToolStripMenuItem;
     }
 }

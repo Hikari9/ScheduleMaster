@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using CE_21_Project.Classes;
+using ScheduleMaster.Classes;
 
-namespace CE_21_Project
+namespace ScheduleMaster
 {
     public partial class AddProfessorForm : Form
     {
@@ -31,8 +31,7 @@ namespace CE_21_Project
             FirstNameBox.Text = "";
             LastNameBox.Text = "";
             DepartmentBox.Text = "";
-            ContactBox.Text = "";
-            AddressBox.Text = "";
+            IDBox.Text = "";
             UpdateButtons();
         }
 
@@ -42,15 +41,13 @@ namespace CE_21_Project
                 FirstNameBox.Text != "" &&
                 LastNameBox.Text != "" &&
                 DepartmentBox.Text != "" &&
-                ContactBox.Text != "" &&
-                AddressBox.Text != ""
+                IDBox.Text != ""
             );
             ClearButton.Enabled = (
                 FirstNameBox.Text != "" ||
                 LastNameBox.Text != "" ||
                 DepartmentBox.Text != "" ||
-                ContactBox.Text != "" ||
-                AddressBox.Text != ""
+                IDBox.Text != ""
             );
         }
 
@@ -68,9 +65,9 @@ namespace CE_21_Project
             Professor p;
             try
             {
-                string contact = ContactBox.Text.TrimStart('0');
-                if (contact == "") contact = "0";
-                p = new Professor(LastNameBox.Text, FirstNameBox.Text, DepartmentBox.Text, int.Parse(contact), AddressBox.Text);
+                string id = IDBox.Text.TrimStart('0');
+                if (id == "") id = "0";
+                p = new Professor(LastNameBox.Text, FirstNameBox.Text, DepartmentBox.Text, int.Parse(id));
             }
             catch(Exception ex)
             {

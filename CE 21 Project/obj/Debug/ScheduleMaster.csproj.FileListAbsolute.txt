@@ -1,0 +1,15 @@
+C:\Users\Rico\Documents\Visual Studio 2012\Projects\CE 21 Project\CE 21 Project\obj\Debug\ScheduleMaster.csprojResolveAssemblyReference.cache
+C:\Users\Rico\Documents\Visual Studio 2012\Projects\CE 21 Project\CE 21 Project\obj\Debug\ScheduleMaster.csproj.ResolveComReference.cache
+C:\Users\Rico\Documents\Visual Studio 2012\Projects\CE 21 Project\CE 21 Project\obj\Debug\ScheduleMaster.AddProfessorForm.resources
+C:\Users\Rico\Documents\Visual Studio 2012\Projects\CE 21 Project\CE 21 Project\obj\Debug\ScheduleMaster.AddRoomForm.resources
+C:\Users\Rico\Documents\Visual Studio 2012\Projects\CE 21 Project\CE 21 Project\obj\Debug\ScheduleMaster.EditProfessorForm.resources
+C:\Users\Rico\Documents\Visual Studio 2012\Projects\CE 21 Project\CE 21 Project\obj\Debug\ScheduleMaster.EditRoomForm.resources
+C:\Users\Rico\Documents\Visual Studio 2012\Projects\CE 21 Project\CE 21 Project\obj\Debug\CE_21_Project.Properties.Resources.resources
+C:\Users\Rico\Documents\Visual Studio 2012\Projects\CE 21 Project\CE 21 Project\obj\Debug\ScheduleMaster.Viewer.resources
+C:\Users\Rico\Documents\Visual Studio 2012\Projects\CE 21 Project\CE 21 Project\obj\Debug\ScheduleMaster.csproj.GenerateResource.Cache
+C:\Users\Rico\Documents\Visual Studio 2012\Projects\CE 21 Project\CE 21 Project\obj\Debug\CE 21 Project.exe
+C:\Users\Rico\Documents\Visual Studio 2012\Projects\CE 21 Project\CE 21 Project\obj\Debug\CE 21 Project.pdb
+C:\Users\Rico\Documents\Visual Studio 2012\Projects\CE 21 Project\CE 21 Project\bin\Debug\CE 21 Project.exe.config
+C:\Users\Rico\Documents\Visual Studio 2012\Projects\CE 21 Project\CE 21 Project\bin\Debug\CE 21 Project.exe
+C:\Users\Rico\Documents\Visual Studio 2012\Projects\CE 21 Project\CE 21 Project\bin\Debug\CE 21 Project.pdb
+C:\Users\Rico\Documents\Visual Studio 2012\Projects\CE 21 Project\CE 21 Project\obj\Debug\ScheduleMaster.ScheduleViewer.resources
