@@ -69,3 +69,27 @@ C:\Users\Rico\Documents\Visual Studio 2012\Projects\CE 21 Project (final na fina
 C:\Users\Rico\Documents\Visual Studio 2012\Projects\CE 21 Project (final na final)\CE 21 Project\obj\Debug\ScheduleMaster.csproj.GenerateResource.Cache
 C:\Users\Rico\Documents\Visual Studio 2012\Projects\CE 21 Project (final na final)\CE 21 Project\obj\Debug\ScheduleMaster.exe.manifest
 C:\Users\Rico\Documents\Visual Studio 2012\Projects\CE 21 Project (final na final)\CE 21 Project\obj\Debug\ScheduleMaster.application
+C:\Users\Rico\Dropbox\CE21 Project\CE 21 Project (final na final seryoso kung may bugs pa ito table flip na)\CE 21 Project\bin\Debug\ScheduleMaster.exe.config
+C:\Users\Rico\Dropbox\CE21 Project\CE 21 Project (final na final seryoso kung may bugs pa ito table flip na)\CE 21 Project\obj\Debug\ScheduleMaster.csproj.ResolveComReference.cache
+C:\Users\Rico\Dropbox\CE21 Project\CE 21 Project (final na final seryoso kung may bugs pa ito table flip na)\CE 21 Project\obj\Debug\ScheduleMaster.exe
+C:\Users\Rico\Dropbox\CE21 Project\CE 21 Project (final na final seryoso kung may bugs pa ito table flip na)\CE 21 Project\obj\Debug\ScheduleMaster.pdb
+C:\Users\Rico\Dropbox\CE21 Project\CE 21 Project (final na final seryoso kung may bugs pa ito table flip na)\CE 21 Project\bin\Debug\ExcelDirectoryInfo.txt
+C:\Users\Rico\Dropbox\CE21 Project\CE 21 Project (final na final seryoso kung may bugs pa ito table flip na)\CE 21 Project\bin\Debug\ScheduleMaster.exe.manifest
+C:\Users\Rico\Dropbox\CE21 Project\CE 21 Project (final na final seryoso kung may bugs pa ito table flip na)\CE 21 Project\bin\Debug\ScheduleMaster.application
+C:\Users\Rico\Dropbox\CE21 Project\CE 21 Project (final na final seryoso kung may bugs pa ito table flip na)\CE 21 Project\bin\Debug\ScheduleMaster.exe
+C:\Users\Rico\Dropbox\CE21 Project\CE 21 Project (final na final seryoso kung may bugs pa ito table flip na)\CE 21 Project\bin\Debug\ScheduleMaster.pdb
+C:\Users\Rico\Dropbox\CE21 Project\CE 21 Project (final na final seryoso kung may bugs pa ito table flip na)\CE 21 Project\obj\Debug\ScheduleMaster.csprojResolveAssemblyReference.cache
+C:\Users\Rico\Dropbox\CE21 Project\CE 21 Project (final na final seryoso kung may bugs pa ito table flip na)\CE 21 Project\obj\Debug\ScheduleMaster.AboutBox.resources
+C:\Users\Rico\Dropbox\CE21 Project\CE 21 Project (final na final seryoso kung may bugs pa ito table flip na)\CE 21 Project\obj\Debug\ScheduleMaster.AddSubjectForm.resources
+C:\Users\Rico\Dropbox\CE21 Project\CE 21 Project (final na final seryoso kung may bugs pa ito table flip na)\CE 21 Project\obj\Debug\ScheduleMaster.AllDataViewer.resources
+C:\Users\Rico\Dropbox\CE21 Project\CE 21 Project (final na final seryoso kung may bugs pa ito table flip na)\CE 21 Project\obj\Debug\ScheduleMaster.EditSubjectForm.resources
+C:\Users\Rico\Dropbox\CE21 Project\CE 21 Project (final na final seryoso kung may bugs pa ito table flip na)\CE 21 Project\obj\Debug\ScheduleMaster.AddProfessorForm.resources
+C:\Users\Rico\Dropbox\CE21 Project\CE 21 Project (final na final seryoso kung may bugs pa ito table flip na)\CE 21 Project\obj\Debug\ScheduleMaster.AddRoomForm.resources
+C:\Users\Rico\Dropbox\CE21 Project\CE 21 Project (final na final seryoso kung may bugs pa ito table flip na)\CE 21 Project\obj\Debug\ScheduleMaster.EditProfessorForm.resources
+C:\Users\Rico\Dropbox\CE21 Project\CE 21 Project (final na final seryoso kung may bugs pa ito table flip na)\CE 21 Project\obj\Debug\ScheduleMaster.EditRoomForm.resources
+C:\Users\Rico\Dropbox\CE21 Project\CE 21 Project (final na final seryoso kung may bugs pa ito table flip na)\CE 21 Project\obj\Debug\ScheduleMaster.MaximizeForm.resources
+C:\Users\Rico\Dropbox\CE21 Project\CE 21 Project (final na final seryoso kung may bugs pa ito table flip na)\CE 21 Project\obj\Debug\ScheduleMaster.Properties.Resources.resources
+C:\Users\Rico\Dropbox\CE21 Project\CE 21 Project (final na final seryoso kung may bugs pa ito table flip na)\CE 21 Project\obj\Debug\ScheduleMaster.ShowConflictsForm.resources
+C:\Users\Rico\Dropbox\CE21 Project\CE 21 Project (final na final seryoso kung may bugs pa ito table flip na)\CE 21 Project\obj\Debug\ScheduleMaster.csproj.GenerateResource.Cache
+C:\Users\Rico\Dropbox\CE21 Project\CE 21 Project (final na final seryoso kung may bugs pa ito table flip na)\CE 21 Project\obj\Debug\ScheduleMaster.exe.manifest
+C:\Users\Rico\Dropbox\CE21 Project\CE 21 Project (final na final seryoso kung may bugs pa ito table flip na)\CE 21 Project\obj\Debug\ScheduleMaster.application

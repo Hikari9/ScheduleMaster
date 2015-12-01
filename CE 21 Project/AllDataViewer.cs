@@ -159,6 +159,8 @@ namespace ScheduleMaster
         {
             try
             {
+                SearchBox.Text = "";
+                MainDataView.RowFilter = "";
                 MainDataTable = Program.db.ToSmallArray().ToDataTable(Schedule.GetSmallHeaderArray());
                 MainDataView.Table = MainDataTable;
                 MainData.DataSource = MainDataView;
@@ -925,21 +927,26 @@ namespace ScheduleMaster
                 AllTabs.SelectedTab = AllSchedulesTab;
                 // Pick le Schedule
                 StringBuilder filter = new StringBuilder();
+                //MessageBox.Show(ProfessorBox2.Text);
                 filter.Append("Professor LIKE '").Append(p.Name()).Append("' AND ");
-                filter.Append("Start LIKE '").Append(TimeStartBox.Text.Remove(2, 1)).Append("' AND End LIKE '").Append(TimeEndBox.Text.Remove(2, 1)).Append("' AND Day IN (");
+                filter.Append("Start LIKE '").Append(TimeStartBox.Text.Remove(2, 1)).Append("' AND End LIKE '").Append(TimeEndBox.Text.Remove(2, 1)).Append("' AND (");
+                bool first = true;
                 foreach (var item in DayChecklist.CheckedItems)
                 {
-                    filter.Append("'").Append(item.ToString()).Append("'");
+                    if (!first) filter.Append(" OR ");
+                    filter.Append("Day LIKE '").Append(item.ToString()).Append("' ");
+                    first = false;
                 }
                 filter.Append(")");
-                SearchBox.Text = "";
+                MainDataView.RowFilter = "";
+                //MessageBox.Show(filter.ToString());
                 MainDataView.RowFilter = filter.ToString();
                 CurrentlyPainted = null;
                 CurrentlyPaintedSubject = "N/A";
                 SaveButton.Enabled = true;
                 PaintSchedule();
             }
-            catch { }
+            catch { /* MessageBox.Show("Exception happened"); */ }
         }
 
         internal int ProfessorBoxLength = 0;
