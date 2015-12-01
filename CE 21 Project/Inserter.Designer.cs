@@ -44,6 +44,9 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.classroom = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.subj = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // TestButton
@@ -192,11 +195,41 @@
             this.classroom.TabIndex = 17;
             this.classroom.Text = "CTC 219";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(281, 450);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 18;
+            this.button1.Text = "Save";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(35, 264);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(43, 13);
+            this.label7.TabIndex = 19;
+            this.label7.Text = "Subject";
+            // 
+            // subj
+            // 
+            this.subj.Location = new System.Drawing.Point(117, 261);
+            this.subj.Name = "subj";
+            this.subj.Size = new System.Drawing.Size(187, 20);
+            this.subj.TabIndex = 20;
+            this.subj.Text = "CE 21: Introduction to Computing";
+            // 
             // Inserter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(547, 516);
+            this.Controls.Add(this.subj);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.classroom);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label4);
@@ -238,6 +271,9 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox classroom;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox subj;
     }
 }
 

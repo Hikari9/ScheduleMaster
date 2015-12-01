@@ -13,10 +13,12 @@ namespace CE_21_Project
     public partial class Inserter : Form
     {
 
-        ScheduleDatabase data = new ScheduleDatabase();
+        Classes.ScheduleDatabase data = new Classes.ScheduleDatabase();
+        string ExcelFilePath = @"C:\Users\Rico\Documents\Visual Studio 2012\Projects\CE 21 Project\CE 21 Project\data\data.xls";
 
         public Inserter()
         {
+            //data.LoadExcelFile(ExcelFilePath);
             InitializeComponent();
         }
 
@@ -24,18 +26,28 @@ namespace CE_21_Project
         {
             log.Text = "START OF TEST\n\n";
 
-            Professor x = data.AddProfessor(last.Text, first.Text, department.Text);
-            Room y = data.AddRoom(classroom.Text);
+            Classes.Professor x = new Classes.Professor(last.Text, first.Text, department.Text);
+            x = data.AddProfessor(x);
+            Classes.Room y = new Classes.Room(classroom.Text);
 
-            Time start = new Time(day.Text, from.Text);
-            Time end = new Time(day.Text, to.Text);
+            Classes.Time start = new Classes.Time(day.Text, from.Text);
+            Classes.Time end = new Classes.Time(day.Text, to.Text);
 
-            Schedule s = new Schedule(x, y, start, end);
+            Classes.Subject sub = new Classes.Subject(subj.Text, x, y);
 
+            MessageBox.Show(sub.professor.ToString());
+
+            //MessageBox.Show(sub.Title);
+            //MessageBox.Show(sub.GetProfessor.ToString());
+            //MessageBox.Show(sub.GetRoom.ToString());
+
+            Classes.Schedule s = new Classes.Schedule(sub, start, end);
+
+            //MessageBox.Show(s.ToString());
             log.AppendText("Schedule to be inserted:\n\n" + s.ToString() + "\n");
-
-            Schedule s2 = data.GetConflict(s);
+            Classes.Schedule s2 = data.GetConflict(s);
             // MessageBox.Show(s2 == null ? "null" : s2.ToString());
+            
             if (!data.InsertSchedule(s))
             {
                 MessageBox.Show("Conflicting Schedule:\n\n" + data.GetConflict(s).ToString() + "\n");
@@ -45,8 +57,15 @@ namespace CE_21_Project
             {
                 log.AppendText("Data successfully inserted!\n\n");
             }
+             
 
             log.AppendText("END OF TEST\n\n");
+        }
+
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            // data.SaveExcelFile(ExcelFilePath);
         }
     }
 }

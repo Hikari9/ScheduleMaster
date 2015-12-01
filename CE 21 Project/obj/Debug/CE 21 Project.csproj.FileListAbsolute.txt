@@ -6,7 +6,10 @@ c:\users\rico\documents\visual studio 2012\Projects\CE 21 Project\CE 21 Project\
 c:\users\rico\documents\visual studio 2012\Projects\CE 21 Project\CE 21 Project\bin\Debug\CE 21 Project.pdb
 c:\users\rico\documents\visual studio 2012\Projects\CE 21 Project\CE 21 Project\obj\Debug\CE 21 Project.exe
 c:\users\rico\documents\visual studio 2012\Projects\CE 21 Project\CE 21 Project\obj\Debug\CE 21 Project.pdb
-c:\users\rico\documents\visual studio 2012\Projects\CE 21 Project\CE 21 Project\obj\Debug\CE_21_Project.Form1.resources
-C:\Users\Rico\Dropbox\CE21 Project\CE 21 Project\CE 21 Project\bin\Debug\CE 21 Project.exe.config
-C:\Users\Rico\Dropbox\CE21 Project\CE 21 Project\CE 21 Project\obj\Debug\CE 21 Project.exe
-C:\Users\Rico\Dropbox\CE21 Project\CE 21 Project\CE 21 Project\obj\Debug\CE 21 Project.pdb
+c:\users\rico\documents\visual studio 2012\Projects\CE 21 Project\CE 21 Project\obj\Debug\CE 21 Project.csproj.ResolveComReference.cache
+c:\users\rico\documents\visual studio 2012\Projects\CE 21 Project\CE 21 Project\obj\Debug\CE_21_Project.Inserter.resources
+C:\Users\Rico\documents\visual studio 2012\Projects\CE 21 Project\CE 21 Project\obj\Debug\CE_21_Project.Viewer.resources
+C:\Users\Rico\documents\visual studio 2012\Projects\CE 21 Project\CE 21 Project\obj\Debug\CE_21_Project.ExcelExport.resources
+C:\Users\Rico\documents\visual studio 2012\Projects\CE 21 Project\CE 21 Project\obj\Debug\CE_21_Project.AddProfessorForm.resources
+C:\Users\Rico\documents\visual studio 2012\Projects\CE 21 Project\CE 21 Project\obj\Debug\CE_21_Project.EditProfessorForm.resources
+C:\Users\Rico\documents\visual studio 2012\Projects\CE 21 Project\CE 21 Project\obj\Debug\CE_21_Project.AddRoomForm.resources
