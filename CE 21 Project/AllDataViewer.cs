@@ -599,6 +599,9 @@ namespace ScheduleMaster
                     RenewProfessorList();
                     TabulateSchedules();
                     SaveButton.Enabled = true;
+                    CurrentlyPainted = null;
+                    CurrentlyPaintedSubject = "N/A";
+                    PaintSchedule();
                 }
             }
             catch { }
@@ -712,6 +715,9 @@ namespace ScheduleMaster
                     RenewRoomList();
                     TabulateSchedules();
                     SaveButton.Enabled = true;
+                    CurrentlyPainted = null;
+                    CurrentlyPaintedSubject = "N/A";
+                    PaintSchedule();
                 }
             }
             catch { }
@@ -928,12 +934,10 @@ namespace ScheduleMaster
                 filter.Append(")");
                 SearchBox.Text = "";
                 MainDataView.RowFilter = filter.ToString();
-                ProfessorList.SelectedItem = null;
-                ProfessorList.SelectedItem = p;
-                RoomList.SelectedItem = r;
-                SubjectList.SelectedItem = null;
-                SubjectList.SelectedItem = SubjectBox2.Text;
+                CurrentlyPainted = null;
+                CurrentlyPaintedSubject = "N/A";
                 SaveButton.Enabled = true;
+                PaintSchedule();
             }
             catch { }
         }
@@ -1102,6 +1106,9 @@ namespace ScheduleMaster
                     SubjectList.DataSource = n;
                     RenewSubjectList();
                     SaveButton.Enabled = true;
+                    CurrentlyPainted = null;
+                    CurrentlyPaintedSubject = "N/A";
+                    PaintSchedule();
                 }
             }
             catch { }
@@ -1135,6 +1142,8 @@ namespace ScheduleMaster
                 }
                 MainDataTable.AcceptChanges();
                 SaveButton.Enabled = true;
+                CurrentlyPainted = null;
+                CurrentlyPaintedSubject = "N/A";
                 PaintSchedule();
             }
             catch { }
